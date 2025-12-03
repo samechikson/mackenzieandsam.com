@@ -1,5 +1,9 @@
 import React from 'react';
 import { motion } from 'framer-motion';
+import img1 from 'public/images/s+m/1.jpg';
+import img2 from 'public/images/s+m/2.jpg';
+import img3 from 'public/images/s+m/3.jpg';
+import img4 from 'public/images/s+m/4.jpg';
 
 export const HeroSection: React.FC = () => {
   return (
@@ -26,22 +30,22 @@ export const HeroSection: React.FC = () => {
         <div className="grid grid-cols-2 grid-rows-2 w-full h-full gap-2 bg-[#5D4037] p-1">
           {/* Using local photos from public/images/s+m/ */}
           <img 
-            src="public/images/s+m/1.jpg" 
+            src={img1} 
             alt="Mackenzie and Sam 1" 
             className="w-full h-full object-cover grayscale sepia-[.5] hover:sepia-0 transition-all duration-500"
           />
           <img 
-            src="images/s+m/2.jpg" 
+            src={img2} 
             alt="Mackenzie and Sam 2" 
             className="w-full h-full object-cover grayscale sepia-[.5] hover:sepia-0 transition-all duration-500"
           />
           <img 
-            src="images/s+m/3.jpg" 
+            src={img3} 
             alt="Mackenzie and Sam 3" 
             className="w-full h-full object-cover grayscale sepia-[.5] hover:sepia-0 transition-all duration-500"
           />
           <img 
-            src="images/s+m/4.jpg" 
+            src={img4} 
             alt="Mackenzie and Sam 4" 
             className="w-full h-full object-cover grayscale sepia-[.5] hover:sepia-0 transition-all duration-500"
           />

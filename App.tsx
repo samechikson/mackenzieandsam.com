@@ -12,6 +12,7 @@ export default function App() {
   useEffect(() => {
     // Check session storage to keep user logged in during session
     const auth = sessionStorage.getItem('wedding_auth');
+    console.log(auth);
     if (auth === 'true') {
       setIsAuthenticated(true);
     }
@@ -26,9 +27,9 @@ export default function App() {
   // Don't render anything while checking auth state to avoid flash
   if (isLoading) return null;
 
-  // if (!isAuthenticated) {
-  //   return <PasswordProtection onSuccess={handleLogin} />;
-  // }
+  if (!isAuthenticated) {
+    return <PasswordProtection onSuccess={handleLogin} />;
+  }
 
   return (
     <div className="font-sans text-wedding-green selection:bg-wedding-green selection:text-white">

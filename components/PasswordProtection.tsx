@@ -12,7 +12,7 @@ export const PasswordProtection: React.FC<PasswordProtectionProps> = ({ onSucces
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     // Case-insensitive check for "QUINTA27"
-    if (input.trim().toUpperCase() === 'QUINTA27') {
+    if (input.trim().toUpperCase() === 'QUINTA2027') {
       onSuccess();
     } else {
       setError(true);

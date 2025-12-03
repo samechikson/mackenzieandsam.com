@@ -1,0 +1,32 @@
+@import "tailwindcss";
+
+@theme {
+  --color-wedding-cream: #F2F0E9;
+  --color-wedding-green: #556B2F;
+  --color-wedding-brown: #5D4037;
+  --color-wedding-paper: #FDFBF7;
+
+  --font-script: "Amsterdam Four", "Pinyon Script", cursive;
+  --font-sans: "Garet", "Montserrat", sans-serif;
+  --font-serif: "Playfair Display", serif;
+}
+
+/* Register Local Fonts */
+@font-face {
+  font-family: 'Amsterdam Four';
+  src: url('/fonts/amsterdam-four.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+/* @font-face {
+  font-family: 'Garet';
+  src: url('fonts/garet/Garet-Book.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+} */
+
+body {
+  background-color: #F2F0E9;
+  overflow-x: hidden;
+}
