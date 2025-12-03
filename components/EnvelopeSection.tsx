@@ -53,13 +53,8 @@ export const EnvelopeSection: React.FC = () => {
           viewport={{ once: true, margin: "-100px" }}
           transition={{ duration: 1.5, type: "spring", bounce: 0.4 }}
         >
-          <p className="text-[10px] tracking-widest uppercase text-[#8F9E56] mb-3 mt-2 font-sans font-bold">May 6, 2027</p>
-          <h3 className="font-serif text-2xl text-wedding-green leading-none mb-2">THE<br/>WEDDING</h3>
-          <h4 className="font-serif text-lg text-[#5D4037] mb-2">MACKENZIE<br/>& SAM</h4>
-          
-          {/* Photo Strip on Invite */}
           <div className="w-full flex-1 bg-gray-100 p-1 mt-2 rotate-1 shadow-sm">
-             <img src="https://picsum.photos/id/435/300/200" alt="Invite Pic" className="w-full h-full object-cover grayscale-[0.3]" />
+             <img src="/images/save-the-date.png" alt="Invite Pic" className="w-full h-full object-cover grayscale-[0.3]" />
           </div>
         </motion.div>
 

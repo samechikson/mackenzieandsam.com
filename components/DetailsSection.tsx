@@ -3,20 +3,9 @@ import { motion } from 'framer-motion';
 
 export const DetailsSection: React.FC = () => {
   return (
-    <section className="relative min-h-screen w-full overflow-hidden flex flex-col">
-      {/* Background Image */}
-      <div className="absolute inset-0 z-0">
-        <img 
-          src="https://picsum.photos/id/28/1920/1080" 
-          alt="Vineyard Landscape" 
-          className="w-full h-full object-cover"
-        />
-        <div className="absolute inset-0 bg-[#F2F0E9] opacity-60 mix-blend-overlay"></div>
-        <div className="absolute inset-0 bg-gradient-to-b from-[#F2F0E9] via-transparent to-transparent opacity-100 h-40"></div>
-      </div>
-
+    <section className="relative min-h-[800px] w-full overflow-hidden flex flex-col">
       {/* Content */}
-      <div className="relative z-10 flex-1 flex flex-col items-center justify-start pt-20 px-4 text-center overflow-hidden">
+      <div className="relative z-10 flex flex-col items-center justify-center pt-20 pb-12 px-4 text-center">
         
         <motion.div
           initial={{ x: -100, opacity: 0 }}
@@ -60,6 +49,17 @@ export const DetailsSection: React.FC = () => {
             </motion.button>
         </motion.div>
 
+      </div>
+
+      {/* Image */}
+      <div className="relative w-full flex-1 min-h-[400px]">
+        <img 
+          src="/images/quinta-landscape.png" 
+          alt="Vineyard Landscape" 
+          className="absolute inset-0 w-full h-full object-cover"
+        />
+        <div className="absolute inset-0 bg-[#F2F0E9] opacity-60 mix-blend-overlay"></div>
+        <div className="absolute inset-0 bg-gradient-to-b from-[#F2F0E9] via-transparent to-transparent opacity-100 h-40"></div>
       </div>
     </section>
   );
