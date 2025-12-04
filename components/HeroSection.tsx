@@ -21,7 +21,7 @@ export const HeroSection: React.FC = () => {
         initial={{ scale: 0.8, opacity: 0 }}
         animate={{ scale: 1, opacity: 1 }}
         transition={{ duration: 1.2, delay: 0.5 }}
-        className="relative z-0 border-12 border-[#5D4037] bg-[#5D4037] shadow-2xl max-w-sm md:max-w-md w-full aspect-square rounded-lg"
+        className="relative z-0 border-12 border-[#5D4037] bg-[#5D4037] shadow-2xl max-w-xs  lg:max-w-md w-full aspect-square rounded-lg"
       >
         <div className="grid grid-cols-2 grid-rows-2 w-full h-full gap-4 bg-[#5D4037] p-1">
           <img 
