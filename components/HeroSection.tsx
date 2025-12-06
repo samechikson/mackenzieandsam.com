@@ -9,9 +9,9 @@ export const HeroSection: React.FC = () => {
         initial={{ x: -200, opacity: 0 }}
         animate={{ x: 0, opacity: 1 }}
         transition={{ duration: 1.2, ease: "easeOut" }}
-        className="absolute top-[10%] left-[5%] md:top-[15%] md:left-[10%] z-10"
+        className="absolute top-[10%] left-[5%]  md:left-[10%] z-10"
       >
-        <h1 className="font-script text-5xl md:text-7xl lg:text-8xl text-wedding-green -rotate-6 tracking-wide">
+        <h1 className="font-script text-5xl md:text-6xl lg:text-8xl text-wedding-green -rotate-6 tracking-wide">
           mackenzie and sam
         </h1>
       </motion.div>
@@ -21,9 +21,9 @@ export const HeroSection: React.FC = () => {
         initial={{ scale: 0.8, opacity: 0 }}
         animate={{ scale: 1, opacity: 1 }}
         transition={{ duration: 1.2, delay: 0.5 }}
-        className="relative z-0 border-12 border-[#5D4037] bg-[#5D4037] shadow-2xl max-w-xs  lg:max-w-md w-full aspect-square rounded-lg"
+        className="relative z-0 border-8 border-[#5D4037] bg-[#5D4037] shadow-2xl max-w-60 lg:max-w-70 w-full aspect-square rounded-lg"
       >
-        <div className="grid grid-cols-2 grid-rows-2 w-full h-full gap-4 bg-[#5D4037] p-1">
+        <div className="grid grid-cols-2 grid-rows-2 w-full h-full gap-3 bg-[#5D4037] p-1">
           <img 
             src="/images/sm/1.jpg"
             alt="Mackenzie and Sam 1" 
@@ -54,7 +54,7 @@ export const HeroSection: React.FC = () => {
         transition={{ duration: 1.2, ease: "easeOut", delay: 0.2 }}
         className="absolute bottom-[15%] right-[5%] md:bottom-[20%] md:right-[15%] z-10 text-right"
       >
-        <h2 className="font-script text-4xl md:text-6xl lg:text-7xl text-wedding-green -rotate-6 tracking-wide">
+        <h2 className="font-script text-5xl md:text-6xl lg:text-7xl text-wedding-green -rotate-6 tracking-wide">
           are getting married!
         </h2>
       </motion.div>
@@ -64,9 +64,9 @@ export const HeroSection: React.FC = () => {
         initial={{ y: 50, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
         transition={{ duration: 1, ease: "easeOut", delay: 1.5 }}
-        className="absolute bottom-[5%] md:bottom-[10%] z-10"
+        className="absolute bottom-2 z-10"
       >
-        <h3 className="font-script text-3xl md:text-5xl text-wedding-green opacity-80 tracking-widest">
+        <h3 className="font-script text-4xl md:text-5xl text-wedding-green tracking-widest">
           and...
         </h3>
       </motion.div>

@@ -19,17 +19,15 @@ export const EnvelopeSection: React.FC = () => {
   const rightTextX = useTransform(scrollYProgress, [0, 0.3], [100, 0]);
   const rightTextOpacity = useTransform(scrollYProgress, [0, 0.3], [0, 1]);
   
-  // Card 2 (green): slides up and rotates based on scroll
-  const card2Y = useTransform(scrollYProgress, [0.2, 0.6], [20, -140]);
-  const card2Rotate = useTransform(scrollYProgress, [0.2, 0.6], [0, -8]);
-  const card2X = useTransform(scrollYProgress, [0.2, 0.6], [0, 50]);
-  
   // Card 1 (main invite): slides up more dramatically based on scroll
   const card1Y = useTransform(scrollYProgress, [0.3, 0.8], [0, -250]);
-  const card1X = useTransform(scrollYProgress, [0.3, 0.8], [0, 50]);
-  const card1Rotate = useTransform(scrollYProgress, [0.3, 0.8], [0, 8]);
-
-  console.log(card1Y);
+  const card1X = useTransform(scrollYProgress, [0.3, 0.8], [100, 200]);
+  const card1Rotate = useTransform(scrollYProgress, [0.3, 0.8], [0, 25]);
+  
+  // Card 2 (green): slides up and rotates based on scroll
+  const card2Y = useTransform(scrollYProgress, [0.2, 0.6], [20, -150]);
+  const card2X = useTransform(scrollYProgress, [0, 0.9], [100, -50]);
+  const card2Rotate = useTransform(scrollYProgress, [0.2, 0.6], [0, -20]);
 
   return (
     <section 
@@ -52,20 +50,22 @@ export const EnvelopeSection: React.FC = () => {
         <div className="absolute bottom-0 object-cover"><img src="/images/envelope-back.png" alt="Envelope" /></div>
         
 
+        {/* Card 2 (Save the Date 2 ) - Starts inside, slides up */}
+        <motion.div 
+          style={{ y: card2Y, rotate: card2Rotate, x: card2X }}
+          className="absolute"
+        >
+          <img src="/images/save-the-date-2.png" alt="Invite Pic" className="w-2/3 object-cover grayscale-[0.3]" />
+        </motion.div>
         {/* 4. Card 1 (Save the Date) - Starts inside, slides up */}
         <motion.div 
           style={{ y: card1Y, rotate: card1Rotate, x: card1X }}
+          className="absolute"
         >
-          <img src="/images/save-the-date.png" alt="Invite Pic" className="w-full h-full object-cover grayscale-[0.3]" />
+          <img src="/images/save-the-date.png" alt="Invite Pic" className="w-1/2 object-cover grayscale-[0.3]" />
         </motion.div>
 
-        {/* Card 2 (Save the Date 2 ) - Starts inside, slides up */}
-        {/* <motion.div 
-          style={{ y: card2Y, rotate: card2Rotate, x: card2X }}
-        >
-          <img src="/images/save-the-date.png" alt="Invite Pic" className="w-full h-full object-cover grayscale-[0.3]" />
-        </motion.div>
-         */}
+        
 
         {/* Envelope Front */}
         <div className="absolute bottom-0 object-cover"><img src="/images/envelope-front.png" alt="Envelope" /></div>
