@@ -3,7 +3,7 @@ import { motion } from 'framer-motion';
 
 export const HeroSection: React.FC = () => {
   return (
-    <section className="min-h-screen flex flex-col justify-center items-center relative overflow-hidden py-20 px-4">
+    <section id="hero" className="min-h-screen flex flex-col justify-center items-center relative overflow-hidden py-20 px-4">
       {/* Top Left Text */}
       <motion.div
         initial={{ x: -200, opacity: 0 }}

@@ -33,6 +33,7 @@ export const EnvelopeSection: React.FC = () => {
 
   return (
     <section 
+      id="invitation"
       ref={sectionRef}
       className="min-h-200 flex flex-col md:flex-row items-center justify-center py-20 overflow-hidden bg-wedding-cream"
     >

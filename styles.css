@@ -30,3 +30,7 @@ body {
   background-color: #F2F0E9;
   overflow-x: hidden;
 }
+
+html {
+  scroll-behavior: smooth;
+}

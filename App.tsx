@@ -5,6 +5,8 @@ import { DetailsSection } from './components/DetailsSection';
 import { StorySection } from './components/StorySection';
 import { PasswordProtection } from './components/PasswordProtection';
 
+import { Navigation } from './components/Navigation';
+
 export default function App() {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
@@ -33,6 +35,7 @@ export default function App() {
 
   return (
     <div className="font-sans text-wedding-green selection:bg-wedding-green selection:text-white">
+      <Navigation />
       <HeroSection />
       <EnvelopeSection />
       <DetailsSection />

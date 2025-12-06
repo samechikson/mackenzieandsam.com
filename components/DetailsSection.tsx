@@ -3,7 +3,7 @@ import { motion } from 'framer-motion';
 
 export const DetailsSection: React.FC = () => {
   return (
-    <section className="relative min-h-[800px] w-full overflow-hidden flex flex-col">
+    <section id="details" className="relative min-h-screen w-full overflow-hidden flex flex-col">
       {/* Content */}
       <div className="relative z-10 flex flex-col items-center justify-center pt-20 pb-12 px-4 text-center">
         

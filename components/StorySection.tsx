@@ -88,7 +88,7 @@ const events: TimelineEvent[] = [
 
 export const StorySection: React.FC = () => {
   return (
-    <section className="min-h-screen bg-wedding-cream py-20 relative overflow-hidden">
+    <section id="story" className="min-h-screen bg-wedding-cream py-20 relative overflow-hidden">
       <div className="text-center mb-12 relative z-10">
         <motion.h2 
           className="font-script text-6xl md:text-7xl text-[#5D4037]"
