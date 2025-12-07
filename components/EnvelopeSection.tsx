@@ -20,14 +20,24 @@ export const EnvelopeSection: React.FC = () => {
   const rightTextOpacity = useTransform(scrollYProgress, [0, 0.3], [0, 1]);
   
   // Card 1 (main invite): slides up more dramatically based on scroll
-  const card1Y = useTransform(scrollYProgress, [0.3, 0.8], [0, -250]);
-  const card1X = useTransform(scrollYProgress, [0.3, 0.8], [100, 200]);
-  const card1Rotate = useTransform(scrollYProgress, [0.3, 0.8], [0, 25]);
+  const card1Y = useTransform(scrollYProgress, [0, 0.8], [0, -250]);
+  const card1X = useTransform(scrollYProgress, [0, 0.8], [100, 200]);
+  const card1Rotate = useTransform(scrollYProgress, [0, 0.8], [0, 25]);
   
   // Card 2 (green): slides up and rotates based on scroll
-  const card2Y = useTransform(scrollYProgress, [0.2, 0.6], [20, -150]);
+  const card2Y = useTransform(scrollYProgress, [0, 0.6], [20, -150]);
   const card2X = useTransform(scrollYProgress, [0, 0.9], [100, -50]);
   const card2Rotate = useTransform(scrollYProgress, [0.2, 0.6], [0, -20]);
+
+  // Card 3 (photo reel): slides up and rotates based on scroll
+  const card3Y = useTransform(scrollYProgress, [0, 0.6], [100, -130]);
+  const card3X = useTransform(scrollYProgress, [0, 0.9], [230, 300]);
+  const card3Rotate = useTransform(scrollYProgress, [0.2, 0.6], [0, 35]);
+
+  // Card 4 (vineyard photo): slides up and rotates based on scroll
+  const card4Y = useTransform(scrollYProgress, [0, 0.9], [140, -80]);
+  const card4X = useTransform(scrollYProgress, [0, 0.9], [100, 120]);
+  const card4Rotate = useTransform(scrollYProgress, [0, 0.6], [0, -5]);
 
   return (
     <section 
@@ -63,6 +73,21 @@ export const EnvelopeSection: React.FC = () => {
           className="absolute"
         >
           <img src="/images/save-the-date.png" alt="Invite Pic" className="w-1/2 object-cover grayscale-[0.3]" />
+        </motion.div>
+        {/* 5. Card 3 (Photo Reel) - Starts inside, slides up */}
+        <motion.div 
+          style={{ y: card3Y, rotate: card3Rotate, x: card3X }}
+          className="absolute"
+        >
+          <img src="/images/photo-reel.png" alt="Invite Pic" className="w-1/4 object-cover grayscale-[0.3]" />
+        </motion.div>
+
+         {/* Card 4 (Vineyard Photo) - Starts inside, slides up */}
+         <motion.div 
+          style={{ y: card4Y, rotate: card4Rotate, x: card4X }}
+          className="absolute"
+        >
+          <img src="/images/vineyards-walk.jpg" alt="Invite Pic" className="w-1/3 object-cover grayscale-[0.3]" />
         </motion.div>
 
         
