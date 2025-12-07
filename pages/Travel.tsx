@@ -1,5 +1,6 @@
 import React from 'react';
 import { motion } from 'framer-motion';
+import { ExternalLink } from 'lucide-react';
 
 export const Travel: React.FC = () => {
   return (
@@ -121,7 +122,7 @@ export const Travel: React.FC = () => {
                 className="w-full md:w-1/2"
             >
                 <div className="relative aspect-[4/3] rounded-sm overflow-hidden shadow-2xl rotate-[-2deg] hover:rotate-0 transition-all duration-700">
-                    <img src="/images/travel/pastel-de-nata.webp" alt="Pastel de Nata" className="w-full h-full object-cover" />
+                    <img src="/images/travel/pastel-de-nata.webp" alt="Pastel de Nata" className="w-full h-full object-cover rounded-lg" />
                 </div>
             </motion.div>
             <motion.div 
@@ -134,25 +135,11 @@ export const Travel: React.FC = () => {
                 <h3 className="font-script text-5xl text-wedding-green lowercase">A Taste of Lisbon</h3>
                 <div className="space-y-8 font-serif text-lg text-wedding-brown leading-loose">
                     <div>
-                        <a href="https://tinyurl.com/yc6cs2c2" target="_blank" rel="noopener noreferrer" className="block text-xl font-bold mb-2 hover:text-wedding-green transition-colors decoration-1 underline-offset-4 border-b border-wedding-brown/30 pb-1">
-                            Portuguese Food and Wine Tour
-                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="inline-block ml-2 w-4 h-4 text-wedding-green/70 mb-1">
-                                <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
-                                <polyline points="15 3 21 3 21 9"></polyline>
-                                <line x1="10" y1="14" x2="21" y2="3"></line>
-                            </svg>
-                        </a>
+                        <a href="https://tinyurl.com/yc6cs2c2" target="_blank" rel="noopener noreferrer" className="flex items-center text-xl font-bold mb-2 hover:text-wedding-green transition-colors decoration-1 underline-offset-4 border-b border-wedding-brown/30 pb-1">Portuguese Food and Wine Tour <ExternalLink className="inline-block ml-2" /></a>
                         <p>We got to taste cheese, Chouriço, bifana, traditional rices, Port, and Lisbon wines. It was well worth the $, we had amazing guides, and met fun people!</p>
                     </div>
                     <div>
-                        <a href="https://www.instagram.com/timeoutmarketlisboa/?hl=en" target="_blank" rel="noopener noreferrer" className="block text-xl font-bold mb-2 hover:text-wedding-green transition-colors decoration-1 underline-offset-4 border-b border-wedding-brown/30 pb-1">
-                            Time Out Market
-                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="inline-block ml-2 w-4 h-4 text-wedding-green/70 mb-1">
-                                <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
-                                <polyline points="15 3 21 3 21 9"></polyline>
-                                <line x1="10" y1="14" x2="21" y2="3"></line>
-                            </svg>
-                        </a>
+                        <a href="https://www.instagram.com/timeoutmarketlisboa/?hl=en" target="_blank" rel="noopener noreferrer" className="flex items-center text-xl font-bold mb-2 hover:text-wedding-green transition-colors decoration-1 underline-offset-4 border-b border-wedding-brown/30 pb-1">Time Out Market <ExternalLink className="inline-block ml-2" /></a>
                         <p>Taste the iconic pastel de nata pastries and other goodies at this historic market hall.</p>
                     </div>
                 </div>
@@ -169,7 +156,7 @@ export const Travel: React.FC = () => {
                 className="w-full md:w-1/2"
             >
                 <div className="relative aspect-[4/3] rounded-sm overflow-hidden shadow-2xl rotate-[2deg] hover:rotate-0 transition-all duration-700">
-                    <img src="/images/travel/sintra.webp" alt="Sintra Pena Palace" className="w-full h-full object-cover" />
+                    <img src="/images/travel/sintra.webp" alt="Sintra Pena Palace" className="w-full h-full object-cover rounded-lg" />
                 </div>
             </motion.div>
             <motion.div 
@@ -183,14 +170,7 @@ export const Travel: React.FC = () => {
                   <h3 className="font-script text-5xl text-wedding-green lowercase mb-8">Historic sights</h3>
                   <div className="space-y-6 font-serif text-lg text-wedding-brown leading-loose">
                       <div>
-                          <a href="https://tinyurl.com/2saxdryt" target="_blank" rel="noopener noreferrer" className="block text-xl font-bold mb-2 hover:text-wedding-green transition-colors border-b border-wedding-brown/30 pb-1">
-                              Day Trip to Sintra
-                              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="inline-block ml-2 w-4 h-4 text-wedding-green/70 mb-1">
-                                  <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
-                                  <polyline points="15 3 21 3 21 9"></polyline>
-                                  <line x1="10" y1="14" x2="21" y2="3"></line>
-                              </svg>
-                          </a>
+                          <a href="https://tinyurl.com/2saxdryt" target="_blank" rel="noopener noreferrer" className="flex items-center text-xl font-bold mb-2 hover:text-wedding-green transition-colors border-b border-wedding-brown/30 pb-1">Day Trip to Sintra <ExternalLink className="inline-block ml-2" /></a>
                           <p>Visit the Pena Palace and beautiful surrounding park grounds. It's truly a magical place straight out of a fairytale.</p>
                       </div>
                   </div>
@@ -208,7 +188,7 @@ export const Travel: React.FC = () => {
                 className="w-full md:w-1/2 flex flex-row justify-center"
             >
                 <div className="relative w-2/3 rounded-sm overflow-hidden shadow-2xl rotate-[-1deg] hover:rotate-0 transition-all duration-700">
-                    <img src="/images/travel/sam-gijinha.webp" alt="Ginjinha in Lisbon" className="w-full h-full object-cover" />
+                    <img src="/images/travel/sam-gijinha.webp" alt="Ginjinha in Lisbon" className="w-full h-full object-cover rounded-lg" />
                 </div>
             </motion.div>
             <motion.div 
@@ -246,7 +226,7 @@ export const Travel: React.FC = () => {
                 className="w-full md:w-1/2"
             >
                 <div className="relative aspect-[4/3] rounded-sm overflow-hidden shadow-2xl rotate-[2deg] hover:rotate-0 transition-all duration-700">
-                    <img src="/images/travel/sm-sintra.webp" alt="Scenic Lisbon" className="w-full h-full object-cover" />
+                    <img src="/images/travel/sm-sintra.webp" alt="Scenic Lisbon" className="w-full h-full object-cover rounded-lg" />
                 </div>
             </motion.div>
             <motion.div 
