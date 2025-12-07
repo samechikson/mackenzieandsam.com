@@ -24,77 +24,106 @@ export const Details: React.FC = () => {
             animate="visible"
             className="w-full min-h-screen pt-24 pb-20 px-4 md:px-8 bg-wedding-cream text-wedding-brown"
         >
-            <div className="max-w-4xl mx-auto space-y-16">
+            <div className="max-w-5xl mx-auto space-y-16">
                 
                 {/* Header */}
-                <motion.div variants={fadeIn} className="text-center mb-16">
-                    <h1 className="font-script text-5xl md:text-7xl text-wedding-brown mb-4">Travel & Stay</h1>
+                <motion.div variants={fadeIn} className="text-center mb-12">
+                    <h1 className="font-script text-8xl md:text-7xl text-wedding-brown mb-4 leading-36">travel details</h1>
                     <p className="font-sans text-lg md:text-xl tracking-wide uppercase">Portugal Awaits</p>
                 </motion.div>
 
-                {/* Venue & Location */}
-                <motion.section variants={staggerContainer} className="bg-white/50 backdrop-blur-sm p-8 rounded-2xl shadow-sm border border-wedding-brown/10">
-                    <motion.h2 variants={fadeIn} className="font-script text-4xl text-wedding-brown mb-6">The Venue</motion.h2>
-                    <motion.div variants={fadeIn} className="space-y-4 font-sans text-lg leading-relaxed">
-                        <p className="font-bold text-xl mb-2">Quinta da Bichinha</p>
-                        <p>Our celebration takes place at this beautiful estate in the heart of the wine region.</p>
-                        <p className="text-wedding-brown/80 italic">Aldeia Galega da Merceana, Alenquer, Portugal</p>
-                        <div className="pt-4">
-                            <a 
-                                href="https://maps.app.goo.gl/YourMapLinkHere" 
-                                target="_blank" 
-                                rel="noopener noreferrer"
-                                className="inline-block px-8 py-3 bg-wedding-brown text-white rounded-full hover:bg-[#3E2C26] transition-all duration-300 shadow-md hover:shadow-lg transform hover:-translate-y-1"
-                            >
-                                View on Google Maps
-                            </a>
-                        </div>
-                    </motion.div>
+                {/* Venue Address */}
+                <motion.section variants={fadeIn} className="bg-white/50 backdrop-blur-sm p-8 rounded-2xl shadow-sm border border-wedding-brown/10 text-center max-w-2xl mx-auto">
+                    <h2 className="font-script text-6xl text-wedding-brown mb-4 leading-30">venue address</h2>
+                    <p className="font-sans text-xl font-medium">Quinta da Bichinha, Estr. de Vila Chã, 2580-413, Portugal</p>
+                    <div className="mt-6">
+                        <a 
+                            href="https://maps.app.goo.gl/wp6AADZdJU9CZcWv9" 
+                            target="_blank" 
+                            rel="noopener noreferrer"
+                            className="inline-block px-8 py-3 bg-wedding-brown text-white rounded-full hover:bg-[#3E2C26] transition-all duration-300 shadow-md hover:shadow-lg transform hover:-translate-y-1 font-sans"
+                        >
+                            View on Map
+                        </a>
+                    </div>
                 </motion.section>
 
-                {/* Travel Info Grid */}
+                {/* Logistics Grid */}
                 <div className="grid md:grid-cols-2 gap-8">
-                    
-                    {/* Airport */}
-                    <motion.section variants={fadeIn} className="bg-white/50 p-8 rounded-2xl border border-wedding-brown/10">
-                        <h3 className="font-script text-3xl text-wedding-brown mb-4">Getting There</h3>
-                        <p className="font-sans mb-4">
-                            <strong>Fly into Lisbon Portela Airport (LIS)</strong>
-                        </p>
-                        <p className="font-sans text-wedding-brown/80">
-                            The airport is approximately 45 minutes from the venue. We recommend renting a car to explore the beautiful region freely, or arranging a transfer service.
-                        </p>
+                    {/* Flying In */}
+                    <motion.section variants={fadeIn} className="bg-white/50 p-8 rounded-2xl border border-wedding-brown/10 h-full flex flex-col">
+                        <h3 className="font-script text-6xl text-wedding-brown mb-6 leading-30">flying in</h3>
+                        <div className="space-y-4 font-sans text-wedding-brown/90 flex-grow">
+                            <p>
+                                <strong>Lisbon Humberto Delgado Airport (LIS)</strong> is the closest major airport. Daily nonstop flights are available from many US and European cities.
+                            </p>
+                            <div className="bg-wedding-brown/5 p-4 rounded-xl border border-wedding-brown/10 mt-4">
+                                <p className="font-bold text-sm uppercase tracking-wide mb-2 text-wedding-brown">Passport Reminder</p>
+                                <p className="text-sm">
+                                    Please check the expiration date on your passport now! Portugal (and all Schengen countries) requires that your passport be valid for at least 6 months after your travel dates.
+                                </p>
+                            </div>
+                        </div>
                     </motion.section>
 
-                    {/* Accommodation */}
-                    <motion.section variants={fadeIn} className="bg-white/50 p-8 rounded-2xl border border-wedding-brown/10">
-                        <h3 className="font-script text-3xl text-wedding-brown mb-4">Where to Stay</h3>
-                        <p className="font-sans text-wedding-brown/80 mb-4">
-                            We suggest staying in <strong>Alenquer</strong> or the surrounding wine country for the days leading up to the wedding. 
-                        </p>
-                        <ul className="list-disc list-inside font-sans text-wedding-brown/80 space-y-2">
-                             <li>Local quintas (wine estates)</li>
-                             <li>Boutique hotels in Aldeia Galega</li>
-                             <li>Airbnbs in the Lisbon District</li>
-                        </ul>
+                    {/* Getting to the Venue */}
+                    <motion.section variants={fadeIn} className="bg-white/50 p-8 rounded-2xl border border-wedding-brown/10 h-full flex flex-col">
+                        <h3 className="font-script text-6xl text-wedding-brown mb-6 leading-30">getting to the venue</h3>
+                        <div className="space-y-4 font-sans text-wedding-brown/90 flex-grow">
+                            <p className="font-semibold">options from lisbon airport:</p>
+                            <ul className="list-disc list-inside space-y-2 ml-2">
+                                <li>rental car (most flexible for exploring the region)</li>
+                                <li>private transfer (we can help coordinate options closer to the date)</li>
+                                <li>Taxi/Uber/Bolt, depending on availability</li>
+                            </ul>
+                            <p className="pt-2 italic text-sm">Travel time is typically 45–60 minutes.</p>
+                        </div>
                     </motion.section>
                 </div>
 
-                {/* Local Attractions */}
-                <motion.section variants={fadeIn} className="mt-12">
-                     <h2 className="font-script text-4xl text-wedding-brown mb-8 text-center">Local Gems</h2>
-                     <div className="grid md:grid-cols-3 gap-6">
+                {/* Where to Stay */}
+                <motion.section variants={staggerContainer} className="space-y-8">
+                    <motion.div variants={fadeIn} className="text-center max-w-3xl mx-auto">
+                        <h2 className="font-script text-6xl text-wedding-brown mb-6 leading-30">where to stay <span className="block text-2xl md:text-3xl mt-2 font-sans opacity-80 uppercase tracking-widest font-normal">before the wedding</span></h2>
+                        <p className="font-sans text-lg text-wedding-brown/80 leading-relaxed">
+                            If you’re spending a few days in Lisbon before heading to the venue, some great neighborhoods include:
+                        </p>
+                    </motion.div>
+
+                    <div className="grid md:grid-cols-2 gap-6">
                         {[
-                            { title: "Lisbon City", desc: "Explore the historic tram 28, Belém Tower, and Alfama district." },
-                            { title: "Sintra", desc: "Visit the fairytale Pena Palace and Quinta da Regaleira." },
-                            { title: "Wine Tasting", desc: "The Alenquer region is famous for its vineyards and wine cellars." }
+                            { 
+                                area: "baixa / chiado", 
+                                features: "Central, historic, and tourist-friendly", 
+                                desc: "Packed with shops, cafes, restaurants, and easy access to major sights." 
+                            },
+                            { 
+                                area: "alfama", 
+                                features: "Full of history, character, and old-world charm", 
+                                desc: "Think winding cobbled streets, traditional houses with tiled façades, and vintage architecture. The streets are often steep and hilly!" 
+                            },
+                            { 
+                                area: "príncipe real", 
+                                features: "Trendy, stylish, and a bit more local", 
+                                desc: "Ideal for boutique-shops, cafés, independent design stores, galleries and a relaxed atmosphere." 
+                            },
+                            { 
+                                area: "bairro alto", 
+                                features: "Lively nightlife, bars, clubs", 
+                                desc: "Especially in the evenings, these districts come alive. Good for younger travelers, people looking to party, or anyone wanting a social, energetic stay." 
+                            }
                         ].map((item, index) => (
-                            <div key={index} className="bg-white/40 p-6 rounded-xl hover:bg-white/60 transition-colors duration-300">
-                                <h4 className="font-bold text-xl mb-2 text-wedding-brown">{item.title}</h4>
-                                <p className="font-sans text-sm">{item.desc}</p>
-                            </div>
+                            <motion.div 
+                                key={index} 
+                                variants={fadeIn}
+                                className="bg-white/40 hover:bg-white/60 p-6 md:p-8 rounded-xl transition-all duration-300 border border-transparent hover:border-wedding-brown/20 group"
+                            >
+                                <h4 className="font-script text-6xl text-wedding-brown mb-2 group-hover:scale-105 transition-transform origin-left leading-30">{item.area}</h4>
+                                <p className="font-sans font-bold text-sm uppercase tracking-wide text-wedding-green mb-3">{item.features}</p>
+                                <p className="font-sans text-wedding-brown/80 leading-relaxed">{item.desc}</p>
+                            </motion.div>
                         ))}
-                     </div>
+                    </div>
                 </motion.section>
 
             </div>

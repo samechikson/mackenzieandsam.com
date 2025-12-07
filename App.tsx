@@ -4,6 +4,7 @@ import { PasswordProtection } from './components/PasswordProtection';
 import { Navigation } from './components/Navigation';
 import { Home } from './pages/Home';
 import { Details } from './pages/Details';
+import { Events } from './pages/Events';
 
 export default function App() {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
@@ -38,6 +39,7 @@ export default function App() {
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/details" element={<Details />} />
+          <Route path="/events" element={<Events />} />
         </Routes>
       </div>
     </Router>
