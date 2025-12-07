@@ -1,6 +1,5 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { div } from 'framer-motion/client';
 
 export const Events: React.FC = () => {
     // Animation variants
@@ -30,7 +29,7 @@ export const Events: React.FC = () => {
                     description: "Settle into your room, explore the grounds, and relax."
                 },
                 {
-                    time: "5:00–8:00 PM",
+                    time: "5:00-8:00 PM",
                     title: "Welcome Celebration",
                     description: "A casual sunset dinner to kick off the festivities. Come hungry!"
                 }
@@ -41,7 +40,7 @@ export const Events: React.FC = () => {
             date: "May 6th, 2027",
             events: [
                 {
-                    time: "10:00–11:00 AM",
+                    time: "10:00-11:00 AM", 
                     title: "Breakfast",
                     description: "Light breakfast served for guests staying onsite."
                 },
@@ -51,24 +50,9 @@ export const Events: React.FC = () => {
                     description: "Join us lakeside for our vows."
                 },
                 {
-                    time: "5:00–7:00 PM",
-                    title: "Cocktail Hour",
-                    description: "Drinks, appetizers, and music."
-                },
-                {
-                    time: "7:00 PM",
-                    title: "Gala Dinner",
-                    description: "A seated dinner featuring Portuguese flavors."
-                },
-                {
-                    time: "9:00 PM",
-                    title: "Cake Cutting",
-                    description: ""
-                },
-                {
-                    time: "Party to Follow!",
-                    title: "",
-                    description: "Buffet snacks + dancing into the night."
+                    time: "5:00 PM-4:00 AM",
+                    title: "Wedding Reception",
+                    description: "Dinner, cocktails, dancing, and more."
                 }
             ]
         },
@@ -77,7 +61,7 @@ export const Events: React.FC = () => {
             date: "May 7th, 2027",
             events: [
                 {
-                    time: "10:00–11:00 AM",
+                    time: "10:00-11:00 AM",
                     title: "Breakfast",
                     description: "A relaxed morning meal before goodbyes."
                 },
@@ -101,10 +85,7 @@ export const Events: React.FC = () => {
                     transition={{ duration: 0.8 }}
                     className="sticky top-24 w-full h-[60vh] lg:h-[80vh] bg-wedding-brown/5 overflow-hidden rounded-sm border border-wedding-brown/10"
                 >
-                    <div className="w-full h-full flex items-center justify-center">
-                         {/* Placeholder as requested */}
-                         <span className="text-wedding-brown/40 font-sans uppercase tracking-widest font-bold">Image Placeholder</span>
-                    </div>
+                    <img src="images/sm/events.jpg" alt="sam and mackenzie" className="w-full h-full object-cover" />
                 </motion.div>
 
                 {/* Right Column: Timeline */}
