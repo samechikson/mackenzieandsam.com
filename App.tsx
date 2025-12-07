@@ -1,10 +1,9 @@
 import React, { useState, useEffect } from 'react';
-import { HeroSection } from './components/HeroSection';
-import { EnvelopeSection } from './components/EnvelopeSection';
-import { DetailsSection } from './components/DetailsSection';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { PasswordProtection } from './components/PasswordProtection';
-
 import { Navigation } from './components/Navigation';
+import { Home } from './pages/Home';
+import { Details } from './pages/Details';
 
 export default function App() {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
@@ -33,11 +32,14 @@ export default function App() {
   }
 
   return (
-    <div className="font-sans text-wedding-green selection:bg-wedding-green selection:text-white">
-      <Navigation />
-      <HeroSection />
-      <EnvelopeSection />
-      <DetailsSection />
-    </div>
+    <Router>
+      <div className="font-sans text-wedding-green selection:bg-wedding-green selection:text-white">
+        <Navigation />
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/details" element={<Details />} />
+        </Routes>
+      </div>
+    </Router>
   );
 }

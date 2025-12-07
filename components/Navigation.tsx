@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
+import { Link } from 'react-router-dom';
 
 export const Navigation: React.FC = () => {
   const [scrolled, setScrolled] = useState(false);
@@ -14,8 +15,8 @@ export const Navigation: React.FC = () => {
   }, []);
 
   const links = [
-    { name: 'Home', href: '#hero' },
-    { name: 'Details', href: '#details' },
+    { name: 'Home', href: '/' },
+    { name: 'Details', href: '/details' },
   ];
 
   return (
@@ -28,12 +29,12 @@ export const Navigation: React.FC = () => {
       <ul className="pointer-events-auto flex space-x-6 md:space-x-8 bg-white/80 backdrop-blur-md px-6 py-3 rounded-full shadow-sm border border-[#556B2F]/20">
         {links.map((link) => (
           <li key={link.name}>
-            <a 
-              href={link.href}
+            <Link 
+              to={link.href}
               className="font-sans text-[#556B2F] hover:text-[#5D4037] transition-colors text-xs md:text-sm uppercase tracking-widest font-bold"
             >
               {link.name}
-            </a>
+            </Link>
           </li>
         ))}
       </ul>
