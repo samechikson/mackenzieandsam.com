@@ -8,7 +8,8 @@ export const Navigation: React.FC = () => {
   const links = [
     { name: 'Home', path: '/' },
     { name: 'Details', path: '/details' },
-    { name: 'Events', path: '/events' }
+    { name: 'Events', path: '/events' },
+    { name: 'Travel', path: '/travel' }
   ];
 
   return (
