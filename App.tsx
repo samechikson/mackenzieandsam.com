@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react';
 import { HeroSection } from './components/HeroSection';
 import { EnvelopeSection } from './components/EnvelopeSection';
 import { DetailsSection } from './components/DetailsSection';
-import { StorySection } from './components/StorySection';
 import { PasswordProtection } from './components/PasswordProtection';
 
 import { Navigation } from './components/Navigation';
@@ -39,11 +38,6 @@ export default function App() {
       <HeroSection />
       <EnvelopeSection />
       <DetailsSection />
-      <StorySection />
-      
-      <footer className="py-8 text-center text-sm opacity-50 font-sans">
-        <p>Made with ❤️ for Mackenzie & Sam</p>
-      </footer>
     </div>
   );
 }

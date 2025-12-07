@@ -16,7 +16,6 @@ export const Navigation: React.FC = () => {
   const links = [
     { name: 'Home', href: '#hero' },
     { name: 'Details', href: '#details' },
-    { name: 'Our Story', href: '#story' },
   ];
 
   return (
