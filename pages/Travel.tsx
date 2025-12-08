@@ -18,7 +18,7 @@ const SECTIONS = [
         <div className="space-y-2">
             <h2 className="lowercase text-4xl mb-2 font-script">Venue Address</h2>
             <div className="flex flex-col gap-4">
-                <p className="font-serif leading-relaxed text-lg">
+                <p className="font-sans leading-relaxed text-base">
                     Quinta da Bicinha<br />
                     Estr. de Vila Chã<br />
                     2580-413, Portugal
@@ -39,10 +39,10 @@ const SECTIONS = [
         {/* Flying In */}
         <div className="space-y-2">
              <h2 className="lowercase text-4xl mb-4 font-script">Flying In</h2>
-             <p className="font-serif leading-relaxed text-base">
+             <p className="font-sans leading-relaxed text-base">
                 Lisbon Humberto Delgado Airport (LIS) is the closest major airport.
              </p>
-             <p className="font-serif leading-relaxed text-base mt-2 text-wedding-green font-bold">
+             <p className="font-sans leading-relaxed text-base mt-2 text-wedding-green font-bold">
                 Passport Reminder: Please check the expiration date on your passport now!
              </p>
         </div>
@@ -50,15 +50,15 @@ const SECTIONS = [
         {/* Getting to the Venue */}
         <div className="space-y-2">
              <h2 className="lowercase text-4xl mb-4 font-script">Getting to the Venue</h2>
-             <p className="font-serif leading-relaxed text-base mb-2">
+             <p className="font-sans leading-relaxed text-base mb-2">
                 Options from Lisbon:
              </p>
-             <ul className="font-serif list-disc list-outside ml-4 space-y-1 text-base">
+             <ul className="font-sans list-disc list-outside ml-4 space-y-1 text-base">
                 <li>Rental car (most flexible for exploring the region)</li>
                 <li>Private transfer (we can help coordinate options closer to the date)</li>
                 <li>Taxi/Uber/Bolt, depending on availability</li>
              </ul>
-             <p className="font-serif leading-relaxed text-base mt-2">
+             <p className="font-sans leading-relaxed text-base mt-2">
                 Travel time is typically 45-60 minutes.
              </p>
         </div>
@@ -73,7 +73,7 @@ const SECTIONS = [
     content: (
         <div className="space-y-8">
             <h3 className="font-script text-5xl text-wedding-green lowercase text-center mb-6">A Taste of Lisbon</h3>
-            <div className="space-y-8 font-serif text-lg text-wedding-brown leading-loose">
+            <div className="space-y-8 font-sans text-lg text-wedding-brown leading-loose">
                 <div>
                     <a href="https://tinyurl.com/yc6cs2c2" target="_blank" rel="noopener noreferrer" className="flex items-center text-xl font-bold mb-2 hover:text-wedding-green transition-colors decoration-1 underline-offset-4 border-b border-wedding-brown/30 pb-1">Portuguese Food and Wine Tour <ExternalLink size={18} className="ml-2" /></a>
                     <p>We got to taste cheese, Chouriço, bifana, traditional rices, Port, and Lisbon wines. It was well worth the $, we had amazing guides, and met fun people!</p>
@@ -88,13 +88,13 @@ const SECTIONS = [
   },
   {
     id: 'sintra',
-    image: '/images/travel/sintra.webp',
+    image: '/images/travel/sm-sintra.webp',
     imageAlt: 'Sintra Pena Palace',
     rotation: 2,
     content: (
         <div className="space-y-8">
             <h3 className="font-script text-5xl text-wedding-green lowercase text-center mb-6">Historic Sights</h3>
-            <div className="space-y-6 font-serif text-lg text-wedding-brown leading-loose">
+            <div className="space-y-6 font-sans text-lg text-wedding-brown leading-loose">
                 <div>
                     <a href="https://tinyurl.com/2saxdryt" target="_blank" rel="noopener noreferrer" className="flex items-center text-xl font-bold mb-2 hover:text-wedding-green transition-colors border-b border-wedding-brown/30 pb-1">Day Trip to Sintra <ExternalLink size={18} className="ml-2" /></a>
                     <p>Visit the Pena Palace and beautiful surrounding park grounds. It's truly a magical place straight out of a fairytale.</p>
@@ -111,7 +111,7 @@ const SECTIONS = [
     content: (
         <div className="space-y-8">
             <h3 className="font-script text-5xl text-wedding-green lowercase text-center mb-6">City Gems</h3>
-            <div className="space-y-8 font-serif text-lg text-wedding-brown leading-loose">
+            <div className="space-y-8 font-sans text-lg text-wedding-brown leading-loose">
                 <div>
                         <h4 className="text-xl font-bold mb-2">A Ginjinha</h4>
                         <p>Walk to A Ginjinha to shoot the sour cherry liquor Lisbon is known for - only 1.55 euros! <br/><span className="text-sm italic opacity-80">Largo São Domingos 8, 1100-201 Lisboa</span></p>
@@ -130,13 +130,13 @@ const SECTIONS = [
   },
   {
     id: 'missed',
-    image: '/images/travel/sm-sintra.webp',
+    image: '/images/travel/lisbon-tram.webp',
     imageAlt: 'Scenic view',
     rotation: 2,
     content: (
         <div className="space-y-8">
             <h3 className="font-script text-5xl text-wedding-green lowercase text-center mb-6">Things We Missed</h3>
-            <div className="space-y-8 font-serif text-lg text-wedding-brown leading-loose">
+            <div className="space-y-8 font-sans text-lg text-wedding-brown leading-loose">
                 <div>
                         <h4 className="text-xl font-bold mb-2">Iconic Tram 28</h4>
                         <p>Hop on the iconic Tram 28 with a public transport pass for a scenic tour of the city's hills.</p>
