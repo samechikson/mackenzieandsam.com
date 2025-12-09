@@ -1,6 +1,6 @@
 import React, { useMemo } from 'react';
 import { motion, useScroll, useTransform } from 'framer-motion';
-import { ExternalLink, MapPin } from 'lucide-react';
+import { ExternalLink, MapPin, Paperclip } from 'lucide-react';
 
 const SECTIONS = [
   {
@@ -10,12 +10,12 @@ const SECTIONS = [
     content: (
       <div className="space-y-10">
         <div className="text-center mb-8">
-          <h1 className="font-script text-6xl lowercase mb-2">travel</h1>
+          <h1 className="font-script text-wedding-green text-6xl lowercase mb-2">travel</h1>
         </div>
 
         {/* Venue */}
         <div className="space-y-2">
-          <h2 className="lowercase text-4xl mb-2 font-script">Venue Address</h2>
+          <h2 className="lowercase text-4xl mb-2 font-script text-wedding-green">Venue Address</h2>
           <div className="flex flex-col gap-4">
             <p className="font-sans leading-relaxed text-base">
               Quinta da Bicinha<br />
@@ -37,7 +37,7 @@ const SECTIONS = [
 
         {/* Flying In */}
         <div className="space-y-2">
-          <h2 className="lowercase text-4xl mb-4 font-script">Flying In</h2>
+          <h2 className="lowercase text-4xl mb-4 font-script text-wedding-green">Flying In</h2>
           <p className="font-sans leading-relaxed text-base">
             Lisbon Humberto Delgado Airport (LIS) is the closest major airport.
           </p>
@@ -48,7 +48,7 @@ const SECTIONS = [
 
         {/* Getting to the Venue */}
         <div className="space-y-2">
-          <h2 className="lowercase text-4xl mb-4 font-script">Getting to the Venue</h2>
+          <h2 className="lowercase text-4xl mb-4 font-script text-wedding-green">Getting to the Venue</h2>
           <p className="font-sans leading-relaxed text-base mb-2">
             Options from Lisbon:
           </p>
@@ -239,16 +239,11 @@ export const Travel: React.FC = () => {
                   }`}
               >
                 {/* Paperclip */}
-                <div className="absolute -top-6 right-8 w-6 overflow-hidden h-20 pointer-events-none opacity-80 mix-blend-multiply">
-                  <svg
-                    viewBox="0 0 25 50"
-                    fill="none"
-                    stroke="#777"
-                    strokeWidth="2"
-                    strokeLinecap="round"
-                  >
-                    <path d="M18 5 v35 a 10 10 0 0 1 -20 0 v-30 a 5 5 0 0 1 10 0 v28" />
-                  </svg>
+                <div className="absolute -top-2 right-8">
+                  <div className="relative">
+                    <Paperclip className="w-12 h-12 text-gray-500/80 rotate-135" />
+                    <div className="absolute top-2 left-1 w-3 h-8 bg-wedding-paper" />
+                  </div>
                 </div>
 
                 {section.content}

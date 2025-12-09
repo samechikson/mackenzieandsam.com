@@ -40,7 +40,7 @@ export const Events: React.FC = () => {
             date: "May 6th, 2027",
             events: [
                 {
-                    time: "10:00-11:00 AM", 
+                    time: "10:00-11:00 AM",
                     title: "Breakfast",
                     description: "Light breakfast served for guests staying onsite."
                 },
@@ -77,9 +77,9 @@ export const Events: React.FC = () => {
     return (
         <div className="w-full min-h-screen bg-wedding-cream flex items-center justify-center py-20 px-4 md:px-8">
             <div className="max-w-7xl mx-auto w-full grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-start">
-                
+
                 {/* Left Column: Image Placeholder */}
-                <motion.div 
+                <motion.div
                     initial={{ opacity: 0, x: -20 }}
                     animate={{ opacity: 1, x: 0 }}
                     transition={{ duration: 0.8 }}
@@ -89,7 +89,7 @@ export const Events: React.FC = () => {
                 </motion.div>
 
                 {/* Right Column: Timeline */}
-                <motion.div 
+                <motion.div
                     variants={containerVariants}
                     initial="hidden"
                     animate="visible"
@@ -97,10 +97,10 @@ export const Events: React.FC = () => {
                 >
                     {timelineEvents.map((daySection, index) => (
                         <motion.div key={index} variants={fadeIn} className="relative">
-                            
+
                             {/* Day Header */}
                             <div className="mb-8 border-b border-wedding-brown/20 pb-4">
-                                <h2 className="font-script text-6xl text-wedding-brown mb-2 leading-none lowercase">
+                                <h2 className="font-script text-6xl text-wedding-green mb-2 leading-none lowercase">
                                     {daySection.day}
                                 </h2>
                                 <p className="font-sans text-right text-wedding-brown/80 uppercase tracking-wide">
