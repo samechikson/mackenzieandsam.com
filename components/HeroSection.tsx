@@ -21,30 +21,9 @@ export const HeroSection: React.FC = () => {
         initial={{ scale: 0.8, opacity: 0 }}
         animate={{ scale: 1, opacity: 1 }}
         transition={{ duration: 1.2, delay: 0.5 }}
-        className="relative z-0 border-8 border-[#5D4037] bg-[#5D4037] shadow-2xl max-w-60 lg:max-w-70 w-full aspect-square rounded-lg"
+        className="relative z-0 max-w-80 lg:max-w-100 w-full"
       >
-        <div className="grid grid-cols-2 grid-rows-2 w-full h-full gap-3 bg-[#5D4037] p-1">
-          <img 
-            src="/images/sm/1.jpg"
-            alt="Mackenzie and Sam 1" 
-            className="w-full h-full object-cover grayscale sepia-[.5] hover:sepia-0 transition-all duration-500"
-          />
-          <img 
-            src="/images/sm/2.jpg" 
-            alt="Mackenzie and Sam 2" 
-            className="w-full h-full object-cover grayscale sepia-[.5] hover:sepia-0 transition-all duration-500"
-          />
-          <img 
-            src="/images/sm/3.jpg" 
-            alt="Mackenzie and Sam 3" 
-            className="w-full h-full object-cover grayscale sepia-[.5] hover:sepia-0 transition-all duration-500"
-          />
-          <img 
-            src="/images/sm/4.jpg" 
-            alt="Mackenzie and Sam 4" 
-            className="w-full h-full object-cover grayscale sepia-[.5] hover:sepia-0 transition-all duration-500"
-          />
-        </div>
+        <img src="images/home/photobooth-sepia.png" alt="Photobooth" className='w-full shadow-xl rounded-2xl' />
       </motion.div>
 
       {/* Bottom Right Text */}
@@ -59,8 +38,8 @@ export const HeroSection: React.FC = () => {
         </h2>
       </motion.div>
 
-       {/* Bottom Center Text */}
-       <motion.div
+      {/* Bottom Center Text */}
+      <motion.div
         initial={{ y: 50, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
         transition={{ duration: 1, ease: "easeOut", delay: 1.5 }}
