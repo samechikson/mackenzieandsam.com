@@ -5,6 +5,7 @@ import { Navigation } from './components/Navigation';
 import { Home } from './pages/Home';
 import { Events } from './pages/Events';
 import { Travel } from './pages/Travel';
+import { RSVP } from './pages/RSVP';
 
 export default function App() {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
@@ -40,6 +41,7 @@ export default function App() {
           <Route path="/" element={<Home />} />
           <Route path="/events" element={<Events />} />
           <Route path="/travel" element={<Travel />} />
+          <Route path="/rsvp" element={<RSVP />} />
         </Routes>
       </div>
     </Router>
