@@ -3,7 +3,6 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { PasswordProtection } from './components/PasswordProtection';
 import { Navigation } from './components/Navigation';
 import { Home } from './pages/Home';
-import { Details } from './pages/Details';
 import { Events } from './pages/Events';
 import { Travel } from './pages/Travel';
 
@@ -39,7 +38,6 @@ export default function App() {
         <Navigation />
         <Routes>
           <Route path="/" element={<Home />} />
-          <Route path="/details" element={<Details />} />
           <Route path="/events" element={<Events />} />
           <Route path="/travel" element={<Travel />} />
         </Routes>
