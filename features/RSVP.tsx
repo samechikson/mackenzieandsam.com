@@ -2,7 +2,19 @@
 
 import React, { useState, FormEvent } from 'react';
 import { motion } from 'framer-motion';
-import { Paperclip, Check } from 'lucide-react';
+import { Check } from 'lucide-react';
+import { OAuth2Client } from 'google-auth-library';
+
+// Initialize the OAuth2Client with your app's oauth credentials
+const oauthClient = new OAuth2Client({
+  clientId: '357687835955-ik3i0kfpavebladfbbipac6cqneitiul.apps.googleusercontent.com',
+  clientSecret: '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',
+});
+
+// Note: In a real production app, 'google-spreadsheet' is a Node.js library and may have issues 
+// running directly in the browser (Vite) due to missing Node polyfills (crypto, fs, etc.).
+// If this fails to build, we should revert to the simple `fetch` method or use a backend proxy.
+import { GoogleSpreadsheet } from 'google-spreadsheet';
 
 export const RSVP: React.FC = () => {
   const [formData, setFormData] = useState({
@@ -21,6 +33,12 @@ export const RSVP: React.FC = () => {
   });
 
   const [submitted, setSubmitted] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+
+  // Configuration
+  const SPREADSHEET_ID = '1C8KVN8bf0n9VlJZQODLrUBlbP1qzQJvc-WGpcC0kbc4';
+  const API_KEY = 'AIzaSyDoO2DPpi-MRky5XV-1KmSgIQI4OOPh-yA';
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;
@@ -35,11 +53,72 @@ export const RSVP: React.FC = () => {
     }));
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const formatActivities = () => {
+    const activityLabels: Record<string, string> = {
+      foodTour: 'Lisbon Food Tour',
+      beachDay: 'Cascais Beach Day',
+      golf: 'Oitavos Dunes Golf',
+      sintraTour: 'Sintra Castle Tour',
+      timeoutMarket: 'Time Out Market',
+    };
+
+    return Object.entries(formData.activities)
+      .filter(([key, isSelected]) => isSelected)
+      .map(([key]) => activityLabels[key] || key)
+      .join(', ');
+  };
+
+  const submitToGoogleSheets = async () => {
+    try {
+
+      // Initialize the sheet - doc ID is the long id in the sheets URL
+      const doc = new GoogleSpreadsheet(SPREADSHEET_ID, oauthClient);
+
+      // Initialize Auth
+      // WARNING: Writing with just an API Key is typically not allowed by Google Sheets API.
+      // Usually requires Service Account (JWT) or OAuth (which are harder to do in browser safely).
+      // We will try this as requested by the user.
+      await doc.loadInfo(); // loads document properties and worksheets
+
+      const sheet = doc.sheetsByIndex[0]; // or use doc.sheetsById[id] or doc.sheetsByTitle[title]
+
+      // Data mapping to columns: Name, Number of Guests, Dietary restrictions, Stay at quinta, Needs transfer, activities
+      const rowData = {
+        'Name': formData.name,
+        'Number of Guests': formData.guests,
+        'Dietary restrictions': formData.dietary,
+        'Stay at quinta': formData.stayOnsite,
+        'Needs transfer': formData.transfer,
+        'activities': formatActivities()
+      };
+
+      // In 'google-spreadsheet', addRow expects an object where keys match header values
+      await sheet.addRow(rowData);
+
+    } catch (err: any) {
+      console.error('Submission Error:', err);
+      // More descriptive error for the user
+      if (err.message && err.message.includes('403')) {
+        throw new Error('Permission denied. API Key may not have write access.');
+      }
+      throw err;
+    }
+  };
+
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    // Simulate submission
-    console.log('Form Submitted', formData);
-    setSubmitted(true);
+    setIsSubmitting(true);
+    setError(null);
+
+    try {
+      await submitToGoogleSheets();
+      console.log('Form Submitted', formData);
+      setSubmitted(true);
+    } catch (err: any) {
+      setError(err.message || 'Something went wrong submitting your RSVP. Please try again.');
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   if (submitted) {
@@ -81,6 +160,12 @@ export const RSVP: React.FC = () => {
           </div>
 
           <form onSubmit={handleSubmit} className="space-y-8 font-sans text-wedding-brown">
+
+            {error && (
+              <div className="bg-red-50 text-red-800 p-4 rounded text-center border border-red-200">
+                {error}
+              </div>
+            )}
 
             {/* Name */}
             <div className="space-y-2">
@@ -135,7 +220,7 @@ export const RSVP: React.FC = () => {
             {/* Stay Onsite */}
             <div className="space-y-3">
               <p className="block text-sm uppercase tracking-widest font-bold text-wedding-green">
-                Would you like to stay onsite at Quinta da Janeira? <span className="normal-case font-normal opacity-70 text-xs block mt-1">(Space permitting)</span>
+                Would you like to stay onsite at Quinta da Bichinha? <span className="normal-case font-normal opacity-70 text-xs block mt-1">(Space permitting)</span>
               </p>
               <div className="flex gap-6">
                 <label className="flex items-center gap-2 cursor-pointer group">
@@ -249,9 +334,10 @@ export const RSVP: React.FC = () => {
             <div className="pt-6 flex justify-center">
               <button
                 type="submit"
-                className="bg-wedding-green text-white font-sans uppercase tracking-widest text-sm font-bold py-4 px-12 rounded-full hover:bg-wedding-brown transition-all duration-300 shadow-md hover:shadow-lg hover:-translate-y-1"
+                disabled={isSubmitting}
+                className="bg-wedding-green text-white font-sans uppercase tracking-widest text-sm font-bold py-4 px-12 rounded-full hover:bg-wedding-brown transition-all duration-300 shadow-md hover:shadow-lg hover:-translate-y-1 disabled:opacity-50 disabled:cursor-not-allowed"
               >
-                Send Response
+                {isSubmitting ? 'Sending...' : 'Send Response'}
               </button>
             </div>
 
