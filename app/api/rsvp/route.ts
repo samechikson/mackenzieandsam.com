@@ -5,8 +5,9 @@ import { JWT } from 'google-auth-library';
 
 // In a real application, use environment variables
 const SPREADSHEET_ID = process.env.GOOGLE_SPREADSHEET_ID;
-const SHEET_ID = process.env.GOOGLE_SHEET_ID;
 const GOOGLE_SHEET_ID = process.env.GOOGLE_SHEET_ID;
+const GOOGLE_SHEET_RESPONSES_ID = process.env.GOOGLE_SHEET_RESPONSES_ID;
+const GOOGLE_SHEET_GUEST_LIST_ID = process.env.GOOGLE_SHEET_GUEST_LIST_ID;
 const SCOPES = [
 'https://www.googleapis.com/auth/spreadsheets',
 'https://www.googleapis.com/auth/drive.file',
@@ -33,12 +34,26 @@ export async function POST(request: Request) {
 
     const doc = new GoogleSpreadsheet(SPREADSHEET_ID, jwt);
 
-    console.log(doc);
-    // According to the previous file, the user was just calling loadInfo.
-    // If this fails due to auth, we'll return that error.
     await doc.loadInfo();
 
-    const sheet = doc.sheetsById[GOOGLE_SHEET_ID];
+    const sheetResponses = doc.sheetsById[GOOGLE_SHEET_RESPONSES_ID];
+    const sheetGuestList = doc.sheetsById[GOOGLE_SHEET_GUEST_LIST_ID];
+
+    // Fuzzy match check
+    if (sheetGuestList) {
+        const guestRows = await sheetGuestList.getRows();
+        const guestNames = guestRows.map((row: any) => row.get('Names') as string).filter(Boolean);
+        const isGuestListed = guestNames.some((guestName) => isFuzzyMatch(name, guestName));
+
+        if (!isGuestListed) {
+            return NextResponse.json(
+                { error: 'Name not found in guest list. Please check the spelling or contact us.' },
+                { status: 400 }
+            );
+        }
+    } else {
+        console.warn('Guest list sheet not found. Skipping validation.');
+    }
 
     const rowData = {
       'Name': name,
@@ -49,7 +64,7 @@ export async function POST(request: Request) {
       'activities': activities
     };
 
-    await sheet.addRow(rowData);
+    await sheetResponses.addRow(rowData);
 
     return NextResponse.json({ success: true, message: 'rsvp submitted successfully' });
   } catch (error: any) {
@@ -59,4 +74,39 @@ export async function POST(request: Request) {
       { status: 500 }
     );
   }
+}
+
+function getLevenshteinDistance(a: string, b: string): number {
+  const matrix = Array.from({ length: b.length + 1 }, (_, i) => [i]);
+  for (let j = 0; j <= a.length; j++) matrix[0][j] = j;
+  
+  for (let i = 1; i <= b.length; i++) {
+    for (let j = 1; j <= a.length; j++) {
+      if (b[i - 1] === a[j - 1]) {
+        matrix[i][j] = matrix[i - 1][j - 1];
+      } else {
+        matrix[i][j] = Math.min(
+          matrix[i - 1][j - 1] + 1,
+          matrix[i][j - 1] + 1,
+          matrix[i - 1][j] + 1
+        );
+      }
+    }
+  }
+  return matrix[b.length][a.length];
+}
+
+function isFuzzyMatch(inputName: string, existingName: string): boolean {
+    if (!inputName || !existingName) return false;
+    const normalizedInput = inputName.toLowerCase().trim();
+    const normalizedExisting = existingName.toLowerCase().trim();
+    
+    if (normalizedInput === normalizedExisting) return true;
+    
+    const distance = getLevenshteinDistance(normalizedInput, normalizedExisting);
+    const maxLength = Math.max(normalizedInput.length, normalizedExisting.length);
+    
+    // Strict for short names, looser for long names
+    if (maxLength <= 3) return distance === 0;
+    return distance <= 3;
 }
