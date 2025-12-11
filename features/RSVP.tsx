@@ -3,18 +3,7 @@
 import React, { useState, FormEvent } from 'react';
 import { motion } from 'framer-motion';
 import { Check } from 'lucide-react';
-import { OAuth2Client } from 'google-auth-library';
 
-// Initialize the OAuth2Client with your app's oauth credentials
-const oauthClient = new OAuth2Client({
-  clientId: '357687835955-ik3i0kfpavebladfbbipac6cqneitiul.apps.googleusercontent.com',
-  clientSecret: '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',
-});
-
-// Note: In a real production app, 'google-spreadsheet' is a Node.js library and may have issues 
-// running directly in the browser (Vite) due to missing Node polyfills (crypto, fs, etc.).
-// If this fails to build, we should revert to the simple `fetch` method or use a backend proxy.
-import { GoogleSpreadsheet } from 'google-spreadsheet';
 
 export const RSVP: React.FC = () => {
   const [formData, setFormData] = useState({
@@ -37,8 +26,7 @@ export const RSVP: React.FC = () => {
   const [error, setError] = useState<string | null>(null);
 
   // Configuration
-  const SPREADSHEET_ID = '1C8KVN8bf0n9VlJZQODLrUBlbP1qzQJvc-WGpcC0kbc4';
-  const API_KEY = 'AIzaSyDoO2DPpi-MRky5XV-1KmSgIQI4OOPh-yA';
+
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;
@@ -69,39 +57,24 @@ export const RSVP: React.FC = () => {
   };
 
   const submitToGoogleSheets = async () => {
-    try {
+    const response = await fetch('/api/rsvp', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        name: formData.name,
+        guests: formData.guests,
+        dietary: formData.dietary,
+        stayOnsite: formData.stayOnsite,
+        transfer: formData.transfer,
+        activities: formatActivities(),
+      }),
+    });
 
-      // Initialize the sheet - doc ID is the long id in the sheets URL
-      const doc = new GoogleSpreadsheet(SPREADSHEET_ID, oauthClient);
-
-      // Initialize Auth
-      // WARNING: Writing with just an API Key is typically not allowed by Google Sheets API.
-      // Usually requires Service Account (JWT) or OAuth (which are harder to do in browser safely).
-      // We will try this as requested by the user.
-      await doc.loadInfo(); // loads document properties and worksheets
-
-      const sheet = doc.sheetsByIndex[0]; // or use doc.sheetsById[id] or doc.sheetsByTitle[title]
-
-      // Data mapping to columns: Name, Number of Guests, Dietary restrictions, Stay at quinta, Needs transfer, activities
-      const rowData = {
-        'Name': formData.name,
-        'Number of Guests': formData.guests,
-        'Dietary restrictions': formData.dietary,
-        'Stay at quinta': formData.stayOnsite,
-        'Needs transfer': formData.transfer,
-        'activities': formatActivities()
-      };
-
-      // In 'google-spreadsheet', addRow expects an object where keys match header values
-      await sheet.addRow(rowData);
-
-    } catch (err: any) {
-      console.error('Submission Error:', err);
-      // More descriptive error for the user
-      if (err.message && err.message.includes('403')) {
-        throw new Error('Permission denied. API Key may not have write access.');
-      }
-      throw err;
+    if (!response.ok) {
+      const errorData = await response.json();
+      throw new Error(errorData.error || 'Failed to submit RSVP');
     }
   };
 

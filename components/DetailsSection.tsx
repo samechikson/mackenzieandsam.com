@@ -5,7 +5,7 @@ import { motion } from 'framer-motion';
 
 export const DetailsSection: React.FC = () => {
   return (
-    <section id="details" className="relative min-h-screen w-full overflow-hidden flex flex-col">
+    <section id="details" className="relative min-h-[600px] w-full overflow-hidden flex flex-col">
       {/* Content */}
       <div className="relative z-10 flex flex-col items-center justify-center pt-20 pb-12 px-4 text-center">
 
@@ -51,17 +51,6 @@ export const DetailsSection: React.FC = () => {
           </motion.a>
         </motion.div>
 
-      </div>
-
-      {/* Image */}
-      <div className="relative w-full flex-1 min-h-[400px]">
-        <img
-          src="/images/quinta-landscape.png"
-          alt="Vineyard Landscape"
-          className="absolute inset-0 w-full h-full object-cover"
-        />
-        <div className="absolute inset-0 bg-[#F2F0E9] opacity-60 mix-blend-overlay"></div>
-        <div className="absolute inset-0 bg-gradient-to-b from-[#F2F0E9] via-transparent to-transparent opacity-100 h-40"></div>
       </div>
     </section>
   );
