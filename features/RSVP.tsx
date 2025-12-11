@@ -1,4 +1,6 @@
-import React, { useState } from 'react';
+'use client';
+
+import React, { useState, FormEvent } from 'react';
 import { motion } from 'framer-motion';
 import { Paperclip, Check } from 'lucide-react';
 

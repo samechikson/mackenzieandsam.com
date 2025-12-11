@@ -1,3 +1,5 @@
+'use client';
+
 import React from 'react';
 import { HeroSection } from '../components/HeroSection';
 import { EnvelopeSection } from '../components/EnvelopeSection';

@@ -1,9 +1,12 @@
+'use client';
+
 import React from 'react';
 import { motion } from 'framer-motion';
-import { Link, useLocation } from 'react-router-dom';
+import Link from 'next/link';
+import { usePathname } from 'next/navigation';
 
 export const Navigation: React.FC = () => {
-  const location = useLocation();
+  const pathname = usePathname();
 
   const links = [
     { name: 'Home', path: '/' },
@@ -23,8 +26,8 @@ export const Navigation: React.FC = () => {
         {links.map((link) => (
           <li key={link.name}>
             <Link
-              to={link.path}
-              className={`font-sans transition-colors text-xs md:text-sm uppercase tracking-widest font-bold ${location.pathname === link.path ? 'text-wedding-brown' : 'text-wedding-green hover:text-wedding-brown'
+              href={link.path}
+              className={`font-sans transition-colors text-xs md:text-sm uppercase tracking-widest font-bold ${pathname === link.path ? 'text-wedding-brown' : 'text-wedding-green hover:text-wedding-brown'
                 }`}
             >
               {link.name}

@@ -1,9 +1,11 @@
+'use client';
+
 import React, { useRef } from 'react';
 import { motion, useScroll, useTransform } from 'framer-motion';
 
 export const EnvelopeSection: React.FC = () => {
   const sectionRef = useRef<HTMLElement>(null);
-  
+
   // Track scroll progress of this section
   const { scrollYProgress } = useScroll({
     target: sectionRef,
@@ -14,16 +16,16 @@ export const EnvelopeSection: React.FC = () => {
   // Left text: slides in from left as you scroll
   const leftTextX = useTransform(scrollYProgress, [0, 0.3], [-100, 0]);
   const leftTextOpacity = useTransform(scrollYProgress, [0, 0.3], [0, 1]);
-  
+
   // Right text: slides in from right as you scroll
   const rightTextX = useTransform(scrollYProgress, [0, 0.3], [100, 0]);
   const rightTextOpacity = useTransform(scrollYProgress, [0, 0.3], [0, 1]);
-  
+
   // Card 1 (main invite): slides up more dramatically based on scroll
   const card1Y = useTransform(scrollYProgress, [0, 0.8], [0, -250]);
   const card1X = useTransform(scrollYProgress, [0, 0.8], [100, 200]);
   const card1Rotate = useTransform(scrollYProgress, [0, 0.8], [0, 25]);
-  
+
   // Card 2 (green): slides up and rotates based on scroll
   const card2Y = useTransform(scrollYProgress, [0, 0.6], [20, -150]);
   const card2X = useTransform(scrollYProgress, [0, 0.9], [100, -50]);
@@ -40,14 +42,14 @@ export const EnvelopeSection: React.FC = () => {
   const card4Rotate = useTransform(scrollYProgress, [0, 0.6], [0, -5]);
 
   return (
-    <section 
+    <section
       id="invitation"
       ref={sectionRef}
       className="min-h-200 flex flex-col md:flex-row items-center justify-center py-20 overflow-hidden bg-wedding-cream"
     >
-      
+
       {/* Left Text */}
-      <motion.div 
+      <motion.div
         className="flex-1 flex justify-center md:justify-end px-10 mb-10 md:mb-0"
         style={{ x: leftTextX, opacity: leftTextOpacity }}
       >
@@ -56,41 +58,41 @@ export const EnvelopeSection: React.FC = () => {
 
       {/* Envelope Container */}
       <div className="relative w-[300px] h-[220px] md:w-[400px] md:h-[280px] flex justify-center mx-4 mt-20 md:mt-0">
-        
+
         <div className="absolute bottom-0 object-cover"><img src="/images/envelope-back.png" alt="Envelope" /></div>
-        
+
 
         {/* Card 2 (Save the Date 2 ) - Starts inside, slides up */}
-        <motion.div 
+        <motion.div
           style={{ y: card2Y, rotate: card2Rotate, x: card2X }}
           className="absolute"
         >
           <img src="/images/save-the-date-2.png" alt="Invite Pic" className="w-2/3 object-cover grayscale-[0.3]" />
         </motion.div>
         {/* 4. Card 1 (Save the Date) - Starts inside, slides up */}
-        <motion.div 
+        <motion.div
           style={{ y: card1Y, rotate: card1Rotate, x: card1X }}
           className="absolute"
         >
           <img src="/images/save-the-date.png" alt="Invite Pic" className="w-1/2 object-cover grayscale-[0.3]" />
         </motion.div>
         {/* 5. Card 3 (Photo Reel) - Starts inside, slides up */}
-        <motion.div 
+        <motion.div
           style={{ y: card3Y, rotate: card3Rotate, x: card3X }}
           className="absolute"
         >
           <img src="/images/photo-reel.png" alt="Invite Pic" className="w-1/4 object-cover grayscale-[0.3]" />
         </motion.div>
 
-         {/* Card 4 (Vineyard Photo) - Starts inside, slides up */}
-         <motion.div 
+        {/* Card 4 (Vineyard Photo) - Starts inside, slides up */}
+        <motion.div
           style={{ y: card4Y, rotate: card4Rotate, x: card4X }}
           className="absolute"
         >
           <img src="/images/vineyards-walk.jpg" alt="Invite Pic" className="w-1/3 object-cover grayscale-[0.3]" />
         </motion.div>
 
-        
+
 
         {/* Envelope Front */}
         <div className="absolute bottom-0 object-cover"><img src="/images/envelope-front.png" alt="Envelope" /></div>
@@ -98,7 +100,7 @@ export const EnvelopeSection: React.FC = () => {
 
 
       {/* Right Text */}
-      <motion.div 
+      <motion.div
         className="flex-1 flex justify-center md:justify-start px-10 mt-10 md:mt-0"
         style={{ x: rightTextX, opacity: rightTextOpacity }}
       >

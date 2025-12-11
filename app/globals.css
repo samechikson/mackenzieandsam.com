@@ -21,7 +21,7 @@
 
 @font-face {
   font-family: 'Garet';
-  src: url('fonts/garet/Garet-Book.ttf') format('truetype');
+  src: url('/fonts/garet/Garet-Book.ttf') format('truetype');
   font-weight: normal;
   font-style: normal;
 }

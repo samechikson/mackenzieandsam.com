@@ -1,0 +1,34 @@
+'use client';
+
+import React, { useState, useEffect } from 'react';
+import { PasswordProtection } from './PasswordProtection';
+
+export default function AuthGuard({ children }: { children: React.ReactNode }) {
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    // Check session storage to keep user logged in during session
+    if (typeof window !== 'undefined') {
+      const auth = sessionStorage.getItem('wedding_auth');
+      if (auth === 'true') {
+        setIsAuthenticated(true);
+      }
+    }
+    setIsLoading(false);
+  }, []);
+
+  const handleLogin = () => {
+    sessionStorage.setItem('wedding_auth', 'true');
+    setIsAuthenticated(true);
+  };
+
+  // Don't render anything while checking auth state to avoid flash
+  if (isLoading) return null;
+
+  if (!isAuthenticated) {
+    return <PasswordProtection onSuccess={handleLogin} />;
+  }
+
+  return <>{children}</>;
+}
