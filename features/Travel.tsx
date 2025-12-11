@@ -1,261 +1,184 @@
 'use client';
 
-import React, { useMemo } from 'react';
-import { motion, useScroll, useTransform } from 'framer-motion';
-import { ExternalLink, MapPin, Paperclip } from 'lucide-react';
+import React from 'react';
+import { ExternalLink, MapPin } from 'lucide-react';
+import Image from 'next/image';
 
-const SECTIONS = [
+const THINGS_TO_DO = [
   {
-    id: 'intro',
-    image: '/images/travel/sm-paris.webp',
-    imageAlt: 'Sam and Mackenzie in Paris',
-    content: (
-      <div className="space-y-10">
-        <div className="text-center mb-8">
-          <h1 className="font-script text-wedding-green text-6xl lowercase mb-2">travel</h1>
-        </div>
-
-        {/* Venue */}
-        <div className="space-y-2">
-          <h2 className="lowercase text-4xl mb-2 font-script text-wedding-green">Venue Address</h2>
-          <div className="flex flex-col gap-4">
-            <p className="font-sans leading-relaxed text-base">
-              Quinta da Bicinha<br />
-              Estr. de Vila Chã<br />
-              2580-413, Portugal
-            </p>
-            <div>
-              <a href="https://maps.app.goo.gl/wp6AADZdJU9CZcWv9"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex items-center px-4 py-2 text-sm bg-wedding-brown text-white rounded-full hover:bg-[#3E2C26] transition-all duration-300 shadow-md hover:shadow-lg transform hover:-translate-y-1 font-sans"
-              >
-                <MapPin size={16} className="mr-2" />
-                View on Google Maps
-              </a>
-            </div>
-          </div>
-        </div>
-
-        {/* Flying In */}
-        <div className="space-y-2">
-          <h2 className="lowercase text-4xl mb-4 font-script text-wedding-green">Flying In</h2>
-          <p className="font-sans leading-relaxed text-base">
-            Lisbon Humberto Delgado Airport (LIS) is the closest major airport.
-          </p>
-          <p className="font-sans leading-relaxed text-base mt-2 text-wedding-green font-bold">
-            Passport Reminder: Please check the expiration date on your passport now!
-          </p>
-        </div>
-
-        {/* Getting to the Venue */}
-        <div className="space-y-2">
-          <h2 className="lowercase text-4xl mb-4 font-script text-wedding-green">Getting to the Venue</h2>
-          <p className="font-sans leading-relaxed text-base mb-2">
-            Options from Lisbon:
-          </p>
-          <ul className="font-sans list-disc list-outside ml-4 space-y-1 text-base">
-            <li>Rental car (most flexible for exploring the region)</li>
-            <li>Private transfer (we can help coordinate options closer to the date)</li>
-            <li>Taxi/Uber/Bolt, depending on availability</li>
-          </ul>
-          <p className="font-sans leading-relaxed text-base mt-2">
-            Travel time is typically 45-60 minutes.
-          </p>
-        </div>
-      </div>
-    )
+    title: 'Portuguese Food and Wine Tour',
+    description: "We got to taste cheese, Chouriço, bifana, traditional rices, Port, and Lisbon wines. It was well worth the $, we had amazing guides, and met fun people!",
+    icon: '/images/travel-icons/food-tour.png',
+    link: 'https://tinyurl.com/yc6cs2c2'
   },
   {
-    id: 'food',
-    image: '/images/travel/pastel-de-nata.webp',
-    imageAlt: 'Pastel de Nata',
-    content: (
-      <div className="space-y-8">
-        <h3 className="font-script text-5xl text-wedding-green lowercase text-center mb-6">A Taste of Lisbon</h3>
-        <div className="space-y-8 font-sans text-lg text-wedding-brown leading-loose">
-          <div>
-            <a href="https://tinyurl.com/yc6cs2c2" target="_blank" rel="noopener noreferrer" className="flex items-center text-xl font-bold mb-2 hover:text-wedding-green transition-colors decoration-1 underline-offset-4 border-b border-wedding-brown/30 pb-1">Portuguese Food and Wine Tour <ExternalLink size={18} className="ml-2" /></a>
-            <p>We got to taste cheese, Chouriço, bifana, traditional rices, Port, and Lisbon wines. It was well worth the $, we had amazing guides, and met fun people!</p>
-          </div>
-          <div>
-            <a href="https://www.instagram.com/timeoutmarketlisboa/?hl=en" target="_blank" rel="noopener noreferrer" className="flex items-center text-xl font-bold mb-2 hover:text-wedding-green transition-colors decoration-1 underline-offset-4 border-b border-wedding-brown/30 pb-1">Time Out Market <ExternalLink size={18} className="ml-2" /></a>
-            <p>Taste the iconic pastel de nata pastries and other goodies at this historic market hall.</p>
-          </div>
-        </div>
-      </div>
-    )
+    title: 'Time Out Market',
+    description: "Taste the iconic pastel de nata pastries and other goodies at this historic market hall.",
+    icon: '/images/travel-icons/time-out-market.png',
+    link: 'https://www.instagram.com/timeoutmarketlisboa/?hl=en'
   },
   {
-    id: 'sintra',
-    image: '/images/travel/sm-sintra.webp',
-    imageAlt: 'Sintra Pena Palace',
-    content: (
-      <div className="space-y-8">
-        <h3 className="font-script text-5xl text-wedding-green lowercase text-center mb-6">Historic Sights</h3>
-        <div className="space-y-6 font-sans text-lg text-wedding-brown leading-loose">
-          <div>
-            <a href="https://tinyurl.com/2saxdryt" target="_blank" rel="noopener noreferrer" className="flex items-center text-xl font-bold mb-2 hover:text-wedding-green transition-colors border-b border-wedding-brown/30 pb-1">Day Trip to Sintra <ExternalLink size={18} className="ml-2" /></a>
-            <p>Visit the Pena Palace and beautiful surrounding park grounds. It's truly a magical place straight out of a fairytale.</p>
-          </div>
-        </div>
-      </div>
-    )
+    title: 'Day Trip to Sintra',
+    description: "Visit the Pena Palace and beautiful surrounding park grounds. It's truly a magical place straight out of a fairytale.",
+    icon: '/images/travel-icons/sintra.png',
+    link: 'https://tinyurl.com/2saxdryt'
   },
   {
-    id: 'gems',
-    image: '/images/travel/sam-gijinha.webp',
-    imageAlt: 'Sam drinking Ginjinha',
-    content: (
-      <div className="space-y-8">
-        <h3 className="font-script text-5xl text-wedding-green lowercase text-center mb-6">City Gems</h3>
-        <div className="space-y-8 font-sans text-lg text-wedding-brown leading-loose">
-          <div>
-            <h4 className="text-xl font-bold mb-2">A Ginjinha</h4>
-            <p>Walk to A Ginjinha to shoot the sour cherry liquor Lisbon is known for - only 1.55 euros! <br /><span className="text-sm italic opacity-80">Largo São Domingos 8, 1100-201 Lisboa</span></p>
-          </div>
-          <div>
-            <h4 className="text-xl font-bold mb-2">Tejo Bar</h4>
-            <p>Hangout late into the night at Tejo Bar to hear traditional fado music. Quite possibly the smallest bar I've ever stepped foot into! <br /><span className="text-sm italic opacity-80">Beco do Vigário 1A, Alfama, 1100-613 Lisboa</span></p>
-          </div>
-          <div>
-            <h4 className="text-xl font-bold mb-2">Alfama District</h4>
-            <p>Walk around the Alfama district, Lisbon's oldest neighborhood - explore the São Jorge Castle while you're there.</p>
-          </div>
-        </div>
-      </div>
-    )
+    title: 'A Ginjinha',
+    description: "Walk to A Ginjinha to shoot the sour cherry liquor Lisbon is known for - only 1.55 euros!",
+    location: "Largo São Domingos 8, 1100-201 Lisboa",
+    icon: '/images/travel-icons/jijinha.png'
   },
   {
-    id: 'missed',
-    image: '/images/travel/lisbon-tram.webp',
-    imageAlt: 'Scenic view',
-    content: (
-      <div className="space-y-8">
-        <h3 className="font-script text-5xl text-wedding-green lowercase text-center mb-6">Things We Missed</h3>
-        <div className="space-y-8 font-sans text-lg text-wedding-brown leading-loose">
-          <div>
-            <h4 className="text-xl font-bold mb-2">Iconic Tram 28</h4>
-            <p>Hop on the iconic Tram 28 with a public transport pass for a scenic tour of the city's hills.</p>
-          </div>
-          <div>
-            <h4 className="text-xl font-bold mb-2">Belém Tower</h4>
-            <p>Visit the Belém Tower, an iconic fortress on the Tagus river that served as a point of embarkation for Portuguese explorers.</p>
-          </div>
-          <div>
-            <h4 className="text-xl font-bold mb-2">Day Trip to Cascais</h4>
-            <p>A 30 min drive from Lisbon. It's a laid-back coastal town with great beaches, good food, and easy access to scenic coastal walks.</p>
-          </div>
-        </div>
-      </div>
-    )
+    title: 'Tejo Bar',
+    description: "Hangout late into the night at Tejo Bar to hear traditional fado music. Quite possibly the smallest bar I've ever stepped foot into!",
+    location: "Beco do Vigário 1A, Alfama, 1100-613 Lisboa",
+    icon: '/images/travel-icons/guitar.png'
+  },
+  {
+    title: 'Alfama District',
+    description: "Walk around the Alfama district, Lisbon's oldest neighborhood - explore the São Jorge Castle while you're there.",
+    icon: '/images/travel-icons/sao-jorge.png'
+  },
+  {
+    title: 'Iconic Tram 28',
+    description: "Hop on the iconic Tram 28 with a public transport pass for a scenic tour of the city's hills.",
+    icon: '/images/travel-icons/lisbon.png'
+  },
+  {
+    title: 'Belém Tower',
+    description: "Visit the Belém Tower, an iconic fortress on the Tagus river that served as a point of embarkation for Portuguese explorers.",
+    icon: '/images/travel-icons/belem-tower.png'
+  },
+  {
+    title: 'Day Trip to Cascais',
+    description: "A 30 min drive from Lisbon. It's a laid-back coastal town with great beaches, good food, and easy access to scenic coastal walks.",
+    icon: '/images/travel-icons/waves.png'
   }
 ];
 
-const ScrollableImage = ({
-  key,
-  section,
-  targetRef
-}: {
-  key: string;
-  section: typeof SECTIONS[0];
-  targetRef: React.RefObject<HTMLDivElement>
-}) => {
-  const { scrollYProgress } = useScroll({
-    target: targetRef,
-    offset: ["start end", "end start"],
-  });
-
-  const opacity = useTransform(scrollYProgress, [0.1, 0.4, 0.6, 0.9], [0, 1, 1, 0]);
-
-  return (
-    <motion.div
-      key={key}
-      style={{ opacity }}
-      className="absolute max-w-lg w-full shadow-xl rounded-sm overflow-hidden border-12 border-white bg-white origin-center"
-    >
-      <img
-        src={section.image}
-        alt={section.imageAlt}
-        className="w-full h-full object-cover"
-      />
-    </motion.div>
-  );
-};
-
 export const Travel: React.FC = () => {
-  // Create refs for each section to track scroll position
-  const sectionRefs = useMemo(() => SECTIONS.map(() => React.createRef<HTMLDivElement>()), []);
-
   return (
-    <div className="flex flex-col md:flex-row w-full bg-wedding-cream">
-      {/* SECTION 1: Fixed/Sticky Left Side (Desktop) */}
-      <div className="hidden md:flex w-1/2 h-screen sticky top-0 items-center justify-center overflow-hidden bg-wedding-cream p-12 z-20">
-        <div className="relative w-full max-w-lg aspect-3/4 flex items-center justify-center">
-          {SECTIONS.map((section, index) => (
-            <ScrollableImage
-              key={section.id}
-              section={section}
-              targetRef={sectionRefs[index]}
-            />
-          ))}
-        </div>
+    <div className="w-full bg-wedding-cream min-h-screen pb-24">
+
+      {/* 1. Map Header */}
+      <div className="relative h-200 overflow-hidden my-20">
+        <Image
+          src="/images/map.png"
+          alt="Map of Lisbon/Portugal"
+          fill
+          className="object-contain object-center"
+          priority
+        />
+        <div className="absolute inset-x-0 bottom-0 h-32 bg-gradient-to-t from-wedding-cream to-transparent" />
       </div>
 
-      {/* SECTION 2: Scrolling Right Side */}
-      <div className="w-full md:w-1/2 min-h-screen relative">
-        <div className="fixed top-0 right-0 w-full md:w-1/2 h-screen z-0 pointer-events-none">
-          <img src="/images/travel/lisbon-background.webp" alt="" className="w-full h-full object-cover" />
-          <div className="absolute inset-0 bg-wedding-brown/5" />
-        </div>
-        <div className="flex flex-col items-center gap-44 py-24 px-4 md:px-12 relative z-10">
-          {SECTIONS.map((section, index) => (
-            <div
-              key={section.id}
-              id={section.id}
-              ref={sectionRefs[index]}
-              className="w-full max-w-lg flex flex-col items-center min-h-[50vh] justify-center"
-            >
-              {/* Mobile Image (Visible only on small screens) */}
-              <div className="md:hidden w-full mb-8 relative">
-                <motion.div
-                  initial={{ opacity: 0 }}
-                  whileInView={{ opacity: 1 }}
-                  className="w-3/4 mx-auto rounded-sm shadow-lg border-8 border-white bg-white rotate-1"
-                >
-                  <img
-                    src={section.image}
-                    alt={section.imageAlt}
-                    className="w-full h-auto block"
-                  />
-                </motion.div>
-              </div>
+      <div className="max-w-7xl mx-auto px-6 md:px-12 -mt-12 relative z-10">
 
-              {/* Paper Note */}
-              <motion.div
-                initial={{ opacity: 0, y: 50 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, margin: '-50px' }}
-                transition={{ duration: 0.6 }}
-                className={`relative bg-wedding-paper w-full p-8 md:p-12 shadow-xl text-wedding-brown rounded-sm ${index % 2 === 0 ? 'rotate-1' : '-rotate-1'
-                  }`}
+        {/* 2. Logistics Section */}
+        <div className="bg-white p-8 md:p-12 rounded-sm shadow-xl border-t-4 border-wedding-green mb-20">
+          <h1 className="font-script text-wedding-green text-6xl lowercase mb-12 text-center">Travel Logistics</h1>
+
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-12 text-wedding-brown">
+            {/* Venue Address */}
+            <div className="flex flex-col items-center text-center space-y-4">
+              <div className="bg-wedding-cream p-4 rounded-full mb-2">
+                <MapPin size={32} className="text-wedding-green" />
+              </div>
+              <h2 className="font-serif text-2xl font-bold uppercase tracking-widest text-wedding-green">Venue</h2>
+              <p className="font-sans leading-relaxed text-lg">
+                Quinta da Bicinha<br />
+                Estr. de Vila Chã<br />
+                2580-413, Portugal
+              </p>
+              <a href="https://maps.app.goo.gl/wp6AADZdJU9CZcWv9"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center px-6 py-2 text-sm bg-wedding-brown text-white rounded-full hover:bg-wedding-green transition-all duration-300 shadow-md font-sans mt-2"
               >
-                {/* Paperclip */}
-                <div className="absolute -top-2 right-8">
-                  <div className="relative">
-                    <Paperclip className="w-12 h-12 text-gray-500/80 rotate-135" />
-                    <div className="absolute top-2 left-1 w-3 h-8 bg-wedding-paper" />
-                  </div>
+                View Map
+              </a>
+            </div>
+
+            {/* Flying In */}
+            <div className="flex flex-col items-center text-center space-y-4">
+              <div className="bg-wedding-cream p-4 rounded-full mb-2">
+                {/* Plane Icon replacement usinglucide-react is unnecessary if generic, but let's use text/simple */}
+                <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-wedding-green"><path d="M2 22h20" /><path d="M20.498 15.418L13.144 2.148 10.994 4.1l4 7-6 1.4-3.5-3.1-2.144 2.15L8 15 2 22" /></svg>
+              </div>
+              <h2 className="font-serif text-2xl font-bold uppercase tracking-widest text-wedding-green">Flying In</h2>
+              <p className="font-sans leading-relaxed text-lg">
+                Lisbon Humberto Delgado Airport (LIS) is the closest major airport.
+              </p>
+              <p className="font-sans text-base text-wedding-green font-bold bg-wedding-green/10 px-4 py-2 rounded-lg">
+                Check your passport expiration!
+              </p>
+            </div>
+
+            {/* Transport */}
+            <div className="flex flex-col items-center text-center space-y-4">
+              <div className="bg-wedding-cream p-4 rounded-full mb-2">
+                <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-wedding-green"><path d="M19 17h2c.6 0 1-.4 1-1v-3c0-.9-.7-1.7-1.5-1.9C18.7 10.6 16 10 16 10s-1.3-1.4-2.2-2.3c-.5-.4-1.1-.7-1.8-.7H5c-.6 0-1.1.4-1.4.9l-1.4 2.9A3.7 3.7 0 0 0 2 12v4c0 .6.4 1 1 1h2" /><circle cx="7" cy="17" r="2" /><path d="M9 17h6" /><circle cx="17" cy="17" r="2" /></svg>
+              </div>
+              <h2 className="font-serif text-2xl font-bold uppercase tracking-widest text-wedding-green">Getting There</h2>
+              <div className="font-sans leading-relaxed text-lg">
+                <p className="mb-2">Options from Lisbon (45-60 min):</p>
+                <ul className="text-sm space-y-1 opacity-80">
+                  <li>• Rental car (recommended)</li>
+                  <li>• Private transfer</li>
+                  <li>• Taxi/Uber/Bolt</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* 3. Things To Do Grid */}
+        <div className="space-y-16">
+          <div className="text-center space-y-4">
+            <h2 className="font-script text-wedding-green text-7xl lowercase">Things To Do</h2>
+            <p className="font-serif text-wedding-brown text-xl max-w-2xl mx-auto">
+              Some of our favorite spots, tastes, and sights in and around Lisbon.
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-x-8 gap-y-12">
+            {THINGS_TO_DO.map((item, idx) => (
+              <div key={idx} className="flex flex-col items-center text-center group">
+                <div className="relative w-32 h-32 mb-6 transition-transform duration-300 group-hover:scale-110">
+                  <div className="absolute inset-0 bg-wedding-green/10 rounded-full blur-xl opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+                  <Image
+                    src={item.icon}
+                    alt={item.title}
+                    fill
+                    className="object-contain drop-shadow-md"
+                  />
                 </div>
 
-                {section.content}
-              </motion.div>
-            </div>
-          ))}
+                <h3 className="font-serif text-2xl text-wedding-green mb-3 items-center flex gap-2">
+                  {item.link ? (
+                    <a href={item.link} target="_blank" rel="noopener noreferrer" className="hover:underline hover:text-wedding-brown transition-colors decoration-1 underline-offset-4 flex items-center gap-2">
+                      {item.title} <ExternalLink size={16} />
+                    </a>
+                  ) : (
+                    item.title
+                  )}
+                </h3>
 
-          {/* Bottom spacing */}
-          <div className="h-24" />
+                <p className="font-sans text-wedding-brown text-lg leading-relaxed opacity-90">
+                  {item.description}
+                </p>
+
+                {item.location && (
+                  <p className="mt-2 text-sm font-sans italic text-wedding-brown/60">
+                    {item.location}
+                  </p>
+                )}
+              </div>
+            ))}
+          </div>
         </div>
+
       </div>
     </div>
   );

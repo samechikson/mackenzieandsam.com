@@ -120,7 +120,7 @@ export const Events: React.FC = () => {
                                             </span>
                                             <div>
                                                 {event.title && (
-                                                    <h3 className="font-serif text-2xl text-wedding-brown mb-2">
+                                                    <h3 className="font-sans text-2xl text-wedding-brown mb-2">
                                                         {event.title}
                                                     </h3>
                                                 )}
