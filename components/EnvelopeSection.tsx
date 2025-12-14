@@ -27,13 +27,13 @@ export const EnvelopeSection: React.FC = () => {
   const card1Rotate = useTransform(scrollYProgress, [0, 0.8], [0, 25]);
 
   // Card 2 (green): slides up and rotates based on scroll
-  const card2Y = useTransform(scrollYProgress, [0, 0.6], [20, -150]);
-  const card2X = useTransform(scrollYProgress, [0, 0.9], [100, -50]);
+  const card2Y = useTransform(scrollYProgress, [0, 0.6], [50, -150]);
+  const card2X = useTransform(scrollYProgress, [0, 0.9], [100, -20]);
   const card2Rotate = useTransform(scrollYProgress, [0.2, 0.6], [0, -20]);
 
   // Card 3 (photo reel): slides up and rotates based on scroll
   const card3Y = useTransform(scrollYProgress, [0, 0.6], [100, -130]);
-  const card3X = useTransform(scrollYProgress, [0, 0.9], [230, 300]);
+  const card3X = useTransform(scrollYProgress, [0, 0.9], [200, 280]);
   const card3Rotate = useTransform(scrollYProgress, [0.2, 0.6], [0, 35]);
 
   // Card 4 (vineyard photo): slides up and rotates based on scroll
@@ -45,7 +45,7 @@ export const EnvelopeSection: React.FC = () => {
     <section
       id="invitation"
       ref={sectionRef}
-      className="min-h-200 flex flex-col md:flex-row items-center justify-center py-20 overflow-hidden bg-wedding-cream"
+      className="min-h-300 flex flex-col md:flex-row items-center justify-center py-20 overflow-hidden bg-wedding-cream"
     >
 
       {/* Left Text */}
@@ -57,29 +57,27 @@ export const EnvelopeSection: React.FC = () => {
       </motion.div>
 
       {/* Envelope Container */}
-      <div className="relative w-[300px] h-[220px] md:w-[400px] md:h-[280px] flex justify-center mx-4 mt-20 md:mt-0">
+      <div className="relative w-[320px] h-[220px] md:w-[400px] md:h-[280px] flex justify-center mx-4 mt-20 md:mt-0">
 
         <div className="absolute bottom-0 object-cover"><img src="/images/envelope-back.png" alt="Envelope" /></div>
-
-
         {/* Card 2 (Save the Date 2 ) - Starts inside, slides up */}
         <motion.div
           style={{ y: card2Y, rotate: card2Rotate, x: card2X }}
-          className="absolute"
+          className="absolute -ml-7 md:ml-0"
         >
           <img src="/images/save-the-date-2.png" alt="Invite Pic" className="w-2/3 object-cover grayscale-[0.3]" />
         </motion.div>
         {/* 4. Card 1 (Save the Date) - Starts inside, slides up */}
         <motion.div
           style={{ y: card1Y, rotate: card1Rotate, x: card1X }}
-          className="absolute"
+          className="absolute -ml-7 md:ml-0"
         >
           <img src="/images/save-the-date.png" alt="Invite Pic" className="w-1/2 object-cover grayscale-[0.3]" />
         </motion.div>
         {/* 5. Card 3 (Photo Reel) - Starts inside, slides up */}
         <motion.div
           style={{ y: card3Y, rotate: card3Rotate, x: card3X }}
-          className="absolute"
+          className="absolute -ml-7 md:ml-0"
         >
           <img src="/images/photo-reel.png" alt="Invite Pic" className="w-1/4 object-cover grayscale-[0.3]" />
         </motion.div>
@@ -87,12 +85,10 @@ export const EnvelopeSection: React.FC = () => {
         {/* Card 4 (Vineyard Photo) - Starts inside, slides up */}
         <motion.div
           style={{ y: card4Y, rotate: card4Rotate, x: card4X }}
-          className="absolute"
+          className="absolute -ml-7 md:ml-0"
         >
           <img src="/images/vineyards-walk.jpg" alt="Invite Pic" className="w-1/3 object-cover grayscale-[0.3]" />
         </motion.div>
-
-
 
         {/* Envelope Front */}
         <div className="absolute bottom-0 object-cover"><img src="/images/envelope-front.png" alt="Envelope" /></div>
