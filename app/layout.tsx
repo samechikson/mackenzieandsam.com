@@ -2,6 +2,7 @@ import React from 'react';
 import './globals.css';
 import AuthGuard from '../components/AuthGuard';
 import { Navigation } from '../components/Navigation';
+import { Analytics } from "@vercel/analytics/next"
 
 // Configure local fonts if needed, but existing CSS handles them via @font-face
 // We just need to ensure the Google Fonts are available
@@ -32,6 +33,7 @@ export default function RootLayout({
           <Navigation />
           {children}
         </AuthGuard>
+        <Analytics />
       </body>
     </html>
   );
