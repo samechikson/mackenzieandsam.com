@@ -95,7 +95,7 @@ export const PasswordProtection: React.FC<PasswordProtectionProps> = ({ onSucces
                 }`}
             >
               {isLoading ? (
-                <span className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin" />
+                <div className="loader"></div>
               ) : (
                 'Enter'
               )}
@@ -106,7 +106,7 @@ export const PasswordProtection: React.FC<PasswordProtectionProps> = ({ onSucces
                 <motion.p
                   initial={{ opacity: 0 }}
                   animate={{ opacity: 1 }}
-                  className="text-red-800/70 font-sans text-xs uppercase tracking-wide"
+                  className="text-red-800 font-sans text-sm font-semibold uppercase tracking-wide"
                 >
                   {error}
                 </motion.p>
