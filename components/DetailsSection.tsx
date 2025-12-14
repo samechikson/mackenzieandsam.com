@@ -45,7 +45,7 @@ export const DetailsSection: React.FC = () => {
             whileHover={{ scale: 1.05, backgroundColor: "#5D4037", color: "#fff" }}
             whileTap={{ scale: 0.95 }}
             className="px-12 py-3 border-2 border-[#5D4037] rounded-full text-[#5D4037] font-sans font-semibold tracking-widest uppercase bg-transparent transition-colors duration-300 backdrop-blur-sm cursor-pointer"
-            href="/RSVP"
+            href="/rsvp"
           >
             RSVP
           </motion.a>

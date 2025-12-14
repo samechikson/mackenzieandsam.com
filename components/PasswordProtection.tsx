@@ -30,6 +30,7 @@ export const PasswordProtection: React.FC<PasswordProtectionProps> = ({ onSucces
       const data = await response.json();
 
       if (response.ok) {
+        localStorage.setItem('guestName', name);
         onSuccess();
       } else {
         setError(data.error || 'Incorrect password');

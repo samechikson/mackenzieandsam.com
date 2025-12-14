@@ -25,8 +25,12 @@ export const RSVP: React.FC = () => {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
-  // Configuration
-
+  React.useEffect(() => {
+    const savedName = localStorage.getItem('guestName');
+    if (savedName) {
+      setFormData((prev) => ({ ...prev, name: savedName }));
+    }
+  }, []);
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;
@@ -124,7 +128,7 @@ export const RSVP: React.FC = () => {
         transition={{ duration: 0.8 }}
         className="relative z-10 w-full max-w-2xl"
       >
-        <div className="bg-wedding-paper shadow-2xl px-8 pb-8 rounded-sm relative -rotate-1 border border-wedding-green/10">
+        <div className="bg-wedding-paper shadow-2xl px-8 pb-8 rounded-sm relative lg:-rotate-1 border border-wedding-green/10">
           <div className="text-center mb-10">
             <h1 className="font-script text-7xl md:text-9xl mb-12 text-wedding-green lowercase">RSVP</h1>
             <p className="font-sans text-wedding-brown text-lg font-light tracking-wide">
