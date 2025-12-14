@@ -8,14 +8,15 @@ interface PasswordProtectionProps {
 }
 
 export const PasswordProtection: React.FC<PasswordProtectionProps> = ({ onSuccess }) => {
-  const [input, setInput] = useState('');
-  const [error, setError] = useState(false);
+  const [password, setPassword] = useState('');
+  const [name, setName] = useState('');
+  const [error, setError] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState(false);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsLoading(true);
-    setError(false);
+    setError(null);
 
     try {
       const response = await fetch('/api/verify-password', {
@@ -23,18 +24,20 @@ export const PasswordProtection: React.FC<PasswordProtectionProps> = ({ onSucces
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ password: input }),
+        body: JSON.stringify({ password, name }),
       });
+
+      const data = await response.json();
 
       if (response.ok) {
         onSuccess();
       } else {
-        setError(true);
-        setInput('');
+        setError(data.error || 'Incorrect password');
+        setPassword('');
       }
     } catch (err) {
       console.error('Login error:', err);
-      setError(true);
+      setError('An error occurred. Please try again.');
     } finally {
       setIsLoading(false);
     }
@@ -54,20 +57,32 @@ export const PasswordProtection: React.FC<PasswordProtectionProps> = ({ onSucces
 
         <div className="bg-white/40 backdrop-blur-sm p-8 rounded-lg shadow-sm border border-wedding-brown/10">
           <p className="font-sans text-wedding-brown mb-6 uppercase tracking-widest text-xs font-bold">
-            Please enter the password
+            Please enter your name and password
           </p>
 
           <form onSubmit={handleSubmit} className="flex flex-col gap-4">
             <input
-              type="password"
-              value={input}
+              type="text"
+              value={name}
               onChange={(e) => {
-                setInput(e.target.value);
-                setError(false);
+                setName(e.target.value);
+                setError(null);
+              }}
+              className="w-full px-4 py-3 border-b-2 border-wedding-brown/20 bg-transparent text-center font-sans text-xl text-wedding-brown focus:outline-none focus:border-wedding-green transition-colors placeholder-wedding-brown/30"
+              placeholder="Full Name"
+              autoFocus
+              disabled={isLoading}
+            />
+
+            <input
+              type="password"
+              value={password}
+              onChange={(e) => {
+                setPassword(e.target.value);
+                setError(null);
               }}
               className="w-full px-4 py-3 border-b-2 border-wedding-brown/20 bg-transparent text-center font-sans text-xl text-wedding-brown focus:outline-none focus:border-wedding-green transition-colors placeholder-wedding-brown/30"
               placeholder="Password"
-              autoFocus
               disabled={isLoading}
             />
 
@@ -93,7 +108,7 @@ export const PasswordProtection: React.FC<PasswordProtectionProps> = ({ onSucces
                   animate={{ opacity: 1 }}
                   className="text-red-800/70 font-sans text-xs uppercase tracking-wide"
                 >
-                  Incorrect password
+                  {error}
                 </motion.p>
               )}
             </div>
