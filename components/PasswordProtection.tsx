@@ -10,15 +10,33 @@ interface PasswordProtectionProps {
 export const PasswordProtection: React.FC<PasswordProtectionProps> = ({ onSuccess }) => {
   const [input, setInput] = useState('');
   const [error, setError] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    // Case-insensitive check for "QUINTA27"
-    if (input.trim().toUpperCase() === 'QUINTA2027') {
-      onSuccess();
-    } else {
+    setIsLoading(true);
+    setError(false);
+
+    try {
+      const response = await fetch('/api/verify-password', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ password: input }),
+      });
+
+      if (response.ok) {
+        onSuccess();
+      } else {
+        setError(true);
+        setInput('');
+      }
+    } catch (err) {
+      console.error('Login error:', err);
       setError(true);
-      setInput('');
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -50,15 +68,22 @@ export const PasswordProtection: React.FC<PasswordProtectionProps> = ({ onSucces
               className="w-full px-4 py-3 border-b-2 border-wedding-brown/20 bg-transparent text-center font-sans text-xl text-wedding-brown focus:outline-none focus:border-wedding-green transition-colors placeholder-wedding-brown/30"
               placeholder="Password"
               autoFocus
+              disabled={isLoading}
             />
 
             <motion.button
               whileHover={{ scale: 1.02 }}
               whileTap={{ scale: 0.98 }}
               type="submit"
-              className="w-full mt-4 py-3 bg-wedding-brown text-wedding-cream font-sans font-bold uppercase tracking-widest hover:bg-wedding-green transition-colors duration-300 rounded-sm shadow-md"
+              disabled={isLoading}
+              className={`w-full mt-4 py-3 bg-wedding-brown text-wedding-cream font-sans font-bold uppercase tracking-widest hover:bg-wedding-green transition-colors duration-300 rounded-sm shadow-md flex items-center justify-center ${isLoading ? 'opacity-70 cursor-not-allowed' : ''
+                }`}
             >
-              Enter
+              {isLoading ? (
+                <span className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin" />
+              ) : (
+                'Enter'
+              )}
             </motion.button>
 
             <div className="h-6 mt-2">

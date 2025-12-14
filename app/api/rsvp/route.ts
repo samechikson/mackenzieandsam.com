@@ -5,7 +5,6 @@ import { JWT } from 'google-auth-library';
 
 // In a real application, use environment variables
 const SPREADSHEET_ID = process.env.GOOGLE_SPREADSHEET_ID;
-const GOOGLE_SHEET_ID = process.env.GOOGLE_SHEET_ID;
 const GOOGLE_SHEET_RESPONSES_ID = process.env.GOOGLE_SHEET_RESPONSES_ID;
 const GOOGLE_SHEET_GUEST_LIST_ID = process.env.GOOGLE_SHEET_GUEST_LIST_ID;
 const SCOPES = [

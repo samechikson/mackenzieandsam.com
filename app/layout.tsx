@@ -1,28 +1,7 @@
 import React from 'react';
-import { Pinyon_Script, Montserrat, Playfair_Display } from 'next/font/google';
-import localFont from 'next/font/local';
 import './globals.css';
 import AuthGuard from '../components/AuthGuard';
 import { Navigation } from '../components/Navigation';
-
-const pinyonScript = Pinyon_Script({
-  weight: '400',
-  subsets: ['latin'],
-  variable: '--font-pinyon',
-  display: 'swap',
-});
-
-const montserrat = Montserrat({
-  subsets: ['latin'],
-  variable: '--font-montserrat',
-  display: 'swap',
-});
-
-const playfair = Playfair_Display({
-  subsets: ['latin'],
-  variable: '--font-playfair',
-  display: 'swap',
-});
 
 // Configure local fonts if needed, but existing CSS handles them via @font-face
 // We just need to ensure the Google Fonts are available
@@ -47,7 +26,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en" className={`${pinyonScript.variable} ${montserrat.variable} ${playfair.variable}`}>
+    <html lang="en" className="antialiased bg-wedding-cream">
       <body className="antialiased bg-wedding-cream">
         <AuthGuard>
           <Navigation />
