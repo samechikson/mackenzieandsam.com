@@ -103,6 +103,7 @@ export async function submitRsvp(data: RsvpData): Promise<void> {
          throw new Error('Responses sheet not found');
     }
 
+    const timestamp = new Date().toISOString();
     const rowData = {
       'Name': data.name,
       'Number of Guests': data.guests,
@@ -112,5 +113,23 @@ export async function submitRsvp(data: RsvpData): Promise<void> {
       'activities': data.activities
     };
 
-    await sheetResponses.addRow(rowData);
+    const rows = await sheetResponses.getRows();
+    const existingRow = rows.find(row => {
+        const rowName = row.get('Name');
+        return rowName && typeof rowName === 'string' && rowName.toLowerCase() === data.name.toLowerCase();
+    });
+
+    if (existingRow) {
+        existingRow.assign({
+            ...rowData,
+            'Updated': timestamp
+        });
+        await existingRow.save();
+    } else {
+        await sheetResponses.addRow({
+            ...rowData,
+            'Submitted': timestamp,
+            'Updated': timestamp
+        });
+    }
 }

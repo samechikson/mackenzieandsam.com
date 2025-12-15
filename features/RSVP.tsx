@@ -106,7 +106,7 @@ export const RSVP: React.FC = () => {
           animate={{ opacity: 1, scale: 1 }}
           className="max-w-xl w-full bg-wedding-paper p-8 md:p-12 shadow-2xl rounded-sm transform rotate-1 text-center"
         >
-          <h1 className="font-script text-5xl md:text-6xl text-wedding-green mb-6">Thank You!</h1>
+          <h1 className="font-script text-5xl md:text-6xl text-wedding-green mb-8 lowercase">Thank You!</h1>
           <p className="font-sans text-wedding-brown text-lg">
             We've received your RSVP. We can't wait to see you in Portugal!
           </p>
