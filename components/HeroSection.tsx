@@ -25,7 +25,7 @@ export const HeroSection: React.FC = () => {
         transition={{ duration: 1.2, delay: 0.5 }}
         className="relative z-0 max-w-80 lg:max-w-100 w-full"
       >
-        <img src="images/home/photobooth-sepia.png" alt="Photobooth" className='w-full shadow-xl rounded-2xl' />
+        <img src="images/home/kenzsam.gif" alt="Photobooth" className='w-full' />
       </motion.div>
 
       {/* Bottom Right Text */}
