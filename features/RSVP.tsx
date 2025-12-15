@@ -4,10 +4,18 @@ import React, { useState, FormEvent } from 'react';
 import { motion } from 'framer-motion';
 import { Check } from 'lucide-react';
 
+const ACTIVITIES = [
+  { id: 'foodTour', label: 'Lisbon Food Tour' },
+  { id: 'beachDay', label: 'Cascais Beach Day' },
+  { id: 'golf', label: 'Oitavos Dunes Golf' },
+  { id: 'sintraTour', label: 'Sintra Castle Tour' },
+  { id: 'timeoutMarket', label: 'Time Out Market' },
+];
 
 export const RSVP: React.FC = () => {
   const [formData, setFormData] = useState({
     name: '',
+    attending: '',
     guests: 1,
     dietary: '',
     stayOnsite: '',
@@ -46,13 +54,10 @@ export const RSVP: React.FC = () => {
   };
 
   const formatActivities = () => {
-    const activityLabels: Record<string, string> = {
-      foodTour: 'Lisbon Food Tour',
-      beachDay: 'Cascais Beach Day',
-      golf: 'Oitavos Dunes Golf',
-      sintraTour: 'Sintra Castle Tour',
-      timeoutMarket: 'Time Out Market',
-    };
+    const activityLabels: Record<string, string> = ACTIVITIES.reduce((acc, activity) => {
+      acc[activity.id] = activity.label;
+      return acc;
+    }, {} as Record<string, string>);
 
     return Object.entries(formData.activities)
       .filter(([key, isSelected]) => isSelected)
@@ -68,11 +73,12 @@ export const RSVP: React.FC = () => {
       },
       body: JSON.stringify({
         name: formData.name,
-        guests: formData.guests,
-        dietary: formData.dietary,
-        stayOnsite: formData.stayOnsite,
-        transfer: formData.transfer,
-        activities: formatActivities(),
+        attending: formData.attending,
+        guests: formData.attending === 'yes' ? formData.guests : 0,
+        dietary: formData.attending === 'yes' ? formData.dietary : '',
+        stayOnsite: formData.attending === 'yes' ? formData.stayOnsite : '',
+        transfer: formData.attending === 'yes' ? formData.transfer : '',
+        activities: formData.attending === 'yes' ? formatActivities() : '',
       }),
     });
 
@@ -161,151 +167,192 @@ export const RSVP: React.FC = () => {
               />
             </div>
 
-            {/* Guests */}
-            <div className="space-y-2">
-              <label htmlFor="guests" className="block text-sm uppercase tracking-widest font-bold text-wedding-green">
-                Number of Guests
-              </label>
-              <input
-                type="number"
-                id="guests"
-                name="guests"
-                min="1"
-                required
-                value={formData.guests}
-                onChange={handleInputChange}
-                className="w-full bg-transparent border-b-2 border-wedding-brown/20 focus:border-wedding-green outline-none py-2 transition-colors text-lg"
-              />
-            </div>
-
-            {/* Dietary */}
-            <div className="space-y-2">
-              <label htmlFor="dietary" className="block text-sm uppercase tracking-widest font-bold text-wedding-green">
-                Dietary Restrictions
-              </label>
-              <textarea
-                id="dietary"
-                name="dietary"
-                rows={2}
-                value={formData.dietary}
-                onChange={handleInputChange}
-                className="w-full bg-transparent border-b-2 border-wedding-brown/20 focus:border-wedding-green outline-none py-2 transition-colors text-lg placeholder-wedding-brown/30 resize-none"
-                placeholder="Allergies, vegetarian, vegan, etc."
-              />
-            </div>
-
-            {/* Stay Onsite */}
+            {/* Attending */}
             <div className="space-y-3">
               <p className="block text-sm uppercase tracking-widest font-bold text-wedding-green">
-                Would you like to stay onsite at Quinta da Bichinha? <span className="normal-case font-normal opacity-70 text-xs block mt-1">(Space permitting)</span>
+                Will you be attending?
               </p>
               <div className="flex gap-6">
                 <label className="flex items-center gap-2 cursor-pointer group">
-                  <div className={`w-5 h-5 rounded-full border border-wedding-brown flex items-center justify-center transition-colors ${formData.stayOnsite === 'yes' ? 'border-wedding-green' : ''}`}>
-                    {formData.stayOnsite === 'yes' && <div className="w-3 h-3 bg-wedding-green rounded-full" />}
+                  <div className={`w-5 h-5 rounded-full border border-wedding-brown flex items-center justify-center transition-colors ${formData.attending === 'yes' ? 'border-wedding-green' : ''}`}>
+                    {formData.attending === 'yes' && <div className="w-3 h-3 bg-wedding-green rounded-full" />}
                   </div>
                   <input
                     type="radio"
-                    name="stayOnsite"
+                    name="attending"
                     value="yes"
-                    checked={formData.stayOnsite === 'yes'}
+                    checked={formData.attending === 'yes'}
                     onChange={handleInputChange}
                     className="hidden"
                   />
-                  <span className="group-hover:text-wedding-green transition-colors">Yes, please!</span>
+                  <span className="group-hover:text-wedding-green transition-colors">Joyfully Accept</span>
                 </label>
                 <label className="flex items-center gap-2 cursor-pointer group">
-                  <div className={`w-5 h-5 rounded-full border border-wedding-brown flex items-center justify-center transition-colors ${formData.stayOnsite === 'no' ? 'border-wedding-green' : ''}`}>
-                    {formData.stayOnsite === 'no' && <div className="w-3 h-3 bg-wedding-green rounded-full" />}
+                  <div className={`w-5 h-5 rounded-full border border-wedding-brown flex items-center justify-center transition-colors ${formData.attending === 'no' ? 'border-wedding-green' : ''}`}>
+                    {formData.attending === 'no' && <div className="w-3 h-3 bg-wedding-green rounded-full" />}
                   </div>
                   <input
                     type="radio"
-                    name="stayOnsite"
+                    name="attending"
                     value="no"
-                    checked={formData.stayOnsite === 'no'}
+                    checked={formData.attending === 'no'}
                     onChange={handleInputChange}
                     className="hidden"
                   />
-                  <span className="group-hover:text-wedding-green transition-colors">No, I'll stay elsewhere</span>
+                  <span className="group-hover:text-wedding-green transition-colors">Regretfully Decline</span>
                 </label>
               </div>
             </div>
 
-            {/* Transfer - Conditional */}
-            {formData.stayOnsite === 'yes' && (
-              <motion.div
-                initial={{ opacity: 0, height: 0 }}
-                animate={{ opacity: 1, height: 'auto' }}
-                className="space-y-3 bg-wedding-green/5 p-4 rounded-md"
-              >
+            <motion.div
+              initial={false}
+              animate={{
+                height: formData.attending === 'yes' ? 'auto' : 0,
+                opacity: formData.attending === 'yes' ? 1 : 0,
+                overflow: 'hidden'
+              }}
+              className="space-y-8"
+            >
+              {/* Guests */}
+              <div className="space-y-2">
+                <label htmlFor="guests" className="block text-sm uppercase tracking-widest font-bold text-wedding-green">
+                  Number of Guests
+                </label>
+                <input
+                  type="number"
+                  id="guests"
+                  name="guests"
+                  min="1"
+                  required={formData.attending === 'yes'}
+                  value={formData.guests}
+                  onChange={handleInputChange}
+                  className="w-full bg-transparent border-b-2 border-wedding-brown/20 focus:border-wedding-green outline-none py-2 transition-colors text-lg"
+                />
+              </div>
+
+              {/* Dietary */}
+              <div className="space-y-2">
+                <label htmlFor="dietary" className="block text-sm uppercase tracking-widest font-bold text-wedding-green">
+                  Dietary Restrictions
+                </label>
+                <textarea
+                  id="dietary"
+                  name="dietary"
+                  rows={2}
+                  value={formData.dietary}
+                  onChange={handleInputChange}
+                  className="w-full bg-transparent border-b-2 border-wedding-brown/20 focus:border-wedding-green outline-none py-2 transition-colors text-lg placeholder-wedding-brown/30 resize-none"
+                  placeholder="Allergies, vegetarian, vegan, etc."
+                />
+              </div>
+
+              {/* Stay Onsite */}
+              <div className="space-y-3">
                 <p className="block text-sm uppercase tracking-widest font-bold text-wedding-green">
-                  Do you need a transfer from Lisbon to the venue?
+                  Would you like to stay onsite at Quinta da Bichinha? <span className="normal-case font-normal opacity-70 text-xs block mt-1">(Space permitting)</span>
                 </p>
                 <div className="flex gap-6">
                   <label className="flex items-center gap-2 cursor-pointer group">
-                    <div className={`w-5 h-5 rounded-full border border-wedding-brown flex items-center justify-center transition-colors ${formData.transfer === 'yes' ? 'border-wedding-green' : ''}`}>
-                      {formData.transfer === 'yes' && <div className="w-3 h-3 bg-wedding-green rounded-full" />}
+                    <div className={`w-5 h-5 rounded-full border border-wedding-brown flex items-center justify-center transition-colors ${formData.stayOnsite === 'yes' ? 'border-wedding-green' : ''}`}>
+                      {formData.stayOnsite === 'yes' && <div className="w-3 h-3 bg-wedding-green rounded-full" />}
                     </div>
                     <input
                       type="radio"
-                      name="transfer"
+                      name="stayOnsite"
                       value="yes"
-                      checked={formData.transfer === 'yes'}
+                      checked={formData.stayOnsite === 'yes'}
                       onChange={handleInputChange}
                       className="hidden"
                     />
-                    <span className="group-hover:text-wedding-green transition-colors">Yes</span>
+                    <span className="group-hover:text-wedding-green transition-colors">Yes, please!</span>
                   </label>
                   <label className="flex items-center gap-2 cursor-pointer group">
-                    <div className={`w-5 h-5 rounded-full border border-wedding-brown flex items-center justify-center transition-colors ${formData.transfer === 'no' ? 'border-wedding-green' : ''}`}>
-                      {formData.transfer === 'no' && <div className="w-3 h-3 bg-wedding-green rounded-full" />}
+                    <div className={`w-5 h-5 rounded-full border border-wedding-brown flex items-center justify-center transition-colors ${formData.stayOnsite === 'no' ? 'border-wedding-green' : ''}`}>
+                      {formData.stayOnsite === 'no' && <div className="w-3 h-3 bg-wedding-green rounded-full" />}
                     </div>
                     <input
                       type="radio"
-                      name="transfer"
+                      name="stayOnsite"
                       value="no"
-                      checked={formData.transfer === 'no'}
+                      checked={formData.stayOnsite === 'no'}
                       onChange={handleInputChange}
                       className="hidden"
                     />
-                    <span className="group-hover:text-wedding-green transition-colors">No</span>
+                    <span className="group-hover:text-wedding-green transition-colors">No, I'll stay elsewhere</span>
                   </label>
                 </div>
-              </motion.div>
-            )}
-
-            {/* Activities */}
-            <div className="space-y-4">
-              <p className="block text-sm uppercase tracking-widest font-bold text-wedding-green">
-                Interested Activities <span className="block normal-case font-normal opacity-70 text-xs mt-1">(Check all that apply)</span>
-              </p>
-
-              <div className="grid md:grid-cols-1 gap-3">
-                {[
-                  { key: 'foodTour', label: 'Group Lisbon Food Tour in Lisbon' },
-                  { key: 'beachDay', label: 'Beach Day in Cascais' },
-                  { key: 'golf', label: 'Golf at Oitavos Dunes Golf Course' },
-                  { key: 'sintraTour', label: 'Sintra Castle Tour' },
-                  { key: 'timeoutMarket', label: 'Drinks and Appetizers at Time Out Marketplace' },
-                ].map((activity) => (
-                  <label key={activity.key} className="flex items-start gap-3 cursor-pointer group hover:bg-wedding-green/5 p-2 rounded transition-colors -ml-2">
-                    <div className={`mt-1 w-5 h-5 border border-wedding-brown flex items-center justify-center shrink-0 transition-colors ${formData.activities[activity.key as keyof typeof formData.activities] ? 'bg-wedding-green border-wedding-green' : 'bg-white'}`}>
-                      {formData.activities[activity.key as keyof typeof formData.activities] && (
-                        <Check className="w-3.5 h-3.5 text-white" strokeWidth={3} />
-                      )}
-                    </div>
-                    <input
-                      type="checkbox"
-                      name={activity.key}
-                      checked={formData.activities[activity.key as keyof typeof formData.activities]}
-                      onChange={handleCheckboxChange}
-                      className="hidden"
-                    />
-                    <span className="text-wedding-brown group-hover:text-wedding-green transition-colors leading-snug">{activity.label}</span>
-                  </label>
-                ))}
               </div>
-            </div>
+
+              {/* Transfer - Conditional */}
+              {formData.stayOnsite === 'yes' && (
+                <motion.div
+                  initial={{ opacity: 0, height: 0 }}
+                  animate={{ opacity: 1, height: 'auto' }}
+                  className="space-y-3 bg-wedding-green/5 p-4 rounded-md"
+                >
+                  <p className="block text-sm uppercase tracking-widest font-bold text-wedding-green">
+                    Do you need a transfer from Lisbon to the venue?
+                  </p>
+                  <div className="flex gap-6">
+                    <label className="flex items-center gap-2 cursor-pointer group">
+                      <div className={`w-5 h-5 rounded-full border border-wedding-brown flex items-center justify-center transition-colors ${formData.transfer === 'yes' ? 'border-wedding-green' : ''}`}>
+                        {formData.transfer === 'yes' && <div className="w-3 h-3 bg-wedding-green rounded-full" />}
+                      </div>
+                      <input
+                        type="radio"
+                        name="transfer"
+                        value="yes"
+                        checked={formData.transfer === 'yes'}
+                        onChange={handleInputChange}
+                        className="hidden"
+                      />
+                      <span className="group-hover:text-wedding-green transition-colors">Yes</span>
+                    </label>
+                    <label className="flex items-center gap-2 cursor-pointer group">
+                      <div className={`w-5 h-5 rounded-full border border-wedding-brown flex items-center justify-center transition-colors ${formData.transfer === 'no' ? 'border-wedding-green' : ''}`}>
+                        {formData.transfer === 'no' && <div className="w-3 h-3 bg-wedding-green rounded-full" />}
+                      </div>
+                      <input
+                        type="radio"
+                        name="transfer"
+                        value="no"
+                        checked={formData.transfer === 'no'}
+                        onChange={handleInputChange}
+                        className="hidden"
+                      />
+                      <span className="group-hover:text-wedding-green transition-colors">No</span>
+                    </label>
+                  </div>
+                </motion.div>
+              )}
+
+              {/* Activities */}
+              <div className="space-y-4">
+                <p className="block text-sm uppercase tracking-widest font-bold text-wedding-green">
+                  Interested Activities <span className="block normal-case font-normal opacity-70 text-xs mt-1">(Check all that apply)</span>
+                </p>
+
+                <div className="grid md:grid-cols-1 gap-3">
+                  {ACTIVITIES.map((activity) => (
+                    <label key={activity.id} className="flex items-start gap-3 cursor-pointer group hover:bg-wedding-green/5 p-2 rounded transition-colors -ml-2">
+                      <div className={`mt-1 w-5 h-5 border border-wedding-brown flex items-center justify-center shrink-0 transition-colors ${formData.activities[activity.id as keyof typeof formData.activities] ? 'bg-wedding-green border-wedding-green' : 'bg-white'}`}>
+                        {formData.activities[activity.id as keyof typeof formData.activities] && (
+                          <Check className="w-3.5 h-3.5 text-white" strokeWidth={3} />
+                        )}
+                      </div>
+                      <input
+                        type="checkbox"
+                        name={activity.id}
+                        checked={formData.activities[activity.id as keyof typeof formData.activities]}
+                        onChange={handleCheckboxChange}
+                        className="hidden"
+                      />
+                      <span className="text-wedding-brown group-hover:text-wedding-green transition-colors leading-snug">{activity.label}</span>
+                    </label>
+                  ))}
+                </div>
+              </div>
+            </motion.div>
 
             {/* Submit */}
             <div className="pt-6 flex justify-center">

@@ -7,6 +7,7 @@ export async function POST(request: Request) {
     const body = await request.json();
     const { 
       name, 
+      attending,
       guests, 
       dietary, 
       stayOnsite, 
@@ -26,6 +27,7 @@ export async function POST(request: Request) {
 
     await submitRsvp({
       name,
+      attending,
       guests,
       dietary,
       stayOnsite,
