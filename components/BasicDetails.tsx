@@ -32,7 +32,7 @@ export const BasicDetails: React.FC = () => {
     const notches = Array.from({ length: 20 });
 
     return (
-      <div className={`relative w-full rounded-3xl bg-[#3E2723] flex flex-col ${className} overflow-hidden`}>
+      <div className={`relative w-full rounded-3xl bg-wedding-brown flex flex-col ${className} overflow-hidden`}>
         {/* Top Strip */}
 
         <div className="absolute top-0 w-full h-100 flex justify-between px-8">
