@@ -5,15 +5,15 @@ import { motion } from 'framer-motion';
 
 export const HeroSection: React.FC = () => {
   return (
-    <section id="hero" className="min-h-screen flex flex-col justify-center items-center relative overflow-hidden py-20 px-4">
+    <section id="hero" className="h-screen min-h-180 flex flex-col justify-center items-center relative overflow-hidden py-20 px-4">
       {/* Top Left Text */}
       <motion.div
         initial={{ x: -200, opacity: 0 }}
         animate={{ x: 0, opacity: 1 }}
         transition={{ duration: 1.2, ease: "easeOut" }}
-        className="absolute top-[10%] left-[5%]  md:left-[10%] z-10"
+        className="absolute top-[10%] left-[15%]  md:left-[10%] z-10"
       >
-        <h1 className="font-script text-5xl md:text-6xl lg:text-8xl text-wedding-green -rotate-6 tracking-wide">
+        <h1 className="font-script text-7xl md:text-8xl text-wedding-green tracking-wide">
           mackenzie and sam
         </h1>
       </motion.div>
@@ -23,7 +23,7 @@ export const HeroSection: React.FC = () => {
         initial={{ scale: 0.8, opacity: 0 }}
         animate={{ scale: 1, opacity: 1 }}
         transition={{ duration: 1.2, delay: 0.5 }}
-        className="relative z-0 max-w-80 lg:max-w-100 w-full"
+        className="relative z-0 max-w-60 md:max-w-80 w-full"
       >
         <img src="images/home/kenzsam.gif" alt="Photobooth" className='w-full' />
       </motion.div>
@@ -33,9 +33,9 @@ export const HeroSection: React.FC = () => {
         initial={{ x: 200, opacity: 0 }}
         animate={{ x: 0, opacity: 1 }}
         transition={{ duration: 1.2, ease: "easeOut", delay: 0.2 }}
-        className="absolute bottom-[15%] right-[5%] md:bottom-[20%] md:right-[15%] z-10 text-right"
+        className="absolute bottom-[10%] right-[15%] md:bottom-[15%] w-4/5 z-10 text-right"
       >
-        <h2 className="font-script text-5xl md:text-6xl lg:text-7xl text-wedding-green -rotate-6 tracking-wide">
+        <h2 className="font-script text-7xl md:text-8xl text-wedding-green tracking-wide">
           are getting married!
         </h2>
       </motion.div>

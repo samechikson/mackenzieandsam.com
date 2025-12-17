@@ -28,7 +28,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" className="antialiased bg-wedding-cream">
-      <body className="antialiased bg-wedding-cream">
+      <body className="antialiased bg-wedding-cream bg-[url('/images/textured-background.jpg')] bg-cover bg-fixed bg-center">
         <AuthGuard>
           {/* <Navigation /> */}
           {children}

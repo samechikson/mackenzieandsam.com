@@ -45,7 +45,7 @@ export const EnvelopeSection: React.FC = () => {
     <section
       id="invitation"
       ref={sectionRef}
-      className="flex flex-col md:flex-row items-center justify-center pb-50 pt-80 overflow-hidden bg-wedding-cream"
+      className="min-h-screen flex flex-col gap-30 md:gap-10 lg:flex-row items-center justify-end pb-50 pt-30 overflow-hidden"
     >
 
       {/* Left Text */}
