@@ -30,7 +30,7 @@ export default function RootLayout({
     <html lang="en" className="antialiased bg-wedding-cream">
       <body className="antialiased bg-wedding-cream">
         <AuthGuard>
-          <Navigation />
+          {/* <Navigation /> */}
           {children}
         </AuthGuard>
         <Analytics />

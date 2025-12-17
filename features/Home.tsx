@@ -4,6 +4,7 @@ import React from 'react';
 import { HeroSection } from '../components/HeroSection';
 import { EnvelopeSection } from '../components/EnvelopeSection';
 import { DetailsSection } from '../components/DetailsSection';
+import { BasicDetails } from '../components/BasicDetails';
 
 export const Home: React.FC = () => {
     return (
@@ -11,6 +12,7 @@ export const Home: React.FC = () => {
             <HeroSection />
             <EnvelopeSection />
             <DetailsSection />
+            <BasicDetails />
         </>
     );
 };
