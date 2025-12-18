@@ -122,11 +122,8 @@ export const RSVP: React.FC = () => {
   }
 
   return (
-    <div className="min-h-screen bg-wedding-cream relative overflow-hidden flex flex-col items-center py-24 px-4">
-      {/* Background decoration could go here */}
-      <div className="absolute inset-0 z-0 opacity-10 pointer-events-none">
-        <img src="/images/quinta-landscape.png" className="w-full h-full object-cover grayscale" alt="texture" />
-      </div>
+    <div className="min-h-screen relative overflow-hidden flex flex-col items-center py-24 px-4">
+
 
       <motion.div
         initial={{ opacity: 0, y: 30 }}
