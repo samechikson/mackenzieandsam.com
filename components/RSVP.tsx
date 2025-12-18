@@ -123,8 +123,6 @@ export const RSVP: React.FC = () => {
 
   return (
     <div className="min-h-screen relative overflow-hidden flex flex-col items-center py-24 px-4">
-
-
       <motion.div
         initial={{ opacity: 0, y: 30 }}
         animate={{ opacity: 1, y: 0 }}

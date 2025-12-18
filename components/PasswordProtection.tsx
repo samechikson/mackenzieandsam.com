@@ -45,7 +45,7 @@ export const PasswordProtection: React.FC<PasswordProtectionProps> = ({ onSucces
   };
 
   return (
-    <div className="min-h-screen bg-wedding-cream flex flex-col items-center justify-center px-4 font-sans">
+    <div className="min-h-screen flex flex-col items-center justify-center px-4 font-sans">
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
