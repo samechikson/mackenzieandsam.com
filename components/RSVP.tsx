@@ -113,7 +113,7 @@ export const RSVP: React.FC = () => {
           className="max-w-xl w-full bg-wedding-paper p-8 md:p-12 shadow-2xl rounded-sm transform rotate-1 text-center"
         >
           <h1 className="font-script text-5xl md:text-6xl text-wedding-green mb-8 lowercase">Thank You!</h1>
-          <p className="font-sans text-wedding-brown text-lg">
+          <p className="font-mono text-wedding-brown text-lg">
             We've received your RSVP. We can't wait to see you in Portugal!
           </p>
         </motion.div>
@@ -132,12 +132,12 @@ export const RSVP: React.FC = () => {
         <div className="bg-wedding-paper shadow-2xl px-8 pb-8 rounded-sm relative lg:-rotate-1 border border-wedding-green/10">
           <div className="text-center mb-10">
             <h1 className="font-script text-7xl md:text-9xl mb-12 text-wedding-green lowercase">RSVP</h1>
-            <p className="font-sans text-wedding-brown text-lg font-light tracking-wide">
+            <p className="font-mono text-wedding-brown text-lg font-light tracking-wide">
               Please let us know if you can make it by <span className="font-bold">12/1/2026</span>
             </p>
           </div>
 
-          <form onSubmit={handleSubmit} className="space-y-8 font-sans text-wedding-brown">
+          <form onSubmit={handleSubmit} className="space-y-8 font-mono text-wedding-brown">
 
             {error && (
               <div className="bg-red-50 text-red-800 p-4 rounded text-center border border-red-200">
@@ -354,7 +354,7 @@ export const RSVP: React.FC = () => {
               <button
                 type="submit"
                 disabled={isSubmitting}
-                className="bg-wedding-green text-white font-sans uppercase tracking-widest text-sm font-bold py-4 px-12 rounded-full hover:bg-wedding-brown transition-all duration-300 shadow-md hover:shadow-lg hover:-translate-y-1 disabled:opacity-50 disabled:cursor-not-allowed"
+                className="bg-wedding-green text-white font-mono uppercase tracking-widest text-sm font-bold py-4 px-12 rounded-full hover:bg-wedding-brown transition-all duration-300 shadow-md hover:shadow-lg hover:-translate-y-1 disabled:opacity-50 disabled:cursor-not-allowed"
               >
                 {isSubmitting ? 'Sending...' : 'Send Response'}
               </button>

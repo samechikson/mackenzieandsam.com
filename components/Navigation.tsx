@@ -27,7 +27,7 @@ export const Navigation: React.FC = () => {
           <li key={link.name}>
             <Link
               href={link.path}
-              className={`font-sans transition-colors text-xs md:text-sm uppercase tracking-widest font-bold ${pathname === link.path ? 'text-wedding-brown' : 'text-wedding-green hover:text-wedding-brown'
+              className={`font-mono transition-colors text-xs md:text-sm uppercase tracking-widest font-bold ${pathname === link.path ? 'text-wedding-brown' : 'text-wedding-green hover:text-wedding-brown'
                 }`}
             >
               {link.name}

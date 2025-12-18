@@ -45,7 +45,7 @@ export const PasswordProtection: React.FC<PasswordProtectionProps> = ({ onSucces
   };
 
   return (
-    <div className="min-h-screen flex flex-col items-center justify-center px-4 font-sans">
+    <div className="min-h-screen flex flex-col items-center justify-center px-4 font-mono">
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
@@ -57,7 +57,7 @@ export const PasswordProtection: React.FC<PasswordProtectionProps> = ({ onSucces
         </h1>
 
         <div className="bg-white/40 backdrop-blur-sm p-8 rounded-lg shadow-sm border border-wedding-brown/10">
-          <p className="font-sans text-wedding-brown mb-6 uppercase tracking-widest text-xs font-bold">
+          <p className="font-mono text-wedding-brown mb-6 uppercase tracking-widest text-xs font-bold">
             Please enter your name and password
           </p>
 
@@ -69,7 +69,7 @@ export const PasswordProtection: React.FC<PasswordProtectionProps> = ({ onSucces
                 setName(e.target.value);
                 setError(null);
               }}
-              className="w-full px-4 py-3 border-b-2 border-wedding-brown/20 bg-transparent text-center font-sans text-xl text-wedding-brown focus:outline-none focus:border-wedding-green transition-colors placeholder-wedding-brown/30"
+              className="w-full px-4 py-3 border-b-2 border-wedding-brown/20 bg-transparent text-center font-mono text-xl text-wedding-brown focus:outline-none focus:border-wedding-green transition-colors placeholder-wedding-brown/30"
               placeholder="Full Name"
               autoFocus
               disabled={isLoading}
@@ -82,7 +82,7 @@ export const PasswordProtection: React.FC<PasswordProtectionProps> = ({ onSucces
                 setPassword(e.target.value);
                 setError(null);
               }}
-              className="w-full px-4 py-3 border-b-2 border-wedding-brown/20 bg-transparent text-center font-sans text-xl text-wedding-brown focus:outline-none focus:border-wedding-green transition-colors placeholder-wedding-brown/30"
+              className="w-full px-4 py-3 border-b-2 border-wedding-brown/20 bg-transparent text-center font-mono text-xl text-wedding-brown focus:outline-none focus:border-wedding-green transition-colors placeholder-wedding-brown/30"
               placeholder="Password"
               disabled={isLoading}
             />
@@ -92,7 +92,7 @@ export const PasswordProtection: React.FC<PasswordProtectionProps> = ({ onSucces
               whileTap={{ scale: 0.98 }}
               type="submit"
               disabled={isLoading}
-              className={`w-full mt-4 py-3 bg-wedding-brown text-wedding-cream font-sans font-bold uppercase tracking-widest hover:bg-wedding-green transition-colors duration-300 rounded-sm shadow-md flex items-center justify-center ${isLoading ? 'opacity-70 cursor-not-allowed' : ''
+              className={`w-full mt-4 py-3 bg-wedding-brown text-wedding-cream font-mono font-bold uppercase tracking-widest hover:bg-wedding-green transition-colors duration-300 rounded-sm shadow-md flex items-center justify-center ${isLoading ? 'opacity-70 cursor-not-allowed' : ''
                 }`}
             >
               {isLoading ? (
@@ -107,7 +107,7 @@ export const PasswordProtection: React.FC<PasswordProtectionProps> = ({ onSucces
                 <motion.p
                   initial={{ opacity: 0 }}
                   animate={{ opacity: 1 }}
-                  className="text-red-800 font-sans text-sm font-semibold uppercase tracking-wide"
+                  className="text-red-800 font-mono text-sm font-semibold uppercase tracking-wide"
                 >
                   {error}
                 </motion.p>
