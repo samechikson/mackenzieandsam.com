@@ -32,18 +32,18 @@ export const BasicDetails: React.FC = () => {
     const notches = Array.from({ length: 20 });
 
     return (
-      <div className={`relative w-full rounded-3xl bg-wedding-brown flex flex-col ${className} overflow-hidden`}>
+      <div className={`relative w-full rounded-3xl bg-wedding-cream flex flex-col ${className} overflow-hidden`}>
         {/* Top Strip */}
 
         <div className="absolute top-0 w-full h-100 flex justify-between px-8">
           {notches.map((_, i) => (
-            <div key={`top-${i}`} className="w-[2%] h-100 bg-[#F0A6CA]" />
+            <div key={`top-${i}`} className="w-[2%] h-100 bg-[#555b10]" />
           ))}
         </div>
 
         {/* Content */}
         <div className="p-6 w-full flex-1 z-10">
-          <div className="h-full w-full bg-wedding-paper rounded-xl p-8 md:p-12 flex flex-col items-center justify-center text-center">
+          <div className="h-full w-full bg-wedding-blue rounded-xl p-8 md:p-12 flex flex-col items-center justify-center text-center">
             {children}
           </div>
         </div>
@@ -52,7 +52,7 @@ export const BasicDetails: React.FC = () => {
   };
 
   return (
-    <section className="w-full py-24 px-4 md:px-8 flex flex-col items-center gap-12 bg-[#8DA9C4] text-[#3E2723]">
+    <section className="w-full py-24 px-4 md:px-8 flex flex-col items-center gap-12 bg-[#a7a470] text-[#3E2723]">
       <motion.div
         variants={containerVariants}
         initial="hidden"
@@ -71,7 +71,7 @@ export const BasicDetails: React.FC = () => {
         {/* Section 1: Date & Location */}
         <motion.div variants={itemVariants}>
           <FilmStripCard>
-            <div className="w-full grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-4">
+            <div className="w-full grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-4 text-white">
               {/* Date */}
               <div className="flex flex-col items-center gap-4">
                 <h3 className="font-mono text-sm tracking-[0.2em] font-bold uppercase">Date</h3>
@@ -103,7 +103,7 @@ export const BasicDetails: React.FC = () => {
         {/* Section 2: Schedule */}
         <motion.div variants={itemVariants}>
           <FilmStripCard>
-            <div className="w-full grid grid-cols-1 md:grid-cols-3 gap-12 md:gap-4">
+            <div className="w-full grid grid-cols-1 md:grid-cols-3 gap-12 md:gap-4 text-white">
 
               {/* Wednesday */}
               <div className="flex flex-col items-center gap-4">
@@ -136,10 +136,10 @@ export const BasicDetails: React.FC = () => {
         {/* Section 3: Travel Logistics */}
         <motion.div variants={itemVariants}>
           <FilmStripCard>
-            <h2 className="font-mono text-xl text-wedding-green uppercase tracking-wider pb-6">
+            <h2 className="font-mono text-xl text-white uppercase tracking-wider pb-6">
               Travel Logistics
             </h2>
-            <div className="w-full grid grid-cols-1 md:grid-cols-3 gap-12 md:gap-4">
+            <div className="w-full grid grid-cols-1 md:grid-cols-3 gap-12 md:gap-4 text-white">
 
               {/* Wednesday */}
               <div className="flex flex-col items-center gap-4">

@@ -5,6 +5,7 @@
   --color-wedding-green: #556B2F;
   --color-wedding-brown: #5D4037;
   --color-wedding-paper: #FDFBF7;
+  --color-wedding-blue: #8DA9C4;
 
   --font-script: "Amsterdam Four", "Pinyon Script", cursive;
   --font-sans: "Garet", "Montserrat", sans-serif;
@@ -43,10 +44,27 @@ html {
   background: var(--color-wedding-cream);
   animation: l2 1.5s infinite;
 }
+
 @keyframes l2 {
+
   0%,
-  100%{transform:translate(-35px);box-shadow:  0     0 var(--color-wedding-green), 0     0 var(--color-wedding-brown)}
-  40% {transform:translate( 35px);box-shadow: -15px  0 var(--color-wedding-green),-30px  0 var(--color-wedding-brown)}
-  50% {transform:translate( 35px);box-shadow:  0     0 var(--color-wedding-green), 0     0 var(--color-wedding-brown)}
-  90% {transform:translate(-35px);box-shadow:  15px  0 var(--color-wedding-green), 30px  0 var(--color-wedding-brown)}
+  100% {
+    transform: translate(-35px);
+    box-shadow: 0 0 var(--color-wedding-green), 0 0 var(--color-wedding-brown)
+  }
+
+  40% {
+    transform: translate(35px);
+    box-shadow: -15px 0 var(--color-wedding-green), -30px 0 var(--color-wedding-brown)
+  }
+
+  50% {
+    transform: translate(35px);
+    box-shadow: 0 0 var(--color-wedding-green), 0 0 var(--color-wedding-brown)
+  }
+
+  90% {
+    transform: translate(-35px);
+    box-shadow: 15px 0 var(--color-wedding-green), 30px 0 var(--color-wedding-brown)
+  }
 }
