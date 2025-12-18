@@ -38,7 +38,7 @@ export const OurStory: React.FC = () => {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.8, delay: 0.2 }}
-          className="flex flex-col gap-6 font-sans text-lg md:text-xl leading-relaxed"
+          className="flex flex-col gap-6 font-mono text-xl md:text-2xl leading-relaxed"
         >
           <p>
             We had our first date at a board game bar in SF. Somehow, a European boy and a California girl's paths crossed, and thank goodness they did!
