@@ -86,7 +86,7 @@ export const BasicDetails: React.FC = () => {
                 <h3 className="font-mono text-sm tracking-[0.2em] font-bold uppercase">Location</h3>
                 <div className="font-mono text-base uppercase tracking-widest leading-relaxed">
                   Quinta da Bichinha<br />
-                  <span className="text-mono">Aldeia Galega da Merceana, Portugal</span>
+                  <span className="text-mono">Portugal</span>
                 </div>
               </div>
 

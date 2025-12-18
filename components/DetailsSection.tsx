@@ -27,25 +27,12 @@ export const DetailsSection: React.FC = () => {
           whileInView={{ y: 0, opacity: 1 }}
           viewport={{ once: true }}
           transition={{ duration: 1, delay: 0.4 }}
-        ><h3 className="font-mono text-xl md:text-2xl text-wedding-brown mb-4">
-            quinta da bichinha
-          </h3>
-          <p className="font-mono lowercase text-base md:text-xl text-wedding-brown mb-8 tracking-wider">
-            Aldeia Galega da Merceana, Portugal
-          </p>
-
-        </motion.div>
-        <motion.div
-          initial={{ x: 100, opacity: 0 }}
-          whileInView={{ x: 0, opacity: 1 }}
-          viewport={{ once: true }}
-          transition={{ duration: 1, delay: 0.2 }}
         >
-          <p className="font-mono text-base text-wedding-green">
-            Quinta da Bicinha,
-            Estr. de Vila Chã,
-            2580-413, Portugal
-          </p>
+          <h3 className="font-mono text-xl md:text-2xl text-wedding-brown">
+            Quinta da Bichinha
+            <br />
+            Portugal
+          </h3>
         </motion.div>
         <motion.div
           whileTap={{ scale: 0.95 }}
@@ -53,7 +40,7 @@ export const DetailsSection: React.FC = () => {
           <RsvpButton />
         </motion.div>
 
-      </div>
-    </section>
+      </div >
+    </section >
   );
 };
