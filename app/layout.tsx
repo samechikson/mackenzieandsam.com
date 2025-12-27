@@ -27,12 +27,12 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en" className="antialiased bg-wedding-cream">
-      <body className="antialiased bg-wedding-cream bg-[url('/images/textured-background.jpg')] bg-repeat bg-auto bg-fixed">
-        <AuthGuard>
+    <html lang="en" className="antialiased bg-white">
+      <body className="antialiased min-h-screen" style={{ backgroundImage: 'repeating-linear-gradient(90deg, white, white 10px, #e4ecfa 10px, #e4ecfa 20px)' }}>
+        {/* <AuthGuard> */}
           {/* <Navigation /> */}
           {children}
-        </AuthGuard>
+        {/* </AuthGuard> */}
         <Analytics />
       </body>
     </html>

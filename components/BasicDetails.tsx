@@ -37,7 +37,7 @@ export const BasicDetails: React.FC = () => {
 
         <div className="absolute top-0 w-full h-100 flex justify-between px-8">
           {notches.map((_, i) => (
-            <div key={`top-${i}`} className="w-[2%] h-100 bg-[#555b10]" />
+            <div key={`top-${i}`} className="w-[2%] h-100 bg-wedding-green" />
           ))}
         </div>
 
@@ -52,7 +52,7 @@ export const BasicDetails: React.FC = () => {
   };
 
   return (
-    <section className="w-full py-24 px-4 md:px-8 flex flex-col items-center gap-12 bg-[#a7a470] text-[#3E2723]">
+    <section className="w-full py-24 px-4 md:px-8 flex flex-col items-center gap-12 bg-[#cfc9a1] text-[#3E2723]">
       <motion.div
         variants={containerVariants}
         initial="hidden"
