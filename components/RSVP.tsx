@@ -3,6 +3,7 @@
 import React, { useState, FormEvent } from 'react';
 import { motion } from 'framer-motion';
 import { Check } from 'lucide-react';
+import Image from 'next/image';
 
 const ACTIVITIES = [
   { id: 'foodTour', label: 'Lisbon Food Tour' },
@@ -133,6 +134,9 @@ export const RSVP: React.FC = () => {
         transition={{ duration: 0.8 }}
         className="relative z-10 w-full max-w-2xl"
       >
+        <div className="absolute -top-13 right-6">
+          <Image src="/images/otis-head.png" alt="Otis" width={60} height={60} />
+        </div>
         <div className="bg-wedding-paper shadow-2xl px-8 pb-8 rounded-sm relative lg:-rotate-1 border border-wedding-green/10">
           <div className="text-center mb-10">
             <h1 className="font-script text-7xl md:text-9xl mb-12 text-wedding-green lowercase">RSVP</h1>
