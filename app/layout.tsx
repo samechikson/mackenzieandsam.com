@@ -1,7 +1,6 @@
 import React from 'react';
 import './globals.css';
 import AuthGuard from '../components/AuthGuard';
-import { Navigation } from '../components/Navigation';
 import { Analytics } from "@vercel/analytics/next"
 
 // Configure local fonts if needed, but existing CSS handles them via @font-face
@@ -30,7 +29,6 @@ export default function RootLayout({
     <html lang="en" className="antialiased bg-white">
       <body className="antialiased min-h-screen" style={{ backgroundImage: 'repeating-linear-gradient(90deg, white, white 10px, #e4ecfa 10px, #e4ecfa 20px)' }}>
         <AuthGuard>
-          {/* <Navigation /> */}
           {children}
         </AuthGuard>
         <Analytics />
