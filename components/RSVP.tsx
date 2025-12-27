@@ -282,7 +282,7 @@ export const RSVP: React.FC = () => {
               {/* Stay Onsite */}
               <div className="space-y-3">
                 <p className="block text-sm uppercase tracking-widest font-bold text-wedding-green">
-                  Would you like to stay onsite at Quinta da Bichinha? <span className="normal-case font-normal opacity-70 text-xs block mt-1">(Space permitting)</span>
+                  Would you like to stay onsite at Quinta da Bichinha? <span className="normal-case font-normal text-xs block mt-1">(Space permitting)</span>
                 </p>
                 <div className="flex gap-6">
                   <label className="flex items-center gap-2 cursor-pointer group">
@@ -362,7 +362,7 @@ export const RSVP: React.FC = () => {
               {/* Activities */}
               <div className="space-y-4">
                 <p className="block text-sm uppercase tracking-widest font-bold text-wedding-green">
-                  Interested Activities <span className="block normal-case font-normal opacity-70 text-xs mt-1">(Check all that apply)</span>
+                  Interested Activities before the wedding <span className="block normal-case font-normal text-xs mt-1">Informal gatherings the few days before the wedding. Check all that you are interested in, and we will send more details as the date approaches.</span>
                 </p>
 
                 <div className="grid md:grid-cols-1 gap-3">
