@@ -160,14 +160,14 @@ export const BasicDetails: React.FC = () => {
               {/* Friday */}
               <div className="flex flex-col items-center gap-4">
                 <h3 className="font-mono text-sm tracking-[0.2em] font-bold uppercase whitespace-nowrap">Getting to the Quinta</h3>
-                <p className="font-mono text-sm uppercase tracking-wider max-w-[200px] leading-relaxed">
+                <div className="font-mono text-sm uppercase tracking-wider max-w-[200px] leading-relaxed">
                   <p className="mb-2">Options from Lisbon (45-60 min):</p>
                   <ul className="text-sm space-y-1 opacity-80">
                     <li>• Rental car (recommended)</li>
                     <li>• Private transfer</li>
                     <li>• Taxi/Uber/Bolt</li>
                   </ul>
-                </p>
+                </div>
               </div>
 
             </div>

@@ -50,10 +50,7 @@ export const OurStory: React.FC = () => {
             So here we are, ready to make it official (and throw a really good party while we’re at it).
           </p>
           <p>
-            We can’t wait to celebrate this big moment with our favorite people. We want to tie the knot in the best way possible.
-          </p>
-          <p>
-            Join us in marking the beginning of our next chapter in Portugal, surrounded by good food, great music, and lots of love.
+            Join us in Portugal to celebrate this big moment with our favorite people. We want to tie the knot in the best way possible.
           </p>
           <p>
             Mark your calendars, pack your dancing shoes, and get ready for a trip full of laughter, dancing, memories, and a few happy tears.
