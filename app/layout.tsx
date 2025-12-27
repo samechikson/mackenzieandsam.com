@@ -29,10 +29,10 @@ export default function RootLayout({
   return (
     <html lang="en" className="antialiased bg-white">
       <body className="antialiased min-h-screen" style={{ backgroundImage: 'repeating-linear-gradient(90deg, white, white 10px, #e4ecfa 10px, #e4ecfa 20px)' }}>
-        {/* <AuthGuard> */}
+        <AuthGuard>
           {/* <Navigation /> */}
           {children}
-        {/* </AuthGuard> */}
+        </AuthGuard>
         <Analytics />
       </body>
     </html>

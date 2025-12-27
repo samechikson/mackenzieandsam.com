@@ -15,6 +15,8 @@ const ACTIVITIES = [
 export const RSVP: React.FC = () => {
   const [formData, setFormData] = useState({
     name: '',
+    email: '',
+    phone: '',
     attending: '',
     guests: 1,
     dietary: '',
@@ -73,6 +75,8 @@ export const RSVP: React.FC = () => {
       },
       body: JSON.stringify({
         name: formData.name,
+        email: formData.email,
+        phone: formData.phone,
         attending: formData.attending,
         guests: formData.attending === 'yes' ? formData.guests : 0,
         dietary: formData.attending === 'yes' ? formData.dietary : '',
@@ -208,10 +212,44 @@ export const RSVP: React.FC = () => {
               }}
               className="space-y-8"
             >
+              {/* Email */}
+              <div className="space-y-2">
+                <label htmlFor="email" className="block text-sm uppercase tracking-widest font-bold text-wedding-green">
+                  Email Address
+                </label>
+                <input
+                  type="email"
+                  id="email"
+                  name="email"
+                  required={formData.attending === 'yes'}
+                  value={formData.email}
+                  onChange={handleInputChange}
+                  className="w-full bg-transparent border-b-2 border-wedding-brown/20 focus:border-wedding-green outline-none py-2 transition-colors text-lg placeholder-wedding-brown/30"
+                  placeholder="jane@example.com"
+                />
+              </div>
+
+              {/* Phone */}
+              <div className="space-y-2">
+                <label htmlFor="phone" className="block text-sm uppercase tracking-widest font-bold text-wedding-green">
+                  Phone Number
+                </label>
+                <input
+                  type="tel"
+                  id="phone"
+                  name="phone"
+                  required={formData.attending === 'yes'}
+                  value={formData.phone}
+                  onChange={handleInputChange}
+                  className="w-full bg-transparent border-b-2 border-wedding-brown/20 focus:border-wedding-green outline-none py-2 transition-colors text-lg placeholder-wedding-brown/30"
+                  placeholder="+1 (555) 123-4567"
+                />
+              </div>
+
               {/* Guests */}
               <div className="space-y-2">
                 <label htmlFor="guests" className="block text-sm uppercase tracking-widest font-bold text-wedding-green">
-                  Number of Guests
+                  Number of Guests in Your Party
                 </label>
                 <input
                   type="number"

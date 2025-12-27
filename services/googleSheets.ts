@@ -83,6 +83,8 @@ export async function checkGuestName(name: string): Promise<boolean> {
 
 export interface RsvpData {
     name: string;
+    email: string;
+    phone: string;
     attending: string;
     guests: number;
     dietary: string;
@@ -107,6 +109,8 @@ export async function submitRsvp(data: RsvpData): Promise<void> {
     const timestamp = new Date().toISOString();
     const rowData = {
       'Name': data.name,
+      'Email': data.email,
+      'Phone Number': data.phone,
       'Attending': data.attending,
       'Number of Guests': data.guests,
       'Dietary restrictions': data.dietary,
