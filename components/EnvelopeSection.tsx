@@ -37,7 +37,7 @@ export const EnvelopeSection: React.FC = () => {
   const card3Rotate = useTransform(scrollYProgress, [0.2, 0.6], [0, 35]);
 
   // Card 4 (vineyard photo): slides up and rotates based on scroll
-  const card4Y = useTransform(scrollYProgress, [0, 0.9], [140, -80]);
+  const card4Y = useTransform(scrollYProgress, [0, 0.9], [100, -180]);
   const card4X = useTransform(scrollYProgress, [0, 0.9], [100, 120]);
   const card4Rotate = useTransform(scrollYProgress, [0, 0.6], [0, -5]);
 
