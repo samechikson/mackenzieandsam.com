@@ -3,6 +3,101 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import { RsvpButton } from './RsvpButton';
+import { MapPin } from 'lucide-react';
+import { div } from 'framer-motion/client';
+
+const DETAILS_DATA = [
+  {
+    id: 'ceremony',
+    items: [
+      {
+        title: 'Ceremony Date',
+        content: (
+          <>
+            Thursday <br />
+            6th of May, 2027
+          </>
+        ),
+      },
+      {
+        title: 'Location',
+        content: (
+          <a
+            href="https://maps.app.goo.gl/ctcqSJBekBprL7Sx5"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="hover:text-stone-300 transition-colors inline-flex flex-col items-center"
+          >
+            Quinta da Bichinha<br />
+            <span className="text-mono">Portugal</span>
+            <MapPin className="inline mt-1" size={16} />
+          </a>
+        ),
+      },
+      {
+        title: 'Time',
+        content: (
+          <>
+            Ceremony at 4:00pm <br />
+            Cocktails & <br /> Dinner to follow
+          </>
+        ),
+      },
+    ],
+  },
+  {
+    id: 'schedule',
+    items: [
+      {
+        title: 'Wednesday May 5th',
+        content: (
+          <>
+            Welcome Pella Feast & Drinks<br />
+            Before the big day!
+          </>
+        ),
+        footer: (<div className='flex flex-row gap-2 justify-center items-center'><MapPin size={16} /> Quinta da Bichinha</div>)
+      },
+      {
+        title: 'Thursday May 6th',
+        content: "The Wedding ceremony, dinner, and dancing 'till late",
+        footer: (<div className='flex flex-row gap-2 justify-center items-center'><MapPin size={16} /> Quinta da Bichinha</div>)
+      },
+      {
+        title: 'Friday May 7th',
+        content: 'Brunch & goodbyes. Recover, refuel, and debrief the funny moments',
+        footer: (<div className='flex flex-row gap-2 justify-center items-center'><MapPin size={16} /> Quinta da Bichinha</div>)
+      },
+    ],
+  },
+  {
+    id: 'travel',
+    header: 'Travel Logistics',
+    items: [
+      {
+        title: 'Passport',
+        content: 'Please ensure you have a valid passport for entry into Portugal. MUST NOT EXPIRE WITHIN 3 MONTHS after your trip',
+      },
+      {
+        title: 'Flying in',
+        content: 'Lisbon Humberto Delgado Airport (LIS) is the closest major airport.',
+      },
+      {
+        title: 'Getting to the Quinta',
+        content: (
+          <div className="flex flex-col items-center">
+            <p className="mb-2">Options from Lisbon (45-60 min):</p>
+            <ul className="space-y-1 opacity-80 list-none">
+              <li>• Rental car (recommended)</li>
+              <li>• Taxi/Uber/Bolt</li>
+              <li>• LIS to Quinta shuttle to be arranged</li>
+            </ul>
+          </div>
+        ),
+      },
+    ],
+  },
+];
 
 export const BasicDetails: React.FC = () => {
   const containerVariants = {
@@ -28,16 +123,14 @@ export const BasicDetails: React.FC = () => {
 
   const FilmStripCard = ({ children, className = "" }: { children: React.ReactNode; className?: string }) => {
     // Generate notches for the strip effect
-    // We create enough to cover wide screens. 
     const notches = Array.from({ length: 20 });
 
     return (
       <div className={`relative w-full rounded-3xl bg-wedding-cream flex flex-col ${className} overflow-hidden`}>
         {/* Top Strip */}
-
-        <div className="absolute top-0 w-full h-100 flex justify-between px-8">
+        <div className="absolute top-0 w-full h-8 flex justify-between px-8">
           {notches.map((_, i) => (
-            <div key={`top-${i}`} className="w-[2%] h-100 bg-wedding-green" />
+            <div key={`top-${i}`} className="w-[2%] h-200 bg-wedding-green" />
           ))}
         </div>
 
@@ -53,11 +146,7 @@ export const BasicDetails: React.FC = () => {
 
   return (
     <section className="w-full py-24 px-4 md:px-8 flex flex-col items-center gap-12 bg-[#cfc9a1] text-[#3E2723]">
-      <motion.div
-        variants={containerVariants}
-        initial="hidden"
-        whileInView="visible"
-        viewport={{ once: true, margin: '-100px' }}
+      <div
         className="w-full max-w-5xl flex flex-col gap-16"
       >
         {/* Header */}
@@ -68,118 +157,35 @@ export const BasicDetails: React.FC = () => {
           ALL THE INFORMATION:
         </motion.h2>
 
-        {/* Section 1: Date & Location */}
-        <motion.div variants={itemVariants}>
-          <FilmStripCard>
-            <div className="w-full grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-4 text-white">
-              {/* Date */}
-              <div className="flex flex-col items-center gap-4">
-                <h3 className="font-mono text-sm tracking-[0.2em] font-bold uppercase">Date</h3>
-                <div className="font-mono text-base uppercase tracking-widest leading-relaxed">
-                  May 6th<br />
-                  Ceremony
-                </div>
+        {DETAILS_DATA.map((section) => (
+          <motion.div key={section.id} variants={itemVariants}>
+            <FilmStripCard>
+              {section.header && (
+                <h2 className="font-mono text-xl text-white uppercase tracking-wider pb-6">
+                  {section.header}
+                </h2>
+              )}
+              <div className="w-full grid grid-cols-1 md:grid-cols-3 gap-12 md:gap-4 text-white">
+                {section.items.map((item, index) => (
+                  <div key={index} className="flex flex-col items-center gap-4">
+                    <h3 className="font-mono text-base tracking-[0.2em] font-bold uppercase whitespace-nowrap">
+                      {item.title}
+                    </h3>
+                    <div className="font-mono text-sm uppercase tracking-wider max-w-[250px] leading-relaxed flex flex-col items-center">
+                      {item.content}
+                    </div>
+                    {item.footer && (
+                      <div className="font-mono text-xs uppercase tracking-wider max-w-[250px] leading-relaxed flex flex-col items-center">
+                        {item.footer}
+                      </div>
+                    )}
+                  </div>
+                ))}
               </div>
-
-              {/* Location */}
-              <div className="flex flex-col items-center gap-4">
-                <h3 className="font-mono text-sm tracking-[0.2em] font-bold uppercase">Location</h3>
-                <div className="font-mono text-base uppercase tracking-widest leading-relaxed">
-                  Quinta da Bichinha<br />
-                  <span className="text-mono">Portugal</span>
-                </div>
-              </div>
-
-              <div className="flex flex-col items-center gap-4">
-                <h3 className="font-mono text-sm tracking-[0.2em] font-bold uppercase">Time</h3>
-                <div className="font-mono text-base uppercase tracking-widest leading-relaxed">
-                  Late afternoon
-                </div>
-              </div>
-            </div>
-          </FilmStripCard>
-        </motion.div>
-
-        {/* Section 2: Schedule */}
-        <motion.div variants={itemVariants}>
-          <FilmStripCard>
-            <div className="w-full grid grid-cols-1 md:grid-cols-3 gap-12 md:gap-4 text-white">
-
-              {/* Wednesday */}
-              <div className="flex flex-col items-center gap-4">
-                <h3 className="font-mono text-sm tracking-[0.2em] font-bold uppercase whitespace-nowrap">Wednesday May 5th</h3>
-                <p className="font-mono text-sm uppercase tracking-wider max-w-[200px] leading-relaxed">
-                  Drop by for a drink and laughs before the big day!
-                </p>
-              </div>
-
-              {/* Thursday */}
-              <div className="flex flex-col items-center gap-4">
-                <h3 className="font-mono text-sm tracking-[0.2em] font-bold uppercase whitespace-nowrap">Thursday May 6th</h3>
-                <p className="font-mono text-sm uppercase tracking-wider max-w-[200px] leading-relaxed">
-                  The Wedding ceremony, dinner, and dancing 'till late
-                </p>
-              </div>
-
-              {/* Friday */}
-              <div className="flex flex-col items-center gap-4">
-                <h3 className="font-mono text-sm tracking-[0.2em] font-bold uppercase whitespace-nowrap">Friday May 7th</h3>
-                <p className="font-mono text-sm uppercase tracking-wider max-w-[200px] leading-relaxed">
-                  Brunch & Goodbyes. Recover, Refuel, and relive the moments.
-                </p>
-              </div>
-
-            </div>
-          </FilmStripCard>
-        </motion.div>
-
-        {/* Section 3: Travel Logistics */}
-        <motion.div variants={itemVariants}>
-          <FilmStripCard>
-            <h2 className="font-mono text-xl text-white uppercase tracking-wider pb-6">
-              Travel Logistics
-            </h2>
-            <div className="w-full grid grid-cols-1 md:grid-cols-3 gap-12 md:gap-4 text-white">
-
-              {/* Wednesday */}
-              <div className="flex flex-col items-center gap-4">
-                <h3 className="font-mono text-sm tracking-[0.2em] font-bold uppercase whitespace-nowrap">Passport</h3>
-                <p className="font-mono text-sm uppercase tracking-wider max-w-[200px] leading-relaxed">
-                  Please ensure you have a valid passport for entry into Portugal.
-                </p>
-              </div>
-
-              {/* Thursday */}
-              <div className="flex flex-col items-center gap-4">
-                <h3 className="font-mono text-sm tracking-[0.2em] font-bold uppercase whitespace-nowrap">Flying in</h3>
-                <p className="font-mono text-sm uppercase tracking-wider max-w-[200px] leading-relaxed">
-                  Lisbon Humberto Delgado Airport (LIS) is the closest major airport.
-                </p>
-              </div>
-
-              {/* Friday */}
-              <div className="flex flex-col items-center gap-4">
-                <h3 className="font-mono text-sm tracking-[0.2em] font-bold uppercase whitespace-nowrap">Getting to the Quinta</h3>
-                <div className="font-mono text-sm uppercase tracking-wider max-w-[200px] leading-relaxed">
-                  <p className="mb-2">Options from Lisbon (45-60 min):</p>
-                  <ul className="text-sm space-y-1 opacity-80">
-                    <li>• Rental car (recommended)</li>
-                    <li>• Private transfer</li>
-                    <li>• Taxi/Uber/Bolt</li>
-                  </ul>
-                </div>
-              </div>
-
-            </div>
-          </FilmStripCard>
-        </motion.div>
-
-        {/* Button */}
-        <motion.div variants={itemVariants} className="flex justify-center mt-4">
-          <RsvpButton />
-        </motion.div>
-
-      </motion.div>
+            </FilmStripCard>
+          </motion.div>
+        ))}
+      </div>
     </section>
   );
 };
