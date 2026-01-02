@@ -87,6 +87,7 @@ export interface RsvpData {
     phone: string;
     attending: string;
     guests: number;
+    guestNames: string[];
     dietary: string;
     stayOnsite: boolean;
     transfer: boolean;
@@ -113,6 +114,7 @@ export async function submitRsvp(data: RsvpData): Promise<void> {
       'Phone Number': data.phone,
       'Attending': data.attending,
       'Number of Guests': data.guests,
+      'Guest Names': data.guestNames.join(', '),
       'Dietary restrictions': data.dietary,
       'Stay at quinta': data.stayOnsite,
       'Needs transfer': data.transfer,

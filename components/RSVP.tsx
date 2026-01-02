@@ -20,6 +20,7 @@ export const RSVP: React.FC = () => {
     phone: '',
     attending: '',
     guests: 1,
+    guestNames: [] as string[],
     dietary: '',
     stayOnsite: '',
     transfer: '',
@@ -45,7 +46,33 @@ export const RSVP: React.FC = () => {
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;
-    setFormData((prev) => ({ ...prev, [name]: value }));
+
+    if (name === 'guests') {
+      const count = parseInt(value) || 1;
+      setFormData((prev) => {
+        const extraGuests = count - 1;
+        let newGuestNames = [...prev.guestNames];
+
+        if (extraGuests > newGuestNames.length) {
+          const toAdd = extraGuests - newGuestNames.length;
+          newGuestNames = [...newGuestNames, ...Array(toAdd).fill('')];
+        } else if (extraGuests < newGuestNames.length) {
+          newGuestNames = newGuestNames.slice(0, extraGuests);
+        }
+
+        return { ...prev, [name]: count, guestNames: newGuestNames };
+      });
+    } else {
+      setFormData((prev) => ({ ...prev, [name]: value }));
+    }
+  };
+
+  const handleGuestNameChange = (index: number, value: string) => {
+    setFormData((prev) => {
+      const newGuestNames = [...prev.guestNames];
+      newGuestNames[index] = value;
+      return { ...prev, guestNames: newGuestNames };
+    });
   };
 
   const handleCheckboxChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -80,7 +107,10 @@ export const RSVP: React.FC = () => {
         phone: formData.phone,
         attending: formData.attending,
         guests: formData.attending === 'yes' ? formData.guests : 0,
-        dietary: formData.attending === 'yes' ? formData.dietary : '',
+        guestNames: formData.guestNames,
+        dietary: formData.attending === 'yes'
+          ? formData.dietary
+          : '',
         stayOnsite: formData.attending === 'yes' ? formData.stayOnsite : '',
         transfer: formData.attending === 'yes' ? formData.transfer : '',
         activities: formData.attending === 'yes' ? formatActivities() : '',
@@ -251,20 +281,49 @@ export const RSVP: React.FC = () => {
               </div>
 
               {/* Guests */}
-              <div className="space-y-2">
-                <label htmlFor="guests" className="block text-sm uppercase tracking-widest font-bold text-wedding-green">
-                  Number of Guests in Your Party
-                </label>
-                <input
-                  type="number"
-                  id="guests"
-                  name="guests"
-                  min="1"
-                  required={formData.attending === 'yes'}
-                  value={formData.guests}
-                  onChange={handleInputChange}
-                  className="w-full bg-transparent border-b-2 border-wedding-brown/20 focus:border-wedding-green outline-none py-2 transition-colors text-lg"
-                />
+              <div className="space-y-4">
+                <div className="space-y-2">
+                  <label htmlFor="guests" className="block text-sm uppercase tracking-widest font-bold text-wedding-green">
+                    Number of Guests in Your Party
+                  </label>
+                  <input
+                    type="number"
+                    id="guests"
+                    name="guests"
+                    min="1"
+                    required={formData.attending === 'yes'}
+                    value={formData.guests}
+                    onChange={handleInputChange}
+                    className="w-full bg-transparent border-b-2 border-wedding-brown/20 focus:border-wedding-green outline-none py-2 transition-colors text-lg"
+                  />
+                </div>
+
+                {formData.guestNames.length > 0 && (
+                  <div className="space-y-4 pl-4 border-l-2 border-wedding-green/20">
+                    {formData.guestNames.map((guestName, index) => (
+                      <motion.div
+                        key={index}
+                        initial={{ opacity: 0, x: -10 }}
+                        animate={{ opacity: 1, x: 0 }}
+                        transition={{ delay: index * 0.1 }}
+                        className="space-y-2"
+                      >
+                        <label htmlFor={`guest-${index}`} className="block text-sm uppercase tracking-widest font-bold text-wedding-green">
+                          Guest {index + 2} Name
+                        </label>
+                        <input
+                          type="text"
+                          id={`guest-${index}`}
+                          required={formData.attending === 'yes'}
+                          value={guestName}
+                          onChange={(e) => handleGuestNameChange(index, e.target.value)}
+                          className="w-full bg-transparent border-b-2 border-wedding-brown/20 focus:border-wedding-green outline-none py-2 transition-colors text-lg placeholder-wedding-brown/30"
+                          placeholder="Full Name"
+                        />
+                      </motion.div>
+                    ))}
+                  </div>
+                )}
               </div>
 
               {/* Dietary */}
