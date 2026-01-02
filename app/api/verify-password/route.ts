@@ -1,6 +1,6 @@
 import { NextResponse } from 'next/server';
 import { cookies } from 'next/headers';
-import { checkGuestName } from '../../../services/googleSheets';
+import { checkGuestName, updateVisitStats } from '../../../services/googleSheets';
 
 export async function POST(request: Request) {
   try {
@@ -34,6 +34,9 @@ export async function POST(request: Request) {
         path: '/',
         maxAge: 60 * 60 * 24 * 7, // 1 week
       });
+
+      // Persist visit stats to Google Sheets
+      await updateVisitStats(name);
 
       return NextResponse.json({ success: true });
     } else {

@@ -141,3 +141,45 @@ export async function submitRsvp(data: RsvpData): Promise<void> {
         });
     }
 }
+
+export async function updateVisitStats(name: string): Promise<void> {
+    const doc = await getDoc();
+    
+    if (!GOOGLE_SHEET_RESPONSES_ID) {
+        throw new Error('GOOGLE_SHEET_RESPONSES_ID is not defined');
+    }
+
+    const sheetResponses = doc.sheetsById[GOOGLE_SHEET_RESPONSES_ID];
+
+    if (!sheetResponses) {
+        throw new Error('Responses sheet not found');
+    }
+
+    const rows = await sheetResponses.getRows();
+    const targetRow = rows.find(row => {
+        const rowName = row.get('Name');
+        return rowName && typeof rowName === 'string' && isFuzzyMatch(name, rowName);
+    });
+
+    const formattedDate = new Date().toLocaleString('en-US', {
+        dateStyle: 'medium',
+        timeStyle: 'short',
+    });
+
+    if (targetRow) {
+      console.log('Guest found in guest list. Updating stats.');
+      const currentVisits = parseInt(targetRow.get('Visited Times') || '0', 10);
+      targetRow.assign({
+          'Visited Times': currentVisits + 1,
+          'Latest Visit': formattedDate
+      });
+      await targetRow.save();
+    } else {
+      console.log('Guest not found in guest list. Adding new guest.');
+      await sheetResponses.addRow({
+        'Name': name,
+        'Visited Times': 1,
+        'Latest Visit': formattedDate
+      });
+    }
+}
