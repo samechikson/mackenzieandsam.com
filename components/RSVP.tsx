@@ -202,7 +202,7 @@ export const RSVP: React.FC = () => {
         >
           <h1 className="font-script text-5xl md:text-6xl text-wedding-green mb-8 lowercase">Thank You!</h1>
           <p className="font-mono text-wedding-brown text-lg">
-            We've received your RSVP. We can't wait to see you in Portugal!
+            We've received your RSVP. {formData.attending === 'yes' ? 'We can\'t wait to see you in Portugal! If you need to change anything about your RSVP, please re-submit this form or contact us.' : 'Thank you for letting us know - you will be missed!'}
           </p>
         </motion.div>
       </div>
@@ -319,7 +319,7 @@ export const RSVP: React.FC = () => {
               {/* Phone */}
               <div className="space-y-2">
                 <label htmlFor="phone" className="block text-sm uppercase tracking-widest font-bold text-wedding-green">
-                  Phone Number
+                  Phone Number <span className="block normal-case font-normal text-xs mt-1">For wedding event updates</span>
                 </label>
                 <input
                   type="tel"
@@ -376,7 +376,7 @@ export const RSVP: React.FC = () => {
                         </div>
                         <div className="space-y-2">
                           <label htmlFor={`guest-email-${index}`} className="block text-sm uppercase tracking-widest font-bold text-wedding-green">
-                            Guest {index + 2} Email Address
+                            Guest {index + 2} Email Address <span className="block normal-case font-normal text-xs mt-1">Optional</span>
                           </label>
                           <input
                             type="email"
@@ -389,7 +389,7 @@ export const RSVP: React.FC = () => {
                         </div>
                         <div className="space-y-2">
                           <label htmlFor={`guest-phone-${index}`} className="block text-sm uppercase tracking-widest font-bold text-wedding-green">
-                            Guest {index + 2} Phone Number
+                            Guest {index + 2} Phone Number <span className="block normal-case font-normal text-xs mt-1">Optional</span>
                           </label>
                           <input
                             type="tel"
@@ -409,7 +409,7 @@ export const RSVP: React.FC = () => {
               {/* Welcome Dinner */}
               <div className="space-y-3">
                 <p className="block text-sm uppercase tracking-widest font-bold text-wedding-green">
-                  Will you be attending the welcome dinner?
+                  Will you be attending the welcome dinner on May 5th?
                 </p>
                 <div className="flex gap-6">
                   <label className="flex items-center gap-2 cursor-pointer group">
@@ -462,7 +462,7 @@ export const RSVP: React.FC = () => {
               {/* Stay Onsite */}
               <div className="space-y-3">
                 <p className="block text-sm uppercase tracking-widest font-bold text-wedding-green">
-                  Would you like to stay onsite at Quinta da Bichinha? <span className="normal-case font-normal text-xs block mt-1">(Space permitting)</span>
+                  Would you like to stay onsite at Quinta da Bichinha? <span className="normal-case font-normal text-xs block mt-1">Space permitting</span>
                 </p>
                 <div className="flex gap-6">
                   <label className="flex items-center gap-2 cursor-pointer group">
