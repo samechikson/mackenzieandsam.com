@@ -31,6 +31,7 @@ export const RSVP: React.FC = () => {
       sintraTour: false,
       timeoutMarket: false,
     },
+    welcomeDinner: '',
   });
 
   const [submitted, setSubmitted] = useState(false);
@@ -114,6 +115,7 @@ export const RSVP: React.FC = () => {
         stayOnsite: formData.attending === 'yes' ? formData.stayOnsite : '',
         transfer: formData.attending === 'yes' ? formData.transfer : '',
         activities: formData.attending === 'yes' ? formatActivities() : '',
+        welcomeDinner: formData.attending === 'yes' ? formData.welcomeDinner : '',
       }),
     });
 
@@ -235,6 +237,7 @@ export const RSVP: React.FC = () => {
                   <span className="group-hover:text-wedding-green transition-colors">Regretfully Decline</span>
                 </label>
               </div>
+
             </div>
 
             <motion.div
@@ -324,6 +327,43 @@ export const RSVP: React.FC = () => {
                     ))}
                   </div>
                 )}
+              </div>
+
+              {/* Welcome Dinner */}
+              <div className="space-y-3">
+                <p className="block text-sm uppercase tracking-widest font-bold text-wedding-green">
+                  Will you be attending the welcome dinner?
+                </p>
+                <div className="flex gap-6">
+                  <label className="flex items-center gap-2 cursor-pointer group">
+                    <div className={`w-5 h-5 rounded-full border border-wedding-brown flex items-center justify-center transition-colors ${formData.welcomeDinner === 'yes' ? 'border-wedding-green' : ''}`}>
+                      {formData.welcomeDinner === 'yes' && <div className="w-3 h-3 bg-wedding-green rounded-full" />}
+                    </div>
+                    <input
+                      type="radio"
+                      name="welcomeDinner"
+                      value="yes"
+                      checked={formData.welcomeDinner === 'yes'}
+                      onChange={handleInputChange}
+                      className="hidden"
+                    />
+                    <span className="group-hover:text-wedding-green transition-colors">Yes, I'll be there!</span>
+                  </label>
+                  <label className="flex items-center gap-2 cursor-pointer group">
+                    <div className={`w-5 h-5 rounded-full border border-wedding-brown flex items-center justify-center transition-colors ${formData.welcomeDinner === 'no' ? 'border-wedding-green' : ''}`}>
+                      {formData.welcomeDinner === 'no' && <div className="w-3 h-3 bg-wedding-green rounded-full" />}
+                    </div>
+                    <input
+                      type="radio"
+                      name="welcomeDinner"
+                      value="no"
+                      checked={formData.welcomeDinner === 'no'}
+                      onChange={handleInputChange}
+                      className="hidden"
+                    />
+                    <span className="group-hover:text-wedding-green transition-colors">No, I can't make it</span>
+                  </label>
+                </div>
               </div>
 
               {/* Dietary */}
@@ -463,7 +503,7 @@ export const RSVP: React.FC = () => {
 
           </form>
         </div>
-      </motion.div>
-    </div>
+      </motion.div >
+    </div >
   );
 };

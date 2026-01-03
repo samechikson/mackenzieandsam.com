@@ -92,6 +92,7 @@ export interface RsvpData {
     stayOnsite: boolean;
     transfer: boolean;
     activities: string;
+    welcomeDinner: string;
 }
 
 export async function submitRsvp(data: RsvpData): Promise<void> {
@@ -107,7 +108,10 @@ export async function submitRsvp(data: RsvpData): Promise<void> {
          throw new Error('Responses sheet not found');
     }
 
-    const timestamp = new Date().toISOString();
+    const timestamp = new Date().toLocaleString('en-US', {
+        dateStyle: 'medium',
+        timeStyle: 'short',
+    });
     const rowData = {
       'Name': data.name,
       'Email': data.email,
@@ -115,10 +119,11 @@ export async function submitRsvp(data: RsvpData): Promise<void> {
       'Attending': data.attending,
       'Number of Guests': data.guests,
       'Guest Names': data.guestNames.join(', '),
+      'Welcome Dinner': data.welcomeDinner,
       'Dietary restrictions': data.dietary,
       'Stay at quinta': data.stayOnsite,
       'Needs transfer': data.transfer,
-      'activities': data.activities
+      'Activities': data.activities
     };
 
     const rows = await sheetResponses.getRows();
@@ -128,6 +133,7 @@ export async function submitRsvp(data: RsvpData): Promise<void> {
     });
 
     if (existingRow) {
+      console.log('Guest found in guest list. Updating stats.');
         existingRow.assign({
             ...rowData,
             'Updated': timestamp

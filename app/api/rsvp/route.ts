@@ -7,15 +7,6 @@ export async function POST(request: Request) {
     const body = await request.json();
     const { 
       name, 
-      email,
-      phone,
-      attending,
-      guests,
-      guestNames,
-      dietary, 
-      stayOnsite, 
-      transfer, 
-      activities 
     } = body;
 
     // Fuzzy match check
@@ -28,18 +19,7 @@ export async function POST(request: Request) {
         );
     }
 
-    await submitRsvp({
-      name,
-      email,
-      phone,
-      attending,
-      guests,
-      guestNames,
-      dietary,
-      stayOnsite,
-      transfer,
-      activities
-    });
+    await submitRsvp(body);
 
     return NextResponse.json({ success: true, message: 'rsvp submitted successfully' });
   } catch (error: any) {
