@@ -194,7 +194,7 @@ export const RSVP: React.FC = () => {
 
   if (submitted) {
     return (
-      <div className="min-h-screen bg-wedding-cream flex items-center justify-center p-4">
+      <div className="min-h-screen flex items-center justify-center p-4">
         <motion.div
           initial={{ opacity: 0, scale: 0.9 }}
           animate={{ opacity: 1, scale: 1 }}
@@ -309,7 +309,6 @@ export const RSVP: React.FC = () => {
                   type="email"
                   id="email"
                   name="email"
-                  required={formData.attending === 'yes'}
                   value={formData.email}
                   onChange={handleInputChange}
                   className="w-full bg-transparent border-b-2 border-wedding-brown/20 focus:border-wedding-green outline-none py-2 transition-colors text-lg placeholder-wedding-brown/30"
@@ -326,7 +325,6 @@ export const RSVP: React.FC = () => {
                   type="tel"
                   id="phone"
                   name="phone"
-                  required={formData.attending === 'yes'}
                   value={formData.phone}
                   onChange={handleInputChange}
                   className="w-full bg-transparent border-b-2 border-wedding-brown/20 focus:border-wedding-green outline-none py-2 transition-colors text-lg placeholder-wedding-brown/30"
@@ -383,7 +381,6 @@ export const RSVP: React.FC = () => {
                           <input
                             type="email"
                             id={`guest-email-${index}`}
-                            required={formData.attending === 'yes'}
                             value={formData.guestEmails[index]}
                             onChange={(e) => handleGuestEmailChange(index, e.target.value)}
                             className="w-full bg-transparent border-b-2 border-wedding-brown/20 focus:border-wedding-green outline-none py-2 transition-colors text-lg placeholder-wedding-brown/30"
@@ -397,7 +394,6 @@ export const RSVP: React.FC = () => {
                           <input
                             type="tel"
                             id={`guest-phone-${index}`}
-                            required={formData.attending === 'yes'}
                             value={formData.guestPhones[index]}
                             onChange={(e) => handleGuestPhoneChange(index, e.target.value)}
                             className="w-full bg-transparent border-b-2 border-wedding-brown/20 focus:border-wedding-green outline-none py-2 transition-colors text-lg placeholder-wedding-brown/30"
