@@ -22,6 +22,8 @@ export const RSVP: React.FC = () => {
     attending: '',
     guests: 1,
     guestNames: [] as string[],
+    guestPhones: [] as string[],
+    guestEmails: [] as string[],
     dietary: '',
     stayOnsite: '',
     transfer: '',
@@ -54,15 +56,21 @@ export const RSVP: React.FC = () => {
       setFormData((prev) => {
         const extraGuests = count - 1;
         let newGuestNames = [...prev.guestNames];
+        let newGuestPhones = [...prev.guestPhones];
+        let newGuestEmails = [...prev.guestEmails];
 
         if (extraGuests > newGuestNames.length) {
           const toAdd = extraGuests - newGuestNames.length;
           newGuestNames = [...newGuestNames, ...Array(toAdd).fill('')];
+          newGuestPhones = [...newGuestPhones, ...Array(toAdd).fill('')];
+          newGuestEmails = [...newGuestEmails, ...Array(toAdd).fill('')];
         } else if (extraGuests < newGuestNames.length) {
           newGuestNames = newGuestNames.slice(0, extraGuests);
+          newGuestPhones = newGuestPhones.slice(0, extraGuests);
+          newGuestEmails = newGuestEmails.slice(0, extraGuests);
         }
 
-        return { ...prev, [name]: count, guestNames: newGuestNames };
+        return { ...prev, [name]: count, guestNames: newGuestNames, guestPhones: newGuestPhones, guestEmails: newGuestEmails };
       });
     } else if (name === 'phone') {
       console.log(value);
@@ -79,6 +87,23 @@ export const RSVP: React.FC = () => {
       const newGuestNames = [...prev.guestNames];
       newGuestNames[index] = value;
       return { ...prev, guestNames: newGuestNames };
+    });
+  };
+
+  const handleGuestPhoneChange = (index: number, value: string) => {
+    const formatted = new AsYouType().input(value);
+    setFormData((prev) => {
+      const newGuestPhones = [...prev.guestPhones];
+      newGuestPhones[index] = formatted;
+      return { ...prev, guestPhones: newGuestPhones };
+    });
+  };
+
+  const handleGuestEmailChange = (index: number, value: string) => {
+    setFormData((prev) => {
+      const newGuestEmails = [...prev.guestEmails];
+      newGuestEmails[index] = value;
+      return { ...prev, guestEmails: newGuestEmails };
     });
   };
 
@@ -102,7 +127,7 @@ export const RSVP: React.FC = () => {
       .join(', ');
   };
 
-  const submitToGoogleSheets = async (name: string) => {
+  const submitToGoogleSheets = async (name: string, phone: string, email: string) => {
     const response = await fetch('/api/rsvp', {
       method: 'POST',
       headers: {
@@ -110,8 +135,8 @@ export const RSVP: React.FC = () => {
       },
       body: JSON.stringify({
         name: name,
-        email: formData.email,
-        phone: formData.phone,
+        email: email,
+        phone: phone,
         attending: formData.attending,
         dietary: formData.attending === 'yes'
           ? formData.dietary
@@ -136,13 +161,22 @@ export const RSVP: React.FC = () => {
 
     try {
       // 1. Submit for the main guest
-      await submitToGoogleSheets(formData.name);
+      await submitToGoogleSheets(formData.name, formData.phone, formData.email);
 
       // 2. Submit for additional guests
       if (formData.attending === 'yes') {
         const additionalGuestSubmissions = formData.guestNames
-          .filter(name => name.trim() !== '')
-          .map(guestName => submitToGoogleSheets(guestName));
+          .map((guestName, index) => {
+            if (guestName.trim() !== '') {
+              return submitToGoogleSheets(
+                guestName,
+                formData.guestPhones[index] || '',
+                formData.guestEmails[index] || ''
+              );
+            }
+            return null;
+          })
+          .filter((submission): submission is Promise<void> => submission !== null);
 
         if (additionalGuestSubmissions.length > 0) {
           await Promise.all(additionalGuestSubmissions);
@@ -326,20 +360,50 @@ export const RSVP: React.FC = () => {
                         initial={{ opacity: 0, x: -10 }}
                         animate={{ opacity: 1, x: 0 }}
                         transition={{ delay: index * 0.1 }}
-                        className="space-y-2"
+                        className="space-y-4 pt-4 border-t border-wedding-brown/10 first:border-0 first:pt-0"
                       >
-                        <label htmlFor={`guest-${index}`} className="block text-sm uppercase tracking-widest font-bold text-wedding-green">
-                          Guest {index + 2} Name
-                        </label>
-                        <input
-                          type="text"
-                          id={`guest-${index}`}
-                          required={formData.attending === 'yes'}
-                          value={guestName}
-                          onChange={(e) => handleGuestNameChange(index, e.target.value)}
-                          className="w-full bg-transparent border-b-2 border-wedding-brown/20 focus:border-wedding-green outline-none py-2 transition-colors text-lg placeholder-wedding-brown/30"
-                          placeholder="Full Name"
-                        />
+                        <div className="space-y-2">
+                          <label htmlFor={`guest-name-${index}`} className="block text-sm uppercase tracking-widest font-bold text-wedding-green">
+                            Guest {index + 2} Name
+                          </label>
+                          <input
+                            type="text"
+                            id={`guest-name-${index}`}
+                            required={formData.attending === 'yes'}
+                            value={guestName}
+                            onChange={(e) => handleGuestNameChange(index, e.target.value)}
+                            className="w-full bg-transparent border-b-2 border-wedding-brown/20 focus:border-wedding-green outline-none py-2 transition-colors text-lg placeholder-wedding-brown/30"
+                            placeholder="Full Name"
+                          />
+                        </div>
+                        <div className="space-y-2">
+                          <label htmlFor={`guest-email-${index}`} className="block text-sm uppercase tracking-widest font-bold text-wedding-green">
+                            Guest {index + 2} Email Address
+                          </label>
+                          <input
+                            type="email"
+                            id={`guest-email-${index}`}
+                            required={formData.attending === 'yes'}
+                            value={formData.guestEmails[index]}
+                            onChange={(e) => handleGuestEmailChange(index, e.target.value)}
+                            className="w-full bg-transparent border-b-2 border-wedding-brown/20 focus:border-wedding-green outline-none py-2 transition-colors text-lg placeholder-wedding-brown/30"
+                            placeholder="jane@example.com"
+                          />
+                        </div>
+                        <div className="space-y-2">
+                          <label htmlFor={`guest-phone-${index}`} className="block text-sm uppercase tracking-widest font-bold text-wedding-green">
+                            Guest {index + 2} Phone Number
+                          </label>
+                          <input
+                            type="tel"
+                            id={`guest-phone-${index}`}
+                            required={formData.attending === 'yes'}
+                            value={formData.guestPhones[index]}
+                            onChange={(e) => handleGuestPhoneChange(index, e.target.value)}
+                            className="w-full bg-transparent border-b-2 border-wedding-brown/20 focus:border-wedding-green outline-none py-2 transition-colors text-lg placeholder-wedding-brown/30"
+                            placeholder="+1 (555) 123-4567"
+                          />
+                        </div>
                       </motion.div>
                     ))}
                   </div>
