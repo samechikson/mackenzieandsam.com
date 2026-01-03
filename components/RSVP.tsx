@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useState, FormEvent } from 'react';
+import { AsYouType } from 'libphonenumber-js';
 import { motion } from 'framer-motion';
 import { Check } from 'lucide-react';
 import Image from 'next/image';
@@ -63,6 +64,11 @@ export const RSVP: React.FC = () => {
 
         return { ...prev, [name]: count, guestNames: newGuestNames };
       });
+    } else if (name === 'phone') {
+      console.log(value);
+      // Format phone number as the user types
+      const formatted = new AsYouType().input(value);
+      setFormData((prev) => ({ ...prev, [name]: formatted }));
     } else {
       setFormData((prev) => ({ ...prev, [name]: value }));
     }
