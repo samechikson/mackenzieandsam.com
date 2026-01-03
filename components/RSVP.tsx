@@ -37,7 +37,8 @@ const attendingYesSchema = baseSchema.extend({
   additionalGuests: z.array(z.object({
     name: z.string(),
     email: z.string().email('Invalid email address').optional().or(z.literal('')),
-    phone: z.string().optional()
+    phone: z.string().optional(),
+    dietary: z.string().optional()
   })),
   dietary: z.string().optional(),
   stayOnsite: z.enum(['yes', 'no'] as const),
@@ -67,7 +68,8 @@ const attendingNoSchema = baseSchema.extend({
   additionalGuests: z.array(z.object({
     name: z.string().optional(),
     email: z.string().optional(),
-    phone: z.string().optional()
+    phone: z.string().optional(),
+    dietary: z.string().optional()
   })).optional(),
   dietary: z.string().optional(),
   stayOnsite: z.enum(['yes', 'no'] as const).optional(),
@@ -139,7 +141,7 @@ export const RSVP: React.FC = () => {
     if (targetCount > currentCount) {
       const toAdd = targetCount - currentCount;
       for (let i = 0; i < toAdd; i++) {
-        append({ name: '', email: '', phone: '' });
+        append({ name: '', email: '', phone: '', dietary: '' });
       }
     } else if (targetCount < currentCount) {
       const toRemove = currentCount - targetCount;
@@ -165,7 +167,7 @@ export const RSVP: React.FC = () => {
           .join(', ');
       };
 
-      const submitToGoogleSheets = async (name: string, phone: string, email: string) => {
+      const submitToGoogleSheets = async (name: string, phone: string, email: string, dietary: string) => {
         const response = await fetch('/api/rsvp', {
           method: 'POST',
           headers: {
@@ -176,7 +178,7 @@ export const RSVP: React.FC = () => {
             email: email,
             phone: phone,
             attending: data.attending,
-            dietary: data.attending === 'yes' ? data.dietary : '',
+            dietary: dietary,
             stayOnsite: data.attending === 'yes' ? data.stayOnsite : '',
             transfer: data.attending === 'yes' ? data.transfer : '',
             activities: data.attending === 'yes' ? formatActivities() : '',
@@ -191,7 +193,12 @@ export const RSVP: React.FC = () => {
       };
 
       // 1. Submit for the main guest
-      await submitToGoogleSheets(data.name, data.phone, data.email);
+      await submitToGoogleSheets(
+        data.name,
+        data.phone,
+        data.email,
+        data.attending === 'yes' ? (data.dietary || '') : ''
+      );
 
       // 2. Submit for additional guests
       if (data.attending === 'yes' && data.additionalGuests.length > 0) {
@@ -201,7 +208,8 @@ export const RSVP: React.FC = () => {
               return submitToGoogleSheets(
                 guest.name,
                 guest.phone || '',
-                guest.email || ''
+                guest.email || '',
+                guest.dietary || ''
               );
             }
             return null;
@@ -440,6 +448,18 @@ export const RSVP: React.FC = () => {
                                 }}
                               />
                             )}
+                          />
+                        </div>
+
+                        <div className="space-y-2">
+                          <label htmlFor={`guest-dietary-${index}`} className="block text-sm uppercase tracking-widest font-bold text-wedding-green">
+                            Guest {index + 2} Dietary Restrictions <span className="block normal-case font-normal text-xs mt-1">Optional</span>
+                          </label>
+                          <textarea
+                            rows={1}
+                            className="w-full bg-transparent border-b-2 border-wedding-brown/20 focus:border-wedding-green outline-none py-2 transition-colors text-lg placeholder-wedding-brown/30 resize-none"
+                            placeholder="Allergies, vegetarian, etc."
+                            {...register(`additionalGuests.${index}.dietary`)}
                           />
                         </div>
                       </motion.div>
