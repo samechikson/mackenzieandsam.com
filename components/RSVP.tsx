@@ -1,10 +1,13 @@
 'use client';
 
-import React, { useState, FormEvent } from 'react';
+import React, { useState } from 'react';
 import { AsYouType } from 'libphonenumber-js';
 import { motion } from 'framer-motion';
 import { Check } from 'lucide-react';
 import Image from 'next/image';
+import { useForm, useFieldArray, Controller } from 'react-hook-form';
+import { zodResolver } from '@hookform/resolvers/zod';
+import * as z from 'zod';
 
 const ACTIVITIES = [
   { id: 'foodTour', label: 'Lisbon Food Tour' },
@@ -14,164 +17,191 @@ const ACTIVITIES = [
   { id: 'timeoutMarket', label: 'Time Out Market' },
 ];
 
+const activitySchema = z.object({
+  foodTour: z.boolean(),
+  beachDay: z.boolean(),
+  golf: z.boolean(),
+  sintraTour: z.boolean(),
+  timeoutMarket: z.boolean(),
+});
+
+const baseSchema = z.object({
+  name: z.string().min(1, 'Name is required'),
+});
+
+const attendingYesSchema = baseSchema.extend({
+  attending: z.literal('yes'),
+  email: z.string().email('Invalid email address'),
+  phone: z.string().min(1, 'Phone number is required'),
+  guests: z.number().min(1),
+  additionalGuests: z.array(z.object({
+    name: z.string(),
+    email: z.string().email('Invalid email address').optional().or(z.literal('')),
+    phone: z.string().optional()
+  })),
+  dietary: z.string().optional(),
+  stayOnsite: z.enum(['yes', 'no'] as const),
+  transfer: z.enum(['yes', 'no'] as const).optional(),
+  activities: activitySchema,
+  welcomeDinner: z.enum(['yes', 'no'] as const),
+}).superRefine((data, ctx) => {
+  // Validate additional guests if count > 1
+  if (data.guests > 1) {
+    data.additionalGuests.forEach((guest, index) => {
+      if (!guest.name || guest.name.trim() === '') {
+        ctx.addIssue({
+          code: z.ZodIssueCode.custom,
+          message: 'Guest name is required',
+          path: ['additionalGuests', index, 'name'],
+        });
+      }
+    });
+  }
+});
+
+const attendingNoSchema = baseSchema.extend({
+  attending: z.literal('no'),
+  email: z.string().optional().or(z.literal('')),
+  phone: z.string().optional().or(z.literal('')),
+  guests: z.number().optional(),
+  additionalGuests: z.array(z.object({
+    name: z.string().optional(),
+    email: z.string().optional(),
+    phone: z.string().optional()
+  })).optional(),
+  dietary: z.string().optional(),
+  stayOnsite: z.enum(['yes', 'no'] as const).optional(),
+  transfer: z.enum(['yes', 'no'] as const).optional(),
+  activities: activitySchema.optional(),
+  welcomeDinner: z.enum(['yes', 'no'] as const).optional(),
+});
+
+const rsvpSchema = z.discriminatedUnion('attending', [attendingYesSchema, attendingNoSchema]);
+
+type RsvpFormValues = z.infer<typeof rsvpSchema>;
+
 export const RSVP: React.FC = () => {
-  const [formData, setFormData] = useState({
-    name: '',
-    email: '',
-    phone: '',
-    attending: '',
-    guests: 1,
-    guestNames: [] as string[],
-    guestPhones: [] as string[],
-    guestEmails: [] as string[],
-    dietary: '',
-    stayOnsite: '',
-    transfer: '',
-    activities: {
-      foodTour: false,
-      beachDay: false,
-      golf: false,
-      sintraTour: false,
-      timeoutMarket: false,
+  const [submitted, setSubmitted] = useState(false);
+  const [submitError, setSubmitError] = useState<string | null>(null);
+
+  const {
+    register,
+    control,
+    handleSubmit,
+    watch,
+    setValue,
+    formState: { errors, isSubmitting },
+  } = useForm<RsvpFormValues>({
+    resolver: zodResolver(rsvpSchema),
+    defaultValues: {
+      name: '',
+      email: '',
+      phone: '',
+      attending: undefined,
+      guests: 1,
+      additionalGuests: [],
+      dietary: '',
+      stayOnsite: undefined,
+      transfer: undefined,
+      activities: {
+        foodTour: false,
+        beachDay: false,
+        golf: false,
+        sintraTour: false,
+        timeoutMarket: false,
+      },
+      welcomeDinner: undefined,
     },
-    welcomeDinner: '',
   });
 
-  const [submitted, setSubmitted] = useState(false);
-  const [isSubmitting, setIsSubmitting] = useState(false);
-  const [error, setError] = useState<string | null>(null);
+  const { fields, append, remove } = useFieldArray({
+    control,
+    name: 'additionalGuests',
+  });
+
+  // Watch values for conditional rendering
+  const attending = watch('attending');
+  const guests = watch('guests');
+  const stayOnsite = watch('stayOnsite');
 
   React.useEffect(() => {
     const savedName = localStorage.getItem('guestName');
     if (savedName) {
-      setFormData((prev) => ({ ...prev, name: savedName }));
+      setValue('name', savedName);
     }
-  }, []);
+  }, [setValue]);
 
-  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-    const { name, value } = e.target;
+  // Sync additional guests array with number input
+  React.useEffect(() => {
+    const currentCount = fields.length + 1;
+    const targetCount = guests || 1;
 
-    if (name === 'guests') {
-      const count = parseInt(value) || 1;
-      setFormData((prev) => {
-        const extraGuests = count - 1;
-        let newGuestNames = [...prev.guestNames];
-        let newGuestPhones = [...prev.guestPhones];
-        let newGuestEmails = [...prev.guestEmails];
-
-        if (extraGuests > newGuestNames.length) {
-          const toAdd = extraGuests - newGuestNames.length;
-          newGuestNames = [...newGuestNames, ...Array(toAdd).fill('')];
-          newGuestPhones = [...newGuestPhones, ...Array(toAdd).fill('')];
-          newGuestEmails = [...newGuestEmails, ...Array(toAdd).fill('')];
-        } else if (extraGuests < newGuestNames.length) {
-          newGuestNames = newGuestNames.slice(0, extraGuests);
-          newGuestPhones = newGuestPhones.slice(0, extraGuests);
-          newGuestEmails = newGuestEmails.slice(0, extraGuests);
-        }
-
-        return { ...prev, [name]: count, guestNames: newGuestNames, guestPhones: newGuestPhones, guestEmails: newGuestEmails };
-      });
-    } else if (name === 'phone') {
-      console.log(value);
-      // Format phone number as the user types
-      const formatted = new AsYouType().input(value);
-      setFormData((prev) => ({ ...prev, [name]: formatted }));
-    } else {
-      setFormData((prev) => ({ ...prev, [name]: value }));
+    if (targetCount > currentCount) {
+      const toAdd = targetCount - currentCount;
+      for (let i = 0; i < toAdd; i++) {
+        append({ name: '', email: '', phone: '' });
+      }
+    } else if (targetCount < currentCount) {
+      const toRemove = currentCount - targetCount;
+      // Remove from the end
+      for (let i = 0; i < toRemove; i++) {
+        remove(fields.length - 1 - i);
+      }
     }
-  };
+  }, [guests, fields.length, append, remove]);
 
-  const handleGuestNameChange = (index: number, value: string) => {
-    setFormData((prev) => {
-      const newGuestNames = [...prev.guestNames];
-      newGuestNames[index] = value;
-      return { ...prev, guestNames: newGuestNames };
-    });
-  };
-
-  const handleGuestPhoneChange = (index: number, value: string) => {
-    const formatted = new AsYouType().input(value);
-    setFormData((prev) => {
-      const newGuestPhones = [...prev.guestPhones];
-      newGuestPhones[index] = formatted;
-      return { ...prev, guestPhones: newGuestPhones };
-    });
-  };
-
-  const handleGuestEmailChange = (index: number, value: string) => {
-    setFormData((prev) => {
-      const newGuestEmails = [...prev.guestEmails];
-      newGuestEmails[index] = value;
-      return { ...prev, guestEmails: newGuestEmails };
-    });
-  };
-
-  const handleCheckboxChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const { name, checked } = e.target;
-    setFormData((prev) => ({
-      ...prev,
-      activities: { ...prev.activities, [name]: checked },
-    }));
-  };
-
-  const formatActivities = () => {
-    const activityLabels: Record<string, string> = ACTIVITIES.reduce((acc, activity) => {
-      acc[activity.id] = activity.label;
-      return acc;
-    }, {} as Record<string, string>);
-
-    return Object.entries(formData.activities)
-      .filter(([key, isSelected]) => isSelected)
-      .map(([key]) => activityLabels[key] || key)
-      .join(', ');
-  };
-
-  const submitToGoogleSheets = async (name: string, phone: string, email: string) => {
-    const response = await fetch('/api/rsvp', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        name: name,
-        email: email,
-        phone: phone,
-        attending: formData.attending,
-        dietary: formData.attending === 'yes'
-          ? formData.dietary
-          : '',
-        stayOnsite: formData.attending === 'yes' ? formData.stayOnsite : '',
-        transfer: formData.attending === 'yes' ? formData.transfer : '',
-        activities: formData.attending === 'yes' ? formatActivities() : '',
-        welcomeDinner: formData.attending === 'yes' ? formData.welcomeDinner : '',
-      }),
-    });
-
-    if (!response.ok) {
-      const errorData = await response.json();
-      throw new Error(errorData.error || 'Failed to submit RSVP');
-    }
-  };
-
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    setIsSubmitting(true);
-    setError(null);
-
+  const onSubmit = async (data: RsvpFormValues) => {
+    setSubmitError(null);
     try {
+      const formatActivities = () => {
+        const activityLabels: Record<string, string> = ACTIVITIES.reduce((acc, activity) => {
+          acc[activity.id] = activity.label;
+          return acc;
+        }, {} as Record<string, string>);
+
+        return Object.entries(data.activities)
+          .filter(([key, isSelected]) => isSelected)
+          .map(([key]) => activityLabels[key] || key)
+          .join(', ');
+      };
+
+      const submitToGoogleSheets = async (name: string, phone: string, email: string) => {
+        const response = await fetch('/api/rsvp', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            name: name,
+            email: email,
+            phone: phone,
+            attending: data.attending,
+            dietary: data.attending === 'yes' ? data.dietary : '',
+            stayOnsite: data.attending === 'yes' ? data.stayOnsite : '',
+            transfer: data.attending === 'yes' ? data.transfer : '',
+            activities: data.attending === 'yes' ? formatActivities() : '',
+            welcomeDinner: data.attending === 'yes' ? data.welcomeDinner : '',
+          }),
+        });
+
+        if (!response.ok) {
+          const errorData = await response.json();
+          throw new Error(errorData.error || 'Failed to submit RSVP');
+        }
+      };
+
       // 1. Submit for the main guest
-      await submitToGoogleSheets(formData.name, formData.phone, formData.email);
+      await submitToGoogleSheets(data.name, data.phone, data.email);
 
       // 2. Submit for additional guests
-      if (formData.attending === 'yes') {
-        const additionalGuestSubmissions = formData.guestNames
-          .map((guestName, index) => {
-            if (guestName.trim() !== '') {
+      if (data.attending === 'yes' && data.additionalGuests.length > 0) {
+        const additionalGuestSubmissions = data.additionalGuests
+          .map((guest) => {
+            if (guest.name && guest.name.trim() !== '') {
               return submitToGoogleSheets(
-                guestName,
-                formData.guestPhones[index] || '',
-                formData.guestEmails[index] || ''
+                guest.name,
+                guest.phone || '',
+                guest.email || ''
               );
             }
             return null;
@@ -183,12 +213,10 @@ export const RSVP: React.FC = () => {
         }
       }
 
-      console.log('Form Submitted', formData);
+      console.log('Form Submitted', data);
       setSubmitted(true);
     } catch (err: any) {
-      setError(err.message || 'Something went wrong submitting your RSVP. Please try again.');
-    } finally {
-      setIsSubmitting(false);
+      setSubmitError(err.message || 'Something went wrong submitting your RSVP. Please try again.');
     }
   };
 
@@ -202,7 +230,7 @@ export const RSVP: React.FC = () => {
         >
           <h1 className="font-script text-5xl md:text-6xl text-wedding-green mb-8 lowercase">Thank You!</h1>
           <p className="font-mono text-wedding-brown text-lg">
-            We've received your RSVP. {formData.attending === 'yes' ? 'We can\'t wait to see you in Portugal! If you need to change anything about your RSVP, please re-submit this form or contact us.' : 'Thank you for letting us know - you will be missed!'}
+            We've received your RSVP. {watch('attending') === 'yes' ? 'We can\'t wait to see you in Portugal! If you need to change anything about your RSVP, please re-submit this form or contact us.' : 'Thank you for letting us know - you will be missed!'}
           </p>
         </motion.div>
       </div>
@@ -228,11 +256,11 @@ export const RSVP: React.FC = () => {
             </p>
           </div>
 
-          <form onSubmit={handleSubmit} className="space-y-8 font-mono text-wedding-brown">
+          <form onSubmit={handleSubmit(onSubmit)} className="space-y-8 font-mono text-wedding-brown">
 
-            {error && (
+            {submitError && (
               <div className="bg-red-50 text-red-800 p-4 rounded text-center border border-red-200">
-                {error}
+                {submitError}
               </div>
             )}
 
@@ -242,15 +270,13 @@ export const RSVP: React.FC = () => {
                 Your Name
               </label>
               <input
-                type="text"
                 id="name"
-                name="name"
-                required
-                value={formData.name}
-                onChange={handleInputChange}
+                type="text"
                 className="w-full bg-transparent border-b-2 border-wedding-brown/20 focus:border-wedding-green outline-none py-2 transition-colors text-lg placeholder-wedding-brown/30"
                 placeholder="Jane Doe"
+                {...register('name')}
               />
+              {errors.name && <p className="text-red-500 text-sm">{errors.name.message}</p>}
             </div>
 
             {/* Attending */}
@@ -258,46 +284,51 @@ export const RSVP: React.FC = () => {
               <p className="block text-sm uppercase tracking-widest font-bold text-wedding-green">
                 Will you be attending?
               </p>
-              <div className="flex gap-6">
-                <label className="flex items-center gap-2 cursor-pointer group">
-                  <div className={`w-5 h-5 rounded-full border border-wedding-brown flex items-center justify-center transition-colors ${formData.attending === 'yes' ? 'border-wedding-green' : ''}`}>
-                    {formData.attending === 'yes' && <div className="w-3 h-3 bg-wedding-green rounded-full" />}
+              <Controller
+                name="attending"
+                control={control}
+                render={({ field }) => (
+                  <div className="flex gap-6">
+                    <label className="flex items-center gap-2 cursor-pointer group">
+                      <div className={`w-5 h-5 rounded-full border border-wedding-brown flex items-center justify-center transition-colors ${field.value === 'yes' ? 'border-wedding-green' : ''}`}>
+                        {field.value === 'yes' && <div className="w-3 h-3 bg-wedding-green rounded-full" />}
+                      </div>
+                      <input
+                        type="radio"
+                        {...field}
+                        value="yes"
+                        checked={field.value === 'yes'}
+                        className="hidden"
+                      />
+                      <span className="group-hover:text-wedding-green transition-colors">Joyfully Accept</span>
+                    </label>
+                    <label className="flex items-center gap-2 cursor-pointer group">
+                      <div className={`w-5 h-5 rounded-full border border-wedding-brown flex items-center justify-center transition-colors ${field.value === 'no' ? 'border-wedding-green' : ''}`}>
+                        {field.value === 'no' && <div className="w-3 h-3 bg-wedding-green rounded-full" />}
+                      </div>
+                      <input
+                        type="radio"
+                        {...field}
+                        value="no"
+                        checked={field.value === 'no'}
+                        className="hidden"
+                      />
+                      <span className="group-hover:text-wedding-green transition-colors">Regretfully Decline</span>
+                    </label>
                   </div>
-                  <input
-                    type="radio"
-                    name="attending"
-                    value="yes"
-                    checked={formData.attending === 'yes'}
-                    onChange={handleInputChange}
-                    className="hidden"
-                  />
-                  <span className="group-hover:text-wedding-green transition-colors">Joyfully Accept</span>
-                </label>
-                <label className="flex items-center gap-2 cursor-pointer group">
-                  <div className={`w-5 h-5 rounded-full border border-wedding-brown flex items-center justify-center transition-colors ${formData.attending === 'no' ? 'border-wedding-green' : ''}`}>
-                    {formData.attending === 'no' && <div className="w-3 h-3 bg-wedding-green rounded-full" />}
-                  </div>
-                  <input
-                    type="radio"
-                    name="attending"
-                    value="no"
-                    checked={formData.attending === 'no'}
-                    onChange={handleInputChange}
-                    className="hidden"
-                  />
-                  <span className="group-hover:text-wedding-green transition-colors">Regretfully Decline</span>
-                </label>
-              </div>
-
+                )}
+              />
+              {errors.attending && <p className="text-red-500 text-sm">{errors.attending.message}</p>}
             </div>
 
             <motion.div
               initial={false}
               animate={{
-                height: formData.attending === 'yes' ? 'auto' : 0,
-                opacity: formData.attending === 'yes' ? 1 : 0,
-                overflow: 'hidden'
+                height: attending === 'yes' ? 'auto' : 0,
+                opacity: attending === 'yes' ? 1 : 0,
+                overflow: 'visible'
               }}
+              style={{ overflow: 'hidden' }}
               className="space-y-8"
             >
               {/* Email */}
@@ -306,14 +337,13 @@ export const RSVP: React.FC = () => {
                   Email Address
                 </label>
                 <input
-                  type="email"
                   id="email"
-                  name="email"
-                  value={formData.email}
-                  onChange={handleInputChange}
+                  type="email"
                   className="w-full bg-transparent border-b-2 border-wedding-brown/20 focus:border-wedding-green outline-none py-2 transition-colors text-lg placeholder-wedding-brown/30"
                   placeholder="jane@example.com"
+                  {...register('email')}
                 />
+                {errors.email && <p className="text-red-500 text-sm">{errors.email.message}</p>}
               </div>
 
               {/* Phone */}
@@ -321,15 +351,23 @@ export const RSVP: React.FC = () => {
                 <label htmlFor="phone" className="block text-sm uppercase tracking-widest font-bold text-wedding-green">
                   Phone Number <span className="block normal-case font-normal text-xs mt-1">For wedding event updates</span>
                 </label>
-                <input
-                  type="tel"
-                  id="phone"
+                <Controller
                   name="phone"
-                  value={formData.phone}
-                  onChange={handleInputChange}
-                  className="w-full bg-transparent border-b-2 border-wedding-brown/20 focus:border-wedding-green outline-none py-2 transition-colors text-lg placeholder-wedding-brown/30"
-                  placeholder="+1 (555) 123-4567"
+                  control={control}
+                  render={({ field }) => (
+                    <input
+                      {...field}
+                      type="tel"
+                      className="w-full bg-transparent border-b-2 border-wedding-brown/20 focus:border-wedding-green outline-none py-2 transition-colors text-lg placeholder-wedding-brown/30"
+                      placeholder="+1 (555) 123-4567"
+                      onChange={(e) => {
+                        const formatted = new AsYouType().input(e.target.value);
+                        field.onChange(formatted);
+                      }}
+                    />
+                  )}
                 />
+                {errors.phone && <p className="text-red-500 text-sm">{errors.phone.message}</p>}
               </div>
 
               {/* Guests */}
@@ -340,21 +378,18 @@ export const RSVP: React.FC = () => {
                   </label>
                   <input
                     type="number"
-                    id="guests"
-                    name="guests"
                     min="1"
-                    required={formData.attending === 'yes'}
-                    value={formData.guests}
-                    onChange={handleInputChange}
                     className="w-full bg-transparent border-b-2 border-wedding-brown/20 focus:border-wedding-green outline-none py-2 transition-colors text-lg"
+                    {...register('guests', { valueAsNumber: true })}
                   />
+                  {errors.guests && <p className="text-red-500 text-sm">{errors.guests.message}</p>}
                 </div>
 
-                {formData.guestNames.length > 0 && (
+                {fields.length > 0 && (
                   <div className="space-y-4 pl-4 border-l-2 border-wedding-green/20">
-                    {formData.guestNames.map((guestName, index) => (
+                    {fields.map((field, index) => (
                       <motion.div
-                        key={index}
+                        key={field.id}
                         initial={{ opacity: 0, x: -10 }}
                         animate={{ opacity: 1, x: 0 }}
                         transition={{ delay: index * 0.1 }}
@@ -366,38 +401,45 @@ export const RSVP: React.FC = () => {
                           </label>
                           <input
                             type="text"
-                            id={`guest-name-${index}`}
-                            required={formData.attending === 'yes'}
-                            value={guestName}
-                            onChange={(e) => handleGuestNameChange(index, e.target.value)}
                             className="w-full bg-transparent border-b-2 border-wedding-brown/20 focus:border-wedding-green outline-none py-2 transition-colors text-lg placeholder-wedding-brown/30"
                             placeholder="Full Name"
+                            {...register(`additionalGuests.${index}.name`)}
                           />
+                          {errors.additionalGuests?.[index]?.name && <p className="text-red-500 text-sm">{errors.additionalGuests[index]?.name?.message}</p>}
                         </div>
+
                         <div className="space-y-2">
                           <label htmlFor={`guest-email-${index}`} className="block text-sm uppercase tracking-widest font-bold text-wedding-green">
                             Guest {index + 2} Email Address <span className="block normal-case font-normal text-xs mt-1">Optional</span>
                           </label>
                           <input
                             type="email"
-                            id={`guest-email-${index}`}
-                            value={formData.guestEmails[index]}
-                            onChange={(e) => handleGuestEmailChange(index, e.target.value)}
                             className="w-full bg-transparent border-b-2 border-wedding-brown/20 focus:border-wedding-green outline-none py-2 transition-colors text-lg placeholder-wedding-brown/30"
                             placeholder="jane@example.com"
+                            {...register(`additionalGuests.${index}.email`)}
                           />
+                          {errors.additionalGuests?.[index]?.email && <p className="text-red-500 text-sm">{errors.additionalGuests[index]?.email?.message}</p>}
                         </div>
+
                         <div className="space-y-2">
                           <label htmlFor={`guest-phone-${index}`} className="block text-sm uppercase tracking-widest font-bold text-wedding-green">
                             Guest {index + 2} Phone Number <span className="block normal-case font-normal text-xs mt-1">Optional</span>
                           </label>
-                          <input
-                            type="tel"
-                            id={`guest-phone-${index}`}
-                            value={formData.guestPhones[index]}
-                            onChange={(e) => handleGuestPhoneChange(index, e.target.value)}
-                            className="w-full bg-transparent border-b-2 border-wedding-brown/20 focus:border-wedding-green outline-none py-2 transition-colors text-lg placeholder-wedding-brown/30"
-                            placeholder="+1 (555) 123-4567"
+                          <Controller
+                            control={control}
+                            name={`additionalGuests.${index}.phone`}
+                            render={({ field }) => (
+                              <input
+                                {...field}
+                                type="tel"
+                                className="w-full bg-transparent border-b-2 border-wedding-brown/20 focus:border-wedding-green outline-none py-2 transition-colors text-lg placeholder-wedding-brown/30"
+                                placeholder="+1 (555) 123-4567"
+                                onChange={(e) => {
+                                  const formatted = new AsYouType().input(e.target.value);
+                                  field.onChange(formatted);
+                                }}
+                              />
+                            )}
                           />
                         </div>
                       </motion.div>
@@ -411,36 +453,41 @@ export const RSVP: React.FC = () => {
                 <p className="block text-sm uppercase tracking-widest font-bold text-wedding-green">
                   Will you be attending the welcome dinner on May 5th?
                 </p>
-                <div className="flex gap-6">
-                  <label className="flex items-center gap-2 cursor-pointer group">
-                    <div className={`w-5 h-5 rounded-full border border-wedding-brown flex items-center justify-center transition-colors ${formData.welcomeDinner === 'yes' ? 'border-wedding-green' : ''}`}>
-                      {formData.welcomeDinner === 'yes' && <div className="w-3 h-3 bg-wedding-green rounded-full" />}
+                <Controller
+                  control={control}
+                  name="welcomeDinner"
+                  render={({ field }) => (
+                    <div className="flex gap-6">
+                      <label className="flex items-center gap-2 cursor-pointer group">
+                        <div className={`w-5 h-5 rounded-full border border-wedding-brown flex items-center justify-center transition-colors ${field.value === 'yes' ? 'border-wedding-green' : ''}`}>
+                          {field.value === 'yes' && <div className="w-3 h-3 bg-wedding-green rounded-full" />}
+                        </div>
+                        <input
+                          type="radio"
+                          {...field}
+                          value="yes"
+                          checked={field.value === 'yes'}
+                          className="hidden"
+                        />
+                        <span className="group-hover:text-wedding-green transition-colors">Yes, I'll be there!</span>
+                      </label>
+                      <label className="flex items-center gap-2 cursor-pointer group">
+                        <div className={`w-5 h-5 rounded-full border border-wedding-brown flex items-center justify-center transition-colors ${field.value === 'no' ? 'border-wedding-green' : ''}`}>
+                          {field.value === 'no' && <div className="w-3 h-3 bg-wedding-green rounded-full" />}
+                        </div>
+                        <input
+                          type="radio"
+                          {...field}
+                          value="no"
+                          checked={field.value === 'no'}
+                          className="hidden"
+                        />
+                        <span className="group-hover:text-wedding-green transition-colors">No, I can't make it</span>
+                      </label>
                     </div>
-                    <input
-                      type="radio"
-                      name="welcomeDinner"
-                      value="yes"
-                      checked={formData.welcomeDinner === 'yes'}
-                      onChange={handleInputChange}
-                      className="hidden"
-                    />
-                    <span className="group-hover:text-wedding-green transition-colors">Yes, I'll be there!</span>
-                  </label>
-                  <label className="flex items-center gap-2 cursor-pointer group">
-                    <div className={`w-5 h-5 rounded-full border border-wedding-brown flex items-center justify-center transition-colors ${formData.welcomeDinner === 'no' ? 'border-wedding-green' : ''}`}>
-                      {formData.welcomeDinner === 'no' && <div className="w-3 h-3 bg-wedding-green rounded-full" />}
-                    </div>
-                    <input
-                      type="radio"
-                      name="welcomeDinner"
-                      value="no"
-                      checked={formData.welcomeDinner === 'no'}
-                      onChange={handleInputChange}
-                      className="hidden"
-                    />
-                    <span className="group-hover:text-wedding-green transition-colors">No, I can't make it</span>
-                  </label>
-                </div>
+                  )}
+                />
+                {errors.welcomeDinner && <p className="text-red-500 text-sm">{errors.welcomeDinner.message}</p>}
               </div>
 
               {/* Dietary */}
@@ -450,13 +497,12 @@ export const RSVP: React.FC = () => {
                 </label>
                 <textarea
                   id="dietary"
-                  name="dietary"
                   rows={2}
-                  value={formData.dietary}
-                  onChange={handleInputChange}
                   className="w-full bg-transparent border-b-2 border-wedding-brown/20 focus:border-wedding-green outline-none py-2 transition-colors text-lg placeholder-wedding-brown/30 resize-none"
                   placeholder="Allergies, vegetarian, vegan, etc."
+                  {...register('dietary')}
                 />
+                {errors.dietary && <p className="text-red-500 text-sm">{errors.dietary.message}</p>}
               </div>
 
               {/* Stay Onsite */}
@@ -464,40 +510,45 @@ export const RSVP: React.FC = () => {
                 <p className="block text-sm uppercase tracking-widest font-bold text-wedding-green">
                   Would you like to stay onsite at Quinta da Bichinha? <span className="normal-case font-normal text-xs block mt-1">Space permitting</span>
                 </p>
-                <div className="flex gap-6">
-                  <label className="flex items-center gap-2 cursor-pointer group">
-                    <div className={`w-5 h-5 rounded-full border border-wedding-brown flex items-center justify-center transition-colors ${formData.stayOnsite === 'yes' ? 'border-wedding-green' : ''}`}>
-                      {formData.stayOnsite === 'yes' && <div className="w-3 h-3 bg-wedding-green rounded-full" />}
+                <Controller
+                  control={control}
+                  name="stayOnsite"
+                  render={({ field }) => (
+                    <div className="flex gap-6">
+                      <label className="flex items-center gap-2 cursor-pointer group">
+                        <div className={`w-5 h-5 rounded-full border border-wedding-brown flex items-center justify-center transition-colors ${field.value === 'yes' ? 'border-wedding-green' : ''}`}>
+                          {field.value === 'yes' && <div className="w-3 h-3 bg-wedding-green rounded-full" />}
+                        </div>
+                        <input
+                          type="radio"
+                          {...field}
+                          value="yes"
+                          checked={field.value === 'yes'}
+                          className="hidden"
+                        />
+                        <span className="group-hover:text-wedding-green transition-colors">Yes, please!</span>
+                      </label>
+                      <label className="flex items-center gap-2 cursor-pointer group">
+                        <div className={`w-5 h-5 rounded-full border border-wedding-brown flex items-center justify-center transition-colors ${field.value === 'no' ? 'border-wedding-green' : ''}`}>
+                          {field.value === 'no' && <div className="w-3 h-3 bg-wedding-green rounded-full" />}
+                        </div>
+                        <input
+                          type="radio"
+                          {...field}
+                          value="no"
+                          checked={field.value === 'no'}
+                          className="hidden"
+                        />
+                        <span className="group-hover:text-wedding-green transition-colors">No, I'll stay elsewhere</span>
+                      </label>
                     </div>
-                    <input
-                      type="radio"
-                      name="stayOnsite"
-                      value="yes"
-                      checked={formData.stayOnsite === 'yes'}
-                      onChange={handleInputChange}
-                      className="hidden"
-                    />
-                    <span className="group-hover:text-wedding-green transition-colors">Yes, please!</span>
-                  </label>
-                  <label className="flex items-center gap-2 cursor-pointer group">
-                    <div className={`w-5 h-5 rounded-full border border-wedding-brown flex items-center justify-center transition-colors ${formData.stayOnsite === 'no' ? 'border-wedding-green' : ''}`}>
-                      {formData.stayOnsite === 'no' && <div className="w-3 h-3 bg-wedding-green rounded-full" />}
-                    </div>
-                    <input
-                      type="radio"
-                      name="stayOnsite"
-                      value="no"
-                      checked={formData.stayOnsite === 'no'}
-                      onChange={handleInputChange}
-                      className="hidden"
-                    />
-                    <span className="group-hover:text-wedding-green transition-colors">No, I'll stay elsewhere</span>
-                  </label>
-                </div>
+                  )}
+                />
+                {errors.stayOnsite && <p className="text-red-500 text-sm">{errors.stayOnsite.message}</p>}
               </div>
 
               {/* Transfer - Conditional */}
-              {formData.stayOnsite === 'yes' && (
+              {stayOnsite === 'yes' && (
                 <motion.div
                   initial={{ opacity: 0, height: 0 }}
                   animate={{ opacity: 1, height: 'auto' }}
@@ -506,36 +557,40 @@ export const RSVP: React.FC = () => {
                   <p className="block text-sm uppercase tracking-widest font-bold text-wedding-green">
                     Do you need a transfer from Lisbon to the venue?
                   </p>
-                  <div className="flex gap-6">
-                    <label className="flex items-center gap-2 cursor-pointer group">
-                      <div className={`w-5 h-5 rounded-full border border-wedding-brown flex items-center justify-center transition-colors ${formData.transfer === 'yes' ? 'border-wedding-green' : ''}`}>
-                        {formData.transfer === 'yes' && <div className="w-3 h-3 bg-wedding-green rounded-full" />}
+                  <Controller
+                    control={control}
+                    name="transfer"
+                    render={({ field }) => (
+                      <div className="flex gap-6">
+                        <label className="flex items-center gap-2 cursor-pointer group">
+                          <div className={`w-5 h-5 rounded-full border border-wedding-brown flex items-center justify-center transition-colors ${field.value === 'yes' ? 'border-wedding-green' : ''}`}>
+                            {field.value === 'yes' && <div className="w-3 h-3 bg-wedding-green rounded-full" />}
+                          </div>
+                          <input
+                            type="radio"
+                            {...field}
+                            value="yes"
+                            checked={field.value === 'yes'}
+                            className="hidden"
+                          />
+                          <span className="group-hover:text-wedding-green transition-colors">Yes</span>
+                        </label>
+                        <label className="flex items-center gap-2 cursor-pointer group">
+                          <div className={`w-5 h-5 rounded-full border border-wedding-brown flex items-center justify-center transition-colors ${field.value === 'no' ? 'border-wedding-green' : ''}`}>
+                            {field.value === 'no' && <div className="w-3 h-3 bg-wedding-green rounded-full" />}
+                          </div>
+                          <input
+                            type="radio"
+                            {...field}
+                            value="no"
+                            checked={field.value === 'no'}
+                            className="hidden"
+                          />
+                          <span className="group-hover:text-wedding-green transition-colors">No</span>
+                        </label>
                       </div>
-                      <input
-                        type="radio"
-                        name="transfer"
-                        value="yes"
-                        checked={formData.transfer === 'yes'}
-                        onChange={handleInputChange}
-                        className="hidden"
-                      />
-                      <span className="group-hover:text-wedding-green transition-colors">Yes</span>
-                    </label>
-                    <label className="flex items-center gap-2 cursor-pointer group">
-                      <div className={`w-5 h-5 rounded-full border border-wedding-brown flex items-center justify-center transition-colors ${formData.transfer === 'no' ? 'border-wedding-green' : ''}`}>
-                        {formData.transfer === 'no' && <div className="w-3 h-3 bg-wedding-green rounded-full" />}
-                      </div>
-                      <input
-                        type="radio"
-                        name="transfer"
-                        value="no"
-                        checked={formData.transfer === 'no'}
-                        onChange={handleInputChange}
-                        className="hidden"
-                      />
-                      <span className="group-hover:text-wedding-green transition-colors">No</span>
-                    </label>
-                  </div>
+                    )}
+                  />
                 </motion.div>
               )}
 
@@ -547,21 +602,28 @@ export const RSVP: React.FC = () => {
 
                 <div className="grid md:grid-cols-1 gap-3">
                   {ACTIVITIES.map((activity) => (
-                    <label key={activity.id} className="flex items-start gap-3 cursor-pointer group hover:bg-wedding-green/5 p-2 rounded transition-colors -ml-2">
-                      <div className={`mt-1 w-5 h-5 border border-wedding-brown flex items-center justify-center shrink-0 transition-colors ${formData.activities[activity.id as keyof typeof formData.activities] ? 'bg-wedding-green border-wedding-green' : 'bg-white'}`}>
-                        {formData.activities[activity.id as keyof typeof formData.activities] && (
-                          <Check className="w-3.5 h-3.5 text-white" strokeWidth={3} />
-                        )}
-                      </div>
-                      <input
-                        type="checkbox"
-                        name={activity.id}
-                        checked={formData.activities[activity.id as keyof typeof formData.activities]}
-                        onChange={handleCheckboxChange}
-                        className="hidden"
-                      />
-                      <span className="text-wedding-brown group-hover:text-wedding-green transition-colors leading-snug">{activity.label}</span>
-                    </label>
+                    <Controller
+                      key={activity.id}
+                      control={control}
+                      name={`activities.${activity.id}` as any}
+                      render={({ field: { value, onChange, ...field } }) => (
+                        <label className="flex items-start gap-3 cursor-pointer group hover:bg-wedding-green/5 p-2 rounded transition-colors -ml-2">
+                          <div className={`mt-1 w-5 h-5 border border-wedding-brown flex items-center justify-center shrink-0 transition-colors ${value ? 'bg-wedding-green border-wedding-green' : 'bg-white'}`}>
+                            {value && (
+                              <Check className="w-3.5 h-3.5 text-white" strokeWidth={3} />
+                            )}
+                          </div>
+                          <input
+                            type="checkbox"
+                            checked={value}
+                            onChange={(e) => onChange(e.target.checked)}
+                            className="hidden"
+                            {...field}
+                          />
+                          <span className="text-wedding-brown group-hover:text-wedding-green transition-colors leading-snug">{activity.label}</span>
+                        </label>
+                      )}
+                    />
                   ))}
                 </div>
               </div>
