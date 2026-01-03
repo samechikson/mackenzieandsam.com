@@ -1,23 +1,10 @@
 
 import { NextResponse } from 'next/server';
-import { checkGuestName, submitRsvp } from '../../../services/googleSheets';
+import { submitRsvp } from '../../../services/googleSheets';
 
 export async function POST(request: Request) {
   try {
     const body = await request.json();
-    const { 
-      name, 
-    } = body;
-
-    // Fuzzy match check
-    const isGuestListed = await checkGuestName(name);
-
-    if (!isGuestListed) {
-        return NextResponse.json(
-            { error: 'Name not found in guest list. Please check the spelling or contact us.' },
-            { status: 400 }
-        );
-    }
 
     await submitRsvp(body);
 

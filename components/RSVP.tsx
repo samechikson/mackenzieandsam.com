@@ -96,19 +96,17 @@ export const RSVP: React.FC = () => {
       .join(', ');
   };
 
-  const submitToGoogleSheets = async () => {
+  const submitToGoogleSheets = async (name: string) => {
     const response = await fetch('/api/rsvp', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({
-        name: formData.name,
+        name: name,
         email: formData.email,
         phone: formData.phone,
         attending: formData.attending,
-        guests: formData.attending === 'yes' ? formData.guests : 0,
-        guestNames: formData.guestNames,
         dietary: formData.attending === 'yes'
           ? formData.dietary
           : '',
@@ -131,7 +129,20 @@ export const RSVP: React.FC = () => {
     setError(null);
 
     try {
-      await submitToGoogleSheets();
+      // 1. Submit for the main guest
+      await submitToGoogleSheets(formData.name);
+
+      // 2. Submit for additional guests
+      if (formData.attending === 'yes') {
+        const additionalGuestSubmissions = formData.guestNames
+          .filter(name => name.trim() !== '')
+          .map(guestName => submitToGoogleSheets(guestName));
+
+        if (additionalGuestSubmissions.length > 0) {
+          await Promise.all(additionalGuestSubmissions);
+        }
+      }
+
       console.log('Form Submitted', formData);
       setSubmitted(true);
     } catch (err: any) {

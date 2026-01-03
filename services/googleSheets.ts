@@ -117,8 +117,6 @@ export async function submitRsvp(data: RsvpData): Promise<void> {
       'Email': data.email,
       'Phone Number': data.phone,
       'Attending': data.attending,
-      'Number of Guests': data.guests,
-      'Guest Names': data.guestNames.join(', '),
       'Welcome Dinner': data.welcomeDinner,
       'Dietary restrictions': data.dietary,
       'Stay at quinta': data.stayOnsite,
