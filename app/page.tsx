@@ -3,7 +3,7 @@ import { EnvelopeSection } from '@/components/EnvelopeSection';
 
 import { OurStory } from '@/components/OurStory';
 import { BasicDetails } from '@/components/BasicDetails';
-import { RSVP } from '@/components/RSVP';
+import { TravelSection } from '@/components/TravelSection';
 
 export default function Home() {
   return <>
@@ -11,6 +11,6 @@ export default function Home() {
     <EnvelopeSection />
     <OurStory />
     <BasicDetails />
-    {/* <RSVP /> */}
+    <TravelSection />
   </>;
 }
