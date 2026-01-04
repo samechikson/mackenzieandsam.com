@@ -4,7 +4,6 @@ import React from 'react';
 import { motion } from 'framer-motion';
 import { RsvpButton } from './RsvpButton';
 import { MapPin } from 'lucide-react';
-import { div } from 'framer-motion/client';
 
 const DETAILS_DATA = [
   {
@@ -28,9 +27,9 @@ const DETAILS_DATA = [
             rel="noopener noreferrer"
             className="hover:text-stone-300 transition-colors inline-flex flex-col items-center"
           >
+            <MapPin className="inline mb-1" size={16} />
             Quinta da Bichinha<br />
             <span className="text-mono">Portugal</span>
-            <MapPin className="inline mt-1" size={16} />
           </a>
         ),
       },
@@ -100,16 +99,6 @@ const DETAILS_DATA = [
 ];
 
 export const BasicDetails: React.FC = () => {
-  const containerVariants = {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: {
-        staggerChildren: 0.2,
-      },
-    },
-  };
-
   const itemVariants = {
     hidden: { y: 20, opacity: 0 },
     visible: {
@@ -168,14 +157,14 @@ export const BasicDetails: React.FC = () => {
               <div className="w-full grid grid-cols-1 md:grid-cols-3 gap-12 md:gap-4 text-white">
                 {section.items.map((item, index) => (
                   <div key={index} className="flex flex-col items-center gap-4">
-                    <h3 className="font-mono text-base tracking-[0.2em] font-bold uppercase whitespace-nowrap">
+                    <h3 className="font-mono text-lg tracking-[0.2em] font-bold uppercase whitespace-nowrap">
                       {item.title}
                     </h3>
-                    <div className="font-mono text-sm uppercase tracking-wider max-w-[250px] leading-relaxed flex flex-col items-center">
+                    <div className="font-mono text-base uppercase tracking-wider max-w-[250px] leading-relaxed flex flex-col items-center">
                       {item.content}
                     </div>
                     {item.footer && (
-                      <div className="font-mono text-xs uppercase tracking-wider max-w-[250px] leading-relaxed flex flex-col items-center">
+                      <div className="font-mono text-sm uppercase tracking-wider max-w-[250px] leading-relaxed flex flex-col items-center">
                         {item.footer}
                       </div>
                     )}
@@ -185,6 +174,10 @@ export const BasicDetails: React.FC = () => {
             </FilmStripCard>
           </motion.div>
         ))}
+      </div>
+
+      <div className="items-center justify-center my-10">
+        <RsvpButton />
       </div>
     </section>
   );

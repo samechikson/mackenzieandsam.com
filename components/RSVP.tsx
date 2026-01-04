@@ -513,7 +513,7 @@ export const RSVP: React.FC = () => {
               {/* Dietary */}
               <div className="space-y-2">
                 <label htmlFor="dietary" className="block text-sm uppercase tracking-widest font-bold text-wedding-green">
-                  Dietary Restrictions
+                  Dietary Restrictions <span className="block normal-case font-normal text-xs mt-1">For yourself</span>
                 </label>
                 <textarea
                   id="dietary"

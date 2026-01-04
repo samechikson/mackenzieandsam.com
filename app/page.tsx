@@ -11,6 +11,6 @@ export default function Home() {
     <EnvelopeSection />
     <OurStory />
     <BasicDetails />
-    <RSVP />
+    {/* <RSVP /> */}
   </>;
 }
