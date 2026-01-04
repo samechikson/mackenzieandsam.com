@@ -2,6 +2,7 @@
 
 import React, { useRef } from 'react';
 import { motion, useScroll, useTransform } from 'framer-motion';
+import { RsvpButton } from './RsvpButton';
 
 export const EnvelopeSection: React.FC = () => {
   const sectionRef = useRef<HTMLDivElement>(null);
@@ -35,14 +36,14 @@ export const EnvelopeSection: React.FC = () => {
   const card2X = useTransform(scrollYProgress, [0, 0.9], [100, -20]);
   const card2Rotate = useTransform(scrollYProgress, [0.2, 0.6], [0, -20]);
 
-  // Card 3 (photo reel): slides up and rotates based on scroll
+  // Card 3 (envelope photo 1): slides up and rotates based on scroll
   const card3Y = useTransform(scrollYProgress, [0, 0.9], [20, -130]);
-  const card3X = useTransform(scrollYProgress, [0, 0.9], [200, 300]);
-  const card3Rotate = useTransform(scrollYProgress, [0.2, 0.6], [0, 35]);
+  const card3X = useTransform(scrollYProgress, [0, 0.9], [50, 180]);
+  const card3Rotate = useTransform(scrollYProgress, [0.2, 0.6], [5, 15]);
 
-  // Card 4 (vineyard photo): slides up and rotates based on scroll
-  const card4Y = useTransform(scrollYProgress, [0, 0.9], [100, -180]);
-  const card4X = useTransform(scrollYProgress, [0, 0.9], [100, 120]);
+  // Card 4 (envelope photo 2): slides up and rotates based on scroll
+  const card4Y = useTransform(scrollYProgress, [0, 0.9], [50, -180]);
+  const card4X = useTransform(scrollYProgress, [0, 0.9], [0, -20]);
   const card4Rotate = useTransform(scrollYProgress, [0, 0.6], [0, -5]);
 
   return (
@@ -82,7 +83,7 @@ export const EnvelopeSection: React.FC = () => {
               style={{ y: card3Y, rotate: card3Rotate, x: card3X }}
               className="absolute -ml-7 md:ml-0"
             >
-              <img src="/images/photo-reel.png" alt="Invite Pic" className="w-1/4 object-cover grayscale-[0.3]" />
+              <img src="/images/envelopephoto1.png" alt="Invite Pic" className="w-2/3 object-cover grayscale-[0.3]" />
             </motion.div>
 
             {/* Card 4 (Vineyard Photo) - Starts inside, slides up */}
@@ -90,7 +91,7 @@ export const EnvelopeSection: React.FC = () => {
               style={{ y: card4Y, rotate: card4Rotate, x: card4X }}
               className="absolute -ml-7 md:ml-0"
             >
-              <img src="/images/vineyards-walk.jpg" alt="Invite Pic" className="w-1/3 object-cover grayscale-[0.3]" />
+              <img src="/images/envelopephoto2.png" alt="Invite Pic" className="w-2/3 object-cover grayscale-[0.3]" />
             </motion.div>
 
             {/* Envelope Front */}
@@ -117,6 +118,10 @@ export const EnvelopeSection: React.FC = () => {
           may <span className="relative text-3xl md:text-5xl font-semibold leading-6 bottom-2">5 th and 6 th, 2027</span>
         </h2>
       </motion.div>
+
+      <div className="flex-1 flex items-center justify-center px-10 mt-20 mb-50">
+        <RsvpButton />
+      </div>
 
     </section>
   );

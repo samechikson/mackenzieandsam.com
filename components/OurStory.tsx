@@ -41,7 +41,7 @@ export const OurStory: React.FC = () => {
           className="flex flex-col gap-6 font-mono text-xl md:text-2xl leading-relaxed"
         >
           <p>
-            We had our first date at a board game bar in SF. Somehow, a European boy and a California girl's paths crossed, and thank goodness they did!
+            We had our first date at a board game bar in San Francisco. A European boy and a California girl's paths crossed, and we're so glad they did!
           </p>
           <p>
             A few years, one move to Southern California, and a sassy cat named Otis later, we realized we’d built a little life that felt like home.
@@ -54,6 +54,9 @@ export const OurStory: React.FC = () => {
           </p>
           <p>
             Mark your calendars, pack your dancing shoes, and get ready for a trip full of laughter, dancing, memories, and a few happy tears.
+          </p>
+          <p>
+            Saúde!
           </p>
         </motion.div>
       </div>

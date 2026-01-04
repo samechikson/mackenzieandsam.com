@@ -14,7 +14,7 @@ export const RsvpButton: React.FC<RsvpButtonProps> = ({ className = "" }) => {
       rel="noopener noreferrer"
       className={`bg-wedding-cream text-[#3E2723] px-14 py-3 rounded-full font-mono text-lg tracking-[0.15em] uppercase border-[5px] border-dashed border-wedding-green transition-transform duration-300 hover:scale-105 inline-flex items-center gap-3 ${className}`}
     >
-      Send RSVP 💌
+      RSVP here 💌
     </a>
   );
 };

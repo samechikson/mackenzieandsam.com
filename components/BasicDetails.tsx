@@ -86,7 +86,7 @@ const DETAILS_DATA = [
         content: (
           <div className="flex flex-col items-center">
             <p className="mb-2">Options from Lisbon (45-60 min):</p>
-            <ul className="space-y-1 opacity-80 list-none">
+            <ul className="space-y-1 list-none">
               <li>• Rental car (recommended)</li>
               <li>• Taxi/Uber/Bolt</li>
               <li>• LIS to Quinta shuttle to be arranged</li>
