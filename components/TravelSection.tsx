@@ -71,10 +71,10 @@ const THINGS_TO_DO = [
 export const TravelSection: React.FC = () => {
   return (
     <section className="w-full py-24 px-4 md:px-8 bg-wedding-paper text-[#3E2723]">
-      <div className="mx-auto grid grid-cols-1 md:grid-cols-2 gap-12">
+      <div className="mx-auto grid grid-cols-1 lg:grid-cols-2 gap-12">
         {/* Left Side: Map */}
-        <motion.div
-          className="sticky top-0 w-full aspect-3/4 md:aspect-square"
+        <div
+          className="relative lg:sticky top-0 w-full aspect-3/4 md:aspect-square"
         >
           <Image
             src="/images/map.png"
@@ -82,17 +82,15 @@ export const TravelSection: React.FC = () => {
             fill
             className="object-contain"
             priority={false}
-            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
           />
-        </motion.div>
+        </div>
 
         {/* Right Side: Things to Do */}
         <div className="flex flex-col gap-8">
-          <h2 className="font-script text-wedding-green text-6xl lowercase mb-12">Things To Do</h2>
 
           <div className="grid grid-cols-1 gap-x-8 gap-y-12">
             {THINGS_TO_DO.map((item, idx) => (
-              <div key={idx} className="flex flex-row group">
+              <div key={idx} className="flex lg:flex-row flex-col group items-center lg:items-start">
                 <div className="relative w-44 h-44 mb-2 transition-transform duration-300 group-hover:scale-110 shrink-0">
                   <Image
                     src={item.icon}

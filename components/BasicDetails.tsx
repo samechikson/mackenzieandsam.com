@@ -117,9 +117,9 @@ export const BasicDetails: React.FC = () => {
     return (
       <div className={`relative w-full rounded-3xl bg-wedding-cream flex flex-col ${className} overflow-hidden`}>
         {/* Top Strip */}
-        <div className="absolute top-0 w-full h-8 flex justify-between px-8">
+        <div className="absolute top-0 w-full h-8 flex justify-between px-2 lg:px-8">
           {notches.map((_, i) => (
-            <div key={`top-${i}`} className="w-[2%] h-200 bg-wedding-green" />
+            <div key={`top-${i}`} className="w-[2%] h-600 md:h-200 bg-wedding-green" />
           ))}
         </div>
 

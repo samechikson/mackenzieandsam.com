@@ -49,6 +49,7 @@ export const EnvelopeSection: React.FC = () => {
   return (
     <section
       id="invitation"
+      className="w-full overflow-x-hidden"
     >
       <div className="min-h-[90vh] flex flex-row justify-center items-end">
         <div ref={sectionRef} className="overflow-visible flex flex-col gap-30 md:gap-10 lg:flex-row items-center justify-end">
