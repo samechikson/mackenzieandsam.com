@@ -5,13 +5,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import Link from 'next/link';
 import { RsvpButton } from '@/components/RsvpButton';
 
-const NAV_ITEMS = [
-  { name: 'Home', href: '/#hero' },
-  { name: 'The Invitation', href: '/#invitation' },
-  { name: 'Our Story', href: '/#our-story' },
-  { name: 'Details', href: '/#details' },
-  { name: 'Travel', href: '/#travel' },
-];
+import { NAV_ITEMS } from '@/lib/constants';
 
 export const NavigationMenu: React.FC = () => {
   const [isOpen, setIsOpen] = useState(false);
