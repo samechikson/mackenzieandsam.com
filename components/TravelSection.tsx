@@ -75,7 +75,7 @@ export const TravelSection: React.FC = () => {
       <div className="mx-auto grid grid-cols-1 lg:grid-cols-2 gap-12">
         {/* Left Side: Map */}
         <div
-          className="relative lg:sticky top-0 w-full aspect-3/4"
+          className="relative lg:sticky top-0 w-full h-screen"
         >
           <Image
             src="/images/map.png"
