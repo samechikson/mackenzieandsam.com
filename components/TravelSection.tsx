@@ -8,7 +8,7 @@ import { ExternalLink } from 'lucide-react';
 const THINGS_TO_DO = [
   {
     title: 'Food and Wine Tour',
-    description: "Walk the old city center and taste cheese, Chouriço, bifana, traditional rices, Port, and Lisbon wines. It was well worth the $, we had amazing guides, and met fun people!",
+    description: "Walk the old city center and taste cheese, Chouriço (Portuguese sausage), bifana sandwiches, traditional rices, Port, and Lisbon wines.",
     icon: '/images/travel-icons/food-tour.png',
     link: 'https://tinyurl.com/yc6cs2c2'
   },
@@ -32,7 +32,7 @@ const THINGS_TO_DO = [
   },
   {
     title: 'Tejo Bar',
-    description: "Hangout late into the night at Tejo Bar to hear traditional fado music. Quite possibly the smallest bar I've ever stepped foot into!",
+    description: "Hangout late into the night at Tejo Bar to hear traditional fado music. Quite possibly the smallest bar you'll ever step into!",
     icon: '/images/travel-icons/guitar.png',
     link: 'https://maps.app.goo.gl/6aLyEiffVGoXFff57'
   },
