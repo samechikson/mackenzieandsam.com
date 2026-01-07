@@ -71,10 +71,11 @@ const THINGS_TO_DO = [
 export const TravelSection: React.FC = () => {
   return (
     <section className="w-full py-24 px-4 md:px-8 bg-wedding-paper text-[#3E2723]">
+      <h2 className="font-script text-wedding-green text-6xl lowercase mb-22 text-center">While you're there</h2>
       <div className="mx-auto grid grid-cols-1 lg:grid-cols-2 gap-12">
         {/* Left Side: Map */}
         <div
-          className="relative lg:sticky top-0 w-full aspect-3/4 md:aspect-square"
+          className="relative lg:sticky top-0 w-full aspect-3/4"
         >
           <Image
             src="/images/map.png"
