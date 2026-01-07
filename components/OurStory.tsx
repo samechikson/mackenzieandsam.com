@@ -28,6 +28,7 @@ export const OurStory: React.FC = () => {
 
   return (
     <section
+      id="our-story"
       ref={containerRef}
       className="relative min-h-screen w-full bg-wedding-brown py-32 overflow-hidden"
     >

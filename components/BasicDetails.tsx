@@ -134,7 +134,7 @@ export const BasicDetails: React.FC = () => {
   };
 
   return (
-    <section className="w-full py-24 px-4 md:px-8 flex flex-col items-center gap-12 bg-[#cfc9a1] text-[#3E2723]">
+    <section id="details" className="w-full py-24 px-4 md:px-8 flex flex-col items-center gap-12 bg-[#cfc9a1] text-[#3E2723]">
       <div
         className="w-full max-w-5xl flex flex-col gap-16"
       >

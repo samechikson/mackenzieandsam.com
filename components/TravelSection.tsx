@@ -70,7 +70,7 @@ const THINGS_TO_DO = [
 
 export const TravelSection: React.FC = () => {
   return (
-    <section className="w-full py-24 px-4 md:px-8 bg-wedding-paper text-[#3E2723]">
+    <section id="travel" className="w-full py-24 px-4 md:px-8 bg-wedding-paper text-[#3E2723]">
       <div className="mx-auto grid grid-cols-1 lg:grid-cols-2 gap-12">
         {/* Left Side: Map */}
         <div
