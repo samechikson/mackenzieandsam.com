@@ -71,7 +71,6 @@ const THINGS_TO_DO = [
 export const TravelSection: React.FC = () => {
   return (
     <section className="w-full py-24 px-4 md:px-8 bg-wedding-paper text-[#3E2723]">
-      <h2 className="font-script text-wedding-green text-6xl lowercase mb-22 text-center">While you're there</h2>
       <div className="mx-auto grid grid-cols-1 lg:grid-cols-2 gap-12">
         {/* Left Side: Map */}
         <div
@@ -88,6 +87,7 @@ export const TravelSection: React.FC = () => {
 
         {/* Right Side: Things to Do */}
         <div className="flex flex-col gap-8">
+          <h2 className="font-script text-wedding-green text-6xl lowercase mb-8 text-center">While you're there</h2>
 
           <div className="grid grid-cols-1 gap-x-8 gap-y-12">
             {THINGS_TO_DO.map((item, idx) => (
