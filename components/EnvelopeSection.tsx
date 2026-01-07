@@ -115,7 +115,7 @@ export const EnvelopeSection: React.FC = () => {
         className="flex-1 flex items-center justify-center px-10 mt-20 mb-50"
         style={{ y: bottomTextY, opacity: bottomTextOpacity }}
       >
-        <h2 className="relative font-script text-5xl md:text-7xl text-wedding-green leading-6">
+        <h2 className="relative font-script text-5xl md:text-7xl text-wedding-green leading-16 text-center">
           may <span className="relative text-3xl md:text-5xl font-semibold leading-6 bottom-2">5 th and 6 th, 2027</span>
         </h2>
       </motion.div>
