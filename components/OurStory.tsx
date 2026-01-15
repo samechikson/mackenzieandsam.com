@@ -45,7 +45,7 @@ export const OurStory: React.FC = () => {
             We had our first date at a board game bar in San Francisco. A European boy and a California girl's paths crossed, and we're so glad they did!
           </p>
           <p>
-            A few years, one move to Southern California, and a sassy cat named Otis later, we realized we’d built a little life that felt like home.
+            A few years, one move to Southern California, and a sassy cat named Otis later, we realized we had built a little life that felt like home.
           </p>
           <p>
             So here we are, ready to make it official (and throw a really good party while we’re at it).
