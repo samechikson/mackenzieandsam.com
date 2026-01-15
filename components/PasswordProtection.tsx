@@ -9,7 +9,7 @@ interface PasswordProtectionProps {
 
 export const PasswordProtection: React.FC<PasswordProtectionProps> = ({ onSuccess }) => {
   const [password, setPassword] = useState('');
-  const [name, setName] = useState('');
+
   const [error, setError] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState(false);
 
@@ -24,13 +24,13 @@ export const PasswordProtection: React.FC<PasswordProtectionProps> = ({ onSucces
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ password, name }),
+        body: JSON.stringify({ password }),
       });
 
       const data = await response.json();
 
       if (response.ok) {
-        localStorage.setItem('guestName', name);
+
         onSuccess();
       } else {
         setError(data.error || 'Incorrect password');
@@ -58,22 +58,11 @@ export const PasswordProtection: React.FC<PasswordProtectionProps> = ({ onSucces
 
         <div className="bg-white/40 backdrop-blur-sm p-8 rounded-lg shadow-sm border border-wedding-brown/10">
           <p className="font-mono text-wedding-brown mb-6 uppercase tracking-widest text-xs font-bold">
-            Please enter your name and password
+            Please enter the password
           </p>
 
           <form onSubmit={handleSubmit} className="flex flex-col gap-4">
-            <input
-              type="text"
-              value={name}
-              onChange={(e) => {
-                setName(e.target.value);
-                setError(null);
-              }}
-              className="w-full px-4 py-3 border-b-2 border-wedding-brown/20 bg-transparent text-center font-mono text-xl text-wedding-brown focus:outline-none focus:border-wedding-green transition-colors placeholder-wedding-brown/30"
-              placeholder="Full Name"
-              autoFocus
-              disabled={isLoading}
-            />
+
 
             <input
               type="password"
@@ -84,6 +73,7 @@ export const PasswordProtection: React.FC<PasswordProtectionProps> = ({ onSucces
               }}
               className="w-full px-4 py-3 border-b-2 border-wedding-brown/20 bg-transparent text-center font-mono text-xl text-wedding-brown focus:outline-none focus:border-wedding-green transition-colors placeholder-wedding-brown/30"
               placeholder="Password"
+              autoFocus
               disabled={isLoading}
             />
 
