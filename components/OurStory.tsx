@@ -5,11 +5,11 @@ import { motion, useScroll, useTransform } from 'framer-motion';
 import Image from 'next/image';
 
 const flowers = [
-  { src: '/images/flowers/16.png', alt: 'Flower 16', width: 100, height: 100, className: 'top-10 left-[-50px] md:top-20 md:left-20' },
+  { src: '/images/flowers/16.png', alt: 'Flower 16', width: 100, height: 100, className: 'top-10 right-[-250px] md:top-20 lg:right-120' },
   { src: '/images/flowers/17.png', alt: 'Flower 17', width: 100, height: 100, className: 'top-1/4 right-[-40px] md:right-32' },
-  { src: '/images/flowers/18.png', alt: 'Flower 18', width: 100, height: 100, className: 'top-1/2 left-[-30px] md:left-40' },
+  { src: '/images/flowers/18.png', alt: 'Flower 18', width: 100, height: 100, className: 'top-1/3 right-[-150px] lg:right-140' },
   { src: '/images/flowers/19.png', alt: 'Flower 19', width: 100, height: 100, className: 'bottom-1/3 right-[-20px] md:right-20' },
-  { src: '/images/flowers/20.png', alt: 'Flower 20', width: 100, height: 100, className: 'bottom-10 left-0 md:left-20' },
+  { src: '/images/flowers/20.png', alt: 'Flower 20', width: 100, height: 100, className: 'bottom-10 right-0 lg:right-120' },
 ];
 
 export const OurStory: React.FC = () => {
@@ -32,14 +32,14 @@ export const OurStory: React.FC = () => {
       ref={containerRef}
       className="relative min-h-screen w-full bg-wedding-brown py-32 overflow-hidden"
     >
-      <div className="relative z-10 max-w-2xl mx-auto px-6 text-center text-wedding-cream flex flex-col gap-8">
+      <div className="relative z-10 max-w-7xl mx-auto px-6 text-wedding-cream grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
 
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
+          initial={{ opacity: 0, x: -20 }}
+          whileInView={{ opacity: 1, x: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.8, delay: 0.2 }}
-          className="flex flex-col gap-6 font-mono text-xl md:text-2xl leading-relaxed"
+          className="flex flex-col gap-6 font-mono text-xl md:text-2xl leading-relaxed text-left"
         >
           <p>
             We had our first date at a board game bar in San Francisco. A European boy and a California girl's paths crossed, and we're so glad they did!
@@ -59,6 +59,22 @@ export const OurStory: React.FC = () => {
           <p>
             Saúde!
           </p>
+        </motion.div>
+
+        <motion.div
+          initial={{ opacity: 0, x: 20 }}
+          whileInView={{ opacity: 1, x: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.8, delay: 0.4 }}
+          className="relative w-full h-[600px] md:h-[800px] rounded-lg overflow-hidden"
+        >
+          <Image
+            src="/images/sm/6.JPG"
+            alt="Sam and Mackenzie"
+            fill
+            className="object-cover"
+            sizes="(max-width: 768px) 100vw, 50vw"
+          />
         </motion.div>
       </div>
 
@@ -80,7 +96,7 @@ export const OurStory: React.FC = () => {
 
       {/* Mobile visible background elements (simplified or different positioning if needed, keeping simple for now) */}
       {/* Mobile visible background elements */}
-      <div className="md:hidden absolute top-10 left-[-40px] opacity-20 pointer-events-none rotate-12">
+      <div className="md:hidden absolute top-10 right-[-40px] opacity-20 pointer-events-none rotate-12">
         <Image src="/images/flowers/16.png" alt="flower" width={150} height={150} />
       </div>
       <div className="md:hidden absolute bottom-20 right-[-40px] opacity-20 pointer-events-none -rotate-12">
