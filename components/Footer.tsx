@@ -6,6 +6,8 @@ import { NAV_ITEMS } from '@/lib/constants';
 export const Footer = () => {
   return (
     <footer className="w-full py-12 bg-wedding-green text-wedding-cream text-center">
+      <p className="text-center font-mono text-lg mb-8">Please check back often for more updates!</p>
+
       <div className="flex flex-col items-center gap-8">
 
         <nav className="flex flex-col md:flex-row gap-6 md:gap-8 mb-4">
