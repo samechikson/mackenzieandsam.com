@@ -99,7 +99,7 @@ export const OurStory: React.FC = () => {
       <div className="md:hidden absolute top-10 right-[-40px] opacity-20 pointer-events-none rotate-12">
         <Image src="/images/flowers/16.png" alt="flower" width={150} height={150} />
       </div>
-      <div className="md:hidden absolute bottom-20 right-[-40px] opacity-20 pointer-events-none -rotate-12">
+      <div className="md:hidden absolute bottom-4 right-[-40px] opacity-20 pointer-events-none -rotate-12">
         <Image src="/images/flowers/19.png" alt="flower" width={150} height={150} />
       </div>
 
