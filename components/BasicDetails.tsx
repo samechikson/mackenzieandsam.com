@@ -51,7 +51,7 @@ const DETAILS_DATA = [
         title: 'Wednesday May 5th',
         content: (
           <>
-            Welcome Pella Feast & Drinks<br />
+            Welcome Paella Feast & Drinks<br />
             Before the big day!
           </>
         ),
