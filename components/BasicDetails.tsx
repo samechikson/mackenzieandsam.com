@@ -1,16 +1,17 @@
-'use client';
+"use client";
 
-import React from 'react';
-import { motion } from 'framer-motion';
-import { RsvpButton } from './RsvpButton';
-import { MapPin } from 'lucide-react';
+import React from "react";
+import clsx from "clsx";
+import { motion } from "framer-motion";
+import { RsvpButton } from "./RsvpButton";
+import { MapPin } from "lucide-react";
 
 const DETAILS_DATA = [
   {
-    id: 'ceremony',
+    id: "ceremony",
     items: [
       {
-        title: 'Ceremony Date',
+        title: "Ceremony Date",
         content: (
           <>
             Thursday <br />
@@ -19,7 +20,7 @@ const DETAILS_DATA = [
         ),
       },
       {
-        title: 'Location',
+        title: "Location",
         content: (
           <a
             href="https://maps.app.goo.gl/ctcqSJBekBprL7Sx5"
@@ -28,13 +29,14 @@ const DETAILS_DATA = [
             className="hover:text-stone-300 transition-colors inline-flex flex-col items-center"
           >
             <MapPin className="inline mb-1" size={16} />
-            Quinta da Bichinha<br />
+            Quinta da Bichinha
+            <br />
             <span className="text-mono">Portugal</span>
           </a>
         ),
       },
       {
-        title: 'Time',
+        title: "Time",
         content: (
           <>
             Ceremony at 4:00pm <br />
@@ -45,53 +47,100 @@ const DETAILS_DATA = [
     ],
   },
   {
-    id: 'schedule',
+    id: "schedule",
+    header: "Itinerary",
     items: [
       {
-        title: 'Wednesday May 5th',
+        title: "Monday May 3rd",
+        className: "col-start-2",
+        content: <>Informal event TBD. Stay tuned for details!</>,
+        footer: (
+          <div className="flex flex-row gap-2 justify-center items-center">
+            <MapPin size={16} /> Lisbon, Portugal
+          </div>
+        ),
+      },
+      {
+        title: "Tuesday May 4th",
+        content: <>Informal event TBD. Stay tuned for details!</>,
+        footer: (
+          <div className="flex flex-row gap-2 justify-center items-center">
+            <MapPin size={16} /> Lisbon, Portugal
+          </div>
+        ),
+      },
+      {
+        title: "Wednesday May 5th",
         content: (
           <>
-            Welcome Paella Feast & Drinks<br />
+            Welcome Paella Feast & Drinks
+            <br />
             Before the big day!
           </>
         ),
-        footer: (<div className='flex flex-row gap-2 justify-center items-center'><MapPin size={16} /> Quinta da Bichinha</div>)
+        footer: (
+          <div className="flex flex-row gap-2 justify-center items-center">
+            <MapPin size={16} /> Quinta da Bichinha
+          </div>
+        ),
       },
       {
-        title: 'Thursday May 6th',
+        title: "Thursday May 6th",
         content: "The Wedding ceremony, dinner, and dancing 'till late",
-        footer: (<div className='flex flex-row gap-2 justify-center items-center'><MapPin size={16} /> Quinta da Bichinha</div>)
+        footer: (
+          <div className="flex flex-row gap-2 justify-center items-center">
+            <MapPin size={16} /> Quinta da Bichinha
+          </div>
+        ),
       },
       {
-        title: 'Friday May 7th',
-        content: 'Brunch & goodbyes. Recover, refuel, and debrief the funny moments',
-        footer: (<div className='flex flex-row gap-2 justify-center items-center'><MapPin size={16} /> Quinta da Bichinha</div>)
+        title: "Friday May 7th",
+        content:
+          "Brunch & goodbyes. Recover, refuel, and debrief the funny moments",
+        footer: (
+          <div className="flex flex-row gap-2 justify-center items-center">
+            <MapPin size={16} /> Quinta da Bichinha
+          </div>
+        ),
       },
     ],
   },
   {
-    id: 'travel',
-    header: 'Travel Logistics',
+    id: "travel",
+    header: "Travel Logistics",
     items: [
       {
-        title: 'Passport',
-        content: 'Please ensure you have a valid passport for entry into Portugal. MUST NOT EXPIRE WITHIN 3 MONTHS after your trip',
+        title: "Passport",
+        content:
+          "Please ensure you have a valid passport for entry into Portugal. MUST NOT EXPIRE WITHIN 3 MONTHS after your trip",
       },
       {
-        title: 'Flying in',
-        content: 'Lisbon Humberto Delgado Airport (LIS) is the closest major airport.',
+        title: "Flying in",
+        content:
+          "Lisbon Humberto Delgado Airport (LIS) is the closest major airport.",
       },
       {
-        title: 'Getting to the Quinta',
+        title: "Getting to the Quinta",
         content: (
           <div className="flex flex-col items-center">
-            <p className="mb-2">Options from Lisbon (45-60 min):</p>
+            <p className="mb-2">From Lisbon (45-60 min):</p>
             <ul className="space-y-1 list-none">
               <li>• Rental car (recommended)</li>
               <li>• Taxi/Uber/Bolt</li>
               <li>• LIS to Quinta shuttle to be arranged</li>
             </ul>
           </div>
+        ),
+      },
+      {
+        title: "Hotel information",
+        className: "col-start-2 col-span-4",
+        content: (
+          <>
+            We will have a block of rooms reserved at the Quinta da Bichinha for
+            Wednesday and Thursday nights. Stay tuned for details on how to
+            book!
+          </>
         ),
       },
     ],
@@ -110,16 +159,30 @@ export const BasicDetails: React.FC = () => {
     },
   };
 
-  const FilmStripCard = ({ children, className = "" }: { children: React.ReactNode; className?: string }) => {
+  const FilmStripCard = ({
+    children,
+    className = "",
+  }: {
+    children: React.ReactNode;
+    className?: string;
+  }) => {
     // Generate notches for the strip effect
     const notches = Array.from({ length: 20 });
 
     return (
-      <div className={`relative w-full rounded-3xl bg-wedding-cream flex flex-col ${className} overflow-hidden`}>
+      <div
+        className={clsx(
+          "relative w-full rounded-3xl bg-wedding-cream flex flex-col overflow-hidden",
+          className,
+        )}
+      >
         {/* Top Strip */}
         <div className="absolute top-0 w-full h-8 flex justify-between px-2 lg:px-8">
           {notches.map((_, i) => (
-            <div key={`top-${i}`} className="w-[2%] h-600 md:h-200 bg-wedding-green" />
+            <div
+              key={`top-${i}`}
+              className="w-[2%] h-600 md:h-200 bg-wedding-green"
+            />
           ))}
         </div>
 
@@ -134,10 +197,11 @@ export const BasicDetails: React.FC = () => {
   };
 
   return (
-    <section id="details" className="w-full py-24 px-4 md:px-8 flex flex-col items-center gap-12 bg-[#cfc9a1] text-[#3E2723]">
-      <div
-        className="w-full max-w-5xl flex flex-col gap-16"
-      >
+    <section
+      id="details"
+      className="w-full py-24 px-4 md:px-8 flex flex-col items-center gap-12 bg-[#cfc9a1] text-[#3E2723]"
+    >
+      <div className="w-full max-w-5xl flex flex-col gap-16">
         {/* Header */}
         <motion.h2
           variants={itemVariants}
@@ -154,17 +218,23 @@ export const BasicDetails: React.FC = () => {
                   {section.header}
                 </h2>
               )}
-              <div className="w-full grid grid-cols-1 md:grid-cols-3 gap-12 md:gap-4 text-white">
+              <div className="w-full grid grid-cols-1 md:grid-cols-6 gap-12 md:gap-4 text-white">
                 {section.items.map((item, index) => (
-                  <div key={index} className="flex flex-col items-center gap-4">
+                  <div
+                    key={index}
+                    className={clsx(
+                      "flex flex-col items-center gap-4 col-span-2",
+                      item.className,
+                    )}
+                  >
                     <h3 className="font-mono text-lg tracking-[0.2em] font-bold uppercase whitespace-nowrap">
                       {item.title}
                     </h3>
-                    <div className="font-mono text-base uppercase tracking-wider max-w-[250px] leading-relaxed flex flex-col items-center">
+                    <div className="font-mono text-base uppercase tracking-wider leading-relaxed flex flex-col items-center">
                       {item.content}
                     </div>
                     {item.footer && (
-                      <div className="font-mono text-sm uppercase tracking-wider max-w-[250px] leading-relaxed flex flex-col items-center">
+                      <div className="font-mono text-sm uppercase tracking-wider  leading-relaxed flex flex-col items-center">
                         {item.footer}
                       </div>
                     )}
