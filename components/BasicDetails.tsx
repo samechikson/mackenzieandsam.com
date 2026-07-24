@@ -137,9 +137,7 @@ const DETAILS_DATA = [
         className: "md:col-start-2 md:col-span-4",
         content: (
           <>
-            We will have a block of rooms reserved at the Quinta da Bichinha for
-            Wednesday and Thursday nights. Stay tuned for details on how to
-            book!
+            Details to come on how to book a room!
           </>
         ),
       },
