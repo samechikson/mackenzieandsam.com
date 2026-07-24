@@ -13,35 +13,27 @@ export const PasswordProtection: React.FC<PasswordProtectionProps> = ({ onSucces
   const [error, setError] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState(false);
 
-  const handleSubmit = async (e: React.FormEvent) => {
+  const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     setIsLoading(true);
     setError(null);
 
-    try {
-      const response = await fetch('/api/verify-password', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ password }),
-      });
+    // Client-side gate: the site is static (no server), so the password is
+    // compared in the browser against a build-time public env var. This is
+    // casual gating only — the value is present in the client bundle.
+    const correctPassword = process.env.NEXT_PUBLIC_SITE_PASSWORD ?? '';
 
-      const data = await response.json();
-
-      if (response.ok) {
-
-        onSuccess();
-      } else {
-        setError(data.error || 'Incorrect password');
-        setPassword('');
-      }
-    } catch (err) {
-      console.error('Login error:', err);
-      setError('An error occurred. Please try again.');
-    } finally {
-      setIsLoading(false);
+    if (
+      correctPassword &&
+      password.trim().toUpperCase() === correctPassword.trim().toUpperCase()
+    ) {
+      onSuccess();
+    } else {
+      setError('Incorrect password');
+      setPassword('');
     }
+
+    setIsLoading(false);
   };
 
   return (
