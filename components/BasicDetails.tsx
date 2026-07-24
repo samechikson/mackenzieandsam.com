@@ -162,9 +162,11 @@ export const BasicDetails: React.FC = () => {
   const FilmStripCard = ({
     children,
     className = "",
+    stripeClassName = "bg-wedding-green",
   }: {
     children: React.ReactNode;
     className?: string;
+    stripeClassName?: string;
   }) => {
     // Generate notches for the strip effect
     const notches = Array.from({ length: 20 });
@@ -181,7 +183,7 @@ export const BasicDetails: React.FC = () => {
           {notches.map((_, i) => (
             <div
               key={`top-${i}`}
-              className="w-[2%] h-600 md:h-200 bg-wedding-green"
+              className={clsx("w-[2%] h-600 md:h-200", stripeClassName)}
             />
           ))}
         </div>
@@ -210,9 +212,13 @@ export const BasicDetails: React.FC = () => {
           ALL THE INFORMATION:
         </motion.h2>
 
-        {DETAILS_DATA.map((section) => (
+        {DETAILS_DATA.map((section, sectionIndex) => (
           <motion.div key={section.id} variants={itemVariants}>
-            <FilmStripCard>
+            <FilmStripCard
+              stripeClassName={
+                sectionIndex === 1 ? "bg-wedding-brown" : "bg-wedding-green"
+              }
+            >
               {section.header && (
                 <h2 className="font-mono text-xl text-white uppercase tracking-wider pb-6">
                   {section.header}
