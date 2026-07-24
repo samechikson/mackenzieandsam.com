@@ -52,7 +52,7 @@ const DETAILS_DATA = [
     items: [
       {
         title: "Monday May 3rd",
-        className: "col-start-2",
+        className: "md:col-start-2",
         content: <>Informal event TBD. Stay tuned for details!</>,
         footer: (
           <div className="flex flex-row gap-2 justify-center items-center">
@@ -134,7 +134,7 @@ const DETAILS_DATA = [
       },
       {
         title: "Hotel information",
-        className: "col-start-2 col-span-4",
+        className: "md:col-start-2 md:col-span-4",
         content: (
           <>
             We will have a block of rooms reserved at the Quinta da Bichinha for
@@ -223,7 +223,7 @@ export const BasicDetails: React.FC = () => {
                   <div
                     key={index}
                     className={clsx(
-                      "flex flex-col items-center gap-4 col-span-2",
+                      "flex flex-col items-center gap-4 md:col-span-2",
                       item.className,
                     )}
                   >
