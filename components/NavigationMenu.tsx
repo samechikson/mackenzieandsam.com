@@ -26,9 +26,21 @@ export const NavigationMenu: React.FC = () => {
 
   return (
     <>
+      <nav className="fixed top-6 right-6 z-50 hidden md:flex items-center gap-8 bg-wedding-cream/70 backdrop-blur-sm rounded-full px-8 py-3 shadow-sm">
+        {NAV_ITEMS.map((item) => (
+          <Link
+            key={item.name}
+            href={item.href}
+            className="font-mono text-sm uppercase tracking-widest text-wedding-green hover:text-wedding-brown transition-colors whitespace-nowrap"
+          >
+            {item.name}
+          </Link>
+        ))}
+      </nav>
+
       <button
         onClick={toggleMenu}
-        className="fixed top-6 left-6 z-50 p-2 text-wedding-green hover:opacity-80 transition-opacity font-mono text-2xl hover:text-wedding-brown hover:cursor-pointer rounded-full hover:bg-wedding-paper px-4"
+        className="fixed top-6 left-6 z-50 p-2 text-wedding-green hover:opacity-80 transition-opacity font-mono text-2xl hover:text-wedding-brown hover:cursor-pointer rounded-full hover:bg-wedding-paper px-4 md:hidden"
         aria-label="Toggle Menu"
       >
         Menu
