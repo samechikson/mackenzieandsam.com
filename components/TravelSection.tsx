@@ -126,6 +126,20 @@ export const TravelSection: React.FC = () => {
         Travel
       </h1>
 
+      <div className="w-full max-w-5xl mx-auto mb-16 grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
+        <p className="font-mono text-[#3E2723] text-base md:text-lg leading-relaxed">
+          Quinta da Bichinha is a centuries-old wine estate located just north of Lisbon, Portugal, encircled by gardens and extensive vineyards. We have exclusive use of the property May 5 - 7, 2027, and all of the wedding events will be taking place at the venue. We hope you can join us!
+        </p>
+        <div className="relative w-full h-64 md:h-80 rounded-lg overflow-hidden">
+          <Image
+            src="/images/QDB.jpeg"
+            alt="Quinta da Bichinha venue at dusk"
+            fill
+            className="object-cover"
+          />
+        </div>
+      </div>
+
       <div className="w-full max-w-5xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-8">
         {TRAVEL_LOGISTICS_BOXES.map((box) => (
           <FilmStripCard key={box.title} align="start">
