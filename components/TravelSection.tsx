@@ -4,6 +4,36 @@ import React from "react";
 import Image from "next/image";
 import { motion } from "framer-motion";
 import { ExternalLink } from "lucide-react";
+import { FilmStripCard } from "./FilmStripCard";
+
+const TRAVEL_LOGISTICS_BOXES = [
+  {
+    title: "Getting to the Quinta",
+    content: (
+      <>
+        <p className="mb-4 font-bold">
+          Address: Quinta da Bichinha, Vila Chã, 2580-413 Ventosa, Alenquer
+        </p>
+        <p>
+          The venue is 45 minutes from the nearest airport, Lisbon
+          Airport/Humberto Delgado Airport (LIS). From the airport to the
+          venue we recommend either renting a car, or using Uber/Bolt. There
+          is plenty of free parking at the venue.
+        </p>
+      </>
+    ),
+  },
+  {
+    title: "Getting Back to Lisbon",
+    content: (
+      <p>
+        As getting taxis from the countryside back to Lisbon can be
+        challenging, we&apos;ve arranged a free shuttle back to Lisbon
+        Airport, departing the venue at 12PM on Friday.
+      </p>
+    ),
+  },
+];
 
 const THINGS_TO_DO = [
   {
@@ -87,10 +117,44 @@ const THINGS_TO_DO = [
 
 export const TravelSection: React.FC = () => {
   return (
+    <>
     <section
       id="travel"
-      className="w-full py-24 px-4 md:px-8 bg-wedding-paper text-[#3E2723]"
+      className="w-full py-24 px-4 md:px-8 bg-[#cfc9a1] text-[#3E2723]"
     >
+      <h1 className="font-script lowercase text-4xl md:text-6xl text-white text-center tracking-wide mb-16">
+        Travel
+      </h1>
+
+      <div className="w-full max-w-5xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-8">
+        {TRAVEL_LOGISTICS_BOXES.map((box) => (
+          <FilmStripCard key={box.title} align="start">
+            <h2 className="font-mono text-xl text-white uppercase tracking-wider pb-6">
+              {box.title}
+            </h2>
+            <div className="font-mono text-base tracking-wider leading-relaxed text-white">
+              {box.content}
+            </div>
+          </FilmStripCard>
+        ))}
+      </div>
+
+      <div className="w-full max-w-5xl mx-auto mt-10 flex items-center justify-center gap-4">
+        <div className="relative w-20 h-28 md:w-24 md:h-32 shrink-0">
+          <Image
+            src="/images/passport.png"
+            alt="Passport"
+            fill
+            className="object-contain"
+          />
+        </div>
+        <p className="text-center font-mono text-base tracking-wide text-[#3E2723]">
+          Please double check that your passport is still valid — it must not expire within 3 months after your trip.
+        </p>
+      </div>
+    </section>
+
+    <section className="w-full py-24 px-4 md:px-8 bg-wedding-cream text-[#3E2723]">
       <div className="mx-auto grid grid-cols-1 lg:grid-cols-2 gap-12">
         {/* Left Side: Map */}
         <div className="relative lg:sticky top-0 w-full h-screen">
@@ -147,5 +211,6 @@ export const TravelSection: React.FC = () => {
         </div>
       </div>
     </section>
+    </>
   );
 };

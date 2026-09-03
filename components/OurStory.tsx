@@ -32,6 +32,10 @@ export const OurStory: React.FC = () => {
       ref={containerRef}
       className="relative min-h-screen w-full bg-wedding-brown py-32 overflow-hidden"
     >
+      <h1 className="relative z-10 font-script lowercase text-4xl md:text-6xl text-white text-center tracking-wide mb-16">
+        Our Story
+      </h1>
+
       <div className="relative z-10 max-w-7xl mx-auto px-6 text-wedding-cream grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
 
         <motion.div

@@ -1,5 +1,9 @@
-import { Travel as TravelComponent } from '../../features/Travel';
+import { TravelSection } from '@/components/TravelSection';
 
-export default function Travel() {
-  return <TravelComponent />;
+export const metadata = {
+  title: 'Travel | Mackenzie & Sam',
+};
+
+export default function TravelPage() {
+  return <TravelSection />;
 }

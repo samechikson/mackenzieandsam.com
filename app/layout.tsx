@@ -1,6 +1,8 @@
 import React from 'react';
 import './globals.css';
 import AuthGuard from '../components/AuthGuard';
+import { NavigationMenu } from '../components/NavigationMenu';
+import { Footer } from '../components/Footer';
 import { Analytics } from "@vercel/analytics/next";
 
 
@@ -30,7 +32,9 @@ export default function RootLayout({
     <html lang="en" className="antialiased bg-white">
       <body className="antialiased min-h-screen" style={{ backgroundImage: 'repeating-linear-gradient(90deg, white, white 10px, #e4ecfa 10px, #e4ecfa 20px)' }}>
         <AuthGuard>
+          <NavigationMenu />
           {children}
+          <Footer />
         </AuthGuard>
         <Analytics />
       </body>

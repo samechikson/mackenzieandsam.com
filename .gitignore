@@ -26,3 +26,6 @@ dist-ssr
 out
 
 .env
+
+# TypeScript incremental build cache
+tsconfig.tsbuildinfo

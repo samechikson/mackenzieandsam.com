@@ -112,15 +112,21 @@ export const EnvelopeSection: React.FC = () => {
 
       {/* Bottom Text */}
       <motion.div
-        className="flex-1 flex items-center justify-center px-10 mt-20 mb-50"
+        className="flex-1 flex items-center justify-center px-10 mt-20 mb-16"
         style={{ y: bottomTextY, opacity: bottomTextOpacity }}
       >
         <h2 className="relative font-script text-5xl md:text-7xl text-wedding-green leading-16 text-center">
-          may <span className="relative text-3xl md:text-5xl font-semibold leading-6 bottom-2">5 th and 6 th, 2027</span>
+          may <span className="relative text-3xl md:text-5xl font-semibold leading-6 bottom-2">6 th, 2027</span>
         </h2>
       </motion.div>
 
-      <div className="flex-1 flex items-center justify-center px-10 mt-20 mb-50">
+      <div className="flex-1 flex items-center justify-center px-10 mb-16">
+        <p className="font-mono text-gray-700 text-base md:text-lg leading-relaxed text-center max-w-2xl mx-auto">
+          Quinta da Bichinha is a centuries-old wine estate located just north of Lisbon, Portugal, encircled by gardens and extensive vineyards. We have exclusive use of the property May 5 - 7, 2027, and all of the wedding events will be taking place at the venue. We hope you can join us!
+        </p>
+      </div>
+
+      <div className="flex-1 flex items-center justify-center px-10 mb-50">
         <RsvpButton />
       </div>
 
