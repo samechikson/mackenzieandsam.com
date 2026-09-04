@@ -34,7 +34,9 @@ const DETAILS_DATA: ScheduleSection[] = [
             <p>
               <span className="font-bold text-wedding-green">4pm</span>
               <br />
-              Check-in (for guests staying onsite)
+              Check-in
+              <br />
+              <span className="italic normal-case text-sm">For guests staying onsite</span>
             </p>
             <p>
               <span className="font-bold text-wedding-green">5-8pm</span>
@@ -61,7 +63,9 @@ const DETAILS_DATA: ScheduleSection[] = [
             <p>
               <span className="font-bold text-wedding-green">10-11am</span>
               <br />
-              Breakfast (for guests staying onsite)
+              Breakfast
+              <br />
+              <span className="italic normal-case text-sm">For guests staying onsite</span>
             </p>
             <p>
               <span className="font-bold text-wedding-green">4pm</span>
@@ -91,7 +95,9 @@ const DETAILS_DATA: ScheduleSection[] = [
             <p>
               <span className="font-bold text-wedding-green">10-11am</span>
               <br />
-              Breakfast (for guests staying onsite)
+              Breakfast
+              <br />
+              <span className="italic normal-case text-sm">For guests staying onsite</span>
             </p>
             <p>
               <span className="font-bold text-wedding-green">12pm</span>
@@ -136,9 +142,9 @@ export const BasicDetails: React.FC = () => {
         {/* Header */}
         <motion.h2
           variants={itemVariants}
-          className="font-script lowercase text-4xl md:text-6xl text-white text-center tracking-wide"
+          className="font-script lowercase text-5xl md:text-7xl text-white text-center tracking-wide"
         >
-          Schedule of Events:
+          Schedule of Events
         </motion.h2>
 
         {DETAILS_DATA.map((section) => (

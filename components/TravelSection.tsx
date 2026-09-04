@@ -29,7 +29,7 @@ const TRAVEL_LOGISTICS_BOXES = [
       <p>
         As getting taxis from the countryside back to Lisbon can be
         challenging, we&apos;ve arranged a free shuttle back to Lisbon
-        Airport, departing the venue at 12PM on Friday.
+        Airport, departing the venue on Friday after check-out.
       </p>
     ),
   },
@@ -122,7 +122,7 @@ export const TravelSection: React.FC = () => {
       id="travel"
       className="w-full py-24 px-4 md:px-8 bg-[#cfc9a1] text-[#3E2723]"
     >
-      <h1 className="font-script lowercase text-4xl md:text-6xl text-white text-center tracking-wide mb-16">
+      <h1 className="font-script lowercase text-5xl md:text-7xl text-white text-center tracking-wide mb-16">
         Travel
       </h1>
 

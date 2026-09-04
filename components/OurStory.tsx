@@ -10,6 +10,11 @@ const flowers = [
   { src: '/images/flowers/18.png', alt: 'Flower 18', width: 100, height: 100, className: 'top-1/3 right-[-150px] lg:right-140' },
   { src: '/images/flowers/19.png', alt: 'Flower 19', width: 100, height: 100, className: 'bottom-1/3 right-[-20px] md:right-20' },
   { src: '/images/flowers/20.png', alt: 'Flower 20', width: 100, height: 100, className: 'bottom-10 right-0 lg:right-120' },
+  { src: '/images/flowers/17.png', alt: 'Flower 17 Left', width: 100, height: 100, className: 'top-10 left-[-250px] md:top-20 lg:left-100 rotate-12' },
+  { src: '/images/flowers/19.png', alt: 'Flower 19 Left', width: 100, height: 100, className: 'top-1/4 left-[-40px] md:left-24 -rotate-6' },
+  { src: '/images/flowers/16.png', alt: 'Flower 16 Left', width: 100, height: 100, className: 'top-1/2 left-[-150px] lg:left-120 rotate-3' },
+  { src: '/images/flowers/20.png', alt: 'Flower 20 Left', width: 100, height: 100, className: 'bottom-1/4 left-[-20px] md:left-16 -rotate-12' },
+  { src: '/images/flowers/18.png', alt: 'Flower 18 Left', width: 100, height: 100, className: 'bottom-10 left-0 lg:left-100 rotate-6' },
 ];
 
 export const OurStory: React.FC = () => {
@@ -32,7 +37,7 @@ export const OurStory: React.FC = () => {
       ref={containerRef}
       className="relative min-h-screen w-full bg-wedding-brown py-32 overflow-hidden"
     >
-      <h1 className="relative z-10 font-script lowercase text-4xl md:text-6xl text-white text-center tracking-wide mb-16">
+      <h1 className="relative z-10 font-script lowercase text-5xl md:text-7xl text-white text-center tracking-wide mb-16">
         Our Story
       </h1>
 
@@ -105,6 +110,9 @@ export const OurStory: React.FC = () => {
       </div>
       <div className="md:hidden absolute bottom-4 right-[-40px] opacity-20 pointer-events-none -rotate-12">
         <Image src="/images/flowers/19.png" alt="flower" width={150} height={150} />
+      </div>
+      <div className="md:hidden absolute top-1/3 left-[-40px] opacity-20 pointer-events-none -rotate-6">
+        <Image src="/images/flowers/17.png" alt="flower" width={150} height={150} />
       </div>
 
     </section>
