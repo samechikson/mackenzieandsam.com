@@ -2,6 +2,7 @@
 
 import React from 'react';
 import Image from 'next/image';
+import { RsvpButton } from './RsvpButton';
 
 const OFFSITE_STAYS = [
   { name: 'Largo da Rainha, Guesthouse', url: 'https://www.hoteisfinder.com/largo-da-rainha-guesthouse/', time: '5 min drive from QDB' },
@@ -25,9 +26,7 @@ const FAQ_ITEMS: { question: string; answer: React.ReactNode }[] = [
   },
   {
     question: 'How do I RSVP?',
-    answer: (
-      <>Click the RSVP button on the homepage of our website and it will take you to our online RSVP form.</>
-    ),
+    answer: <RsvpButton deadlineClassName="text-white" />,
   },
   {
     question: 'What do I need to travel to Portugal?',
@@ -55,9 +54,11 @@ const FAQ_ITEMS: { question: string; answer: React.ReactNode }[] = [
     question: 'What should I wear?',
     answer: (
       <>
-        <p><span className="font-bold">Welcome dinner:</span> Elevated casual attire</p>
-        <p className="mt-2"><span className="font-bold">Wedding day:</span> Garden cocktail attire</p>
-        <p className="mt-4 italic">Attire inspiration coming soon :)</p>
+        <p className="font-bold">Welcome dinner: Elevated casual attire</p>
+        <p className="italic">Think: linen pants, sundress and sandals, wedge heels, light button down without a tie, non-denim shorts</p>
+        <p className="mt-2 font-bold">Wedding day: Garden cocktail attire</p>
+        <p className="italic">Think: midi dresses, floral prints, tailored suits (tie optional), lightweight blazers, dressy jumpsuits</p>
+        <p className="mt-4">Please keep in mind the venue has uneven surfaces like gravel and grass, so consider your shoe choice carefully!</p>
       </>
     ),
   },
@@ -103,7 +104,11 @@ const FAQ_ITEMS: { question: string; answer: React.ReactNode }[] = [
   {
     question: "I'm staying onsite at Quinta da Bichinha, what's included with my stay?",
     answer: (
-      <>All rooms have a private bathroom and basic amenities: air conditioning, towels, a blow dryer, shower gel, and shampoo. In the communal area you&apos;ll find a shared kettle, ironing board, and steamer to use. Please note that this is a guesthouse, not a hotel — there is no room service or 24/7 front desk.</>
+      <>
+        <p>All rooms have a private bathroom and basic amenities: air conditioning, towels, a blow dryer, shower gel, and shampoo. In the communal area you&apos;ll find a shared kettle, ironing board, and steamer to use. Please note that this is a guesthouse, not a hotel — there is no room service or 24/7 front desk.</p>
+        <p className="mt-4">Meals provided for those staying onsite: welcome party dinner, breakfast, lunch, and hors d&apos;oeuvres/dinner on the wedding day, breakfast the day after the wedding.</p>
+        <p className="mt-2">Meals provided for those NOT staying onsite: welcome party dinner and hors d&apos;oeuvres/dinner on the wedding day.</p>
+      </>
     ),
   },
   {

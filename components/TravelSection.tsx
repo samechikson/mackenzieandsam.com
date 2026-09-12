@@ -2,6 +2,7 @@
 
 import React from "react";
 import Image from "next/image";
+import Link from "next/link";
 import { motion } from "framer-motion";
 import { ExternalLink } from "lucide-react";
 import { FilmStripCard } from "./FilmStripCard";
@@ -166,6 +167,22 @@ export const TravelSection: React.FC = () => {
           Please double check that your passport is still valid — it must not expire within 3 months after your trip.
         </p>
       </div>
+
+      <div className="w-full max-w-5xl mx-auto mt-6">
+        <FilmStripCard
+          className="rounded-full"
+          outerPadding="px-4 py-3 md:px-6"
+          contentClassName="px-6 py-3 md:px-8"
+          contentRounded="rounded-full"
+        >
+          <p className="font-mono text-sm md:text-base tracking-wide text-white font-bold">
+            For information on accommodations, see the{' '}
+            <Link href="/faq" className="underline underline-offset-2 hover:text-wedding-cream transition-colors">
+              FAQs
+            </Link>
+          </p>
+        </FilmStripCard>
+      </div>
     </section>
 
     <section className="w-full py-24 px-4 md:px-8 bg-wedding-cream text-[#3E2723]">
@@ -173,7 +190,7 @@ export const TravelSection: React.FC = () => {
         {/* Left Side: Map */}
         <div className="relative lg:sticky top-0 w-full h-screen">
           <Image
-            src="/images/map.png"
+            src="/images/map-of-area-notitle.png"
             alt="Travel Map"
             fill
             className="object-contain"
@@ -184,7 +201,7 @@ export const TravelSection: React.FC = () => {
         {/* Right Side: Things to Do */}
         <div className="flex flex-col gap-8">
           <h2 className="font-script text-wedding-green text-6xl lowercase mb-8 text-center">
-            While you're there
+            While you're in Lisbon
           </h2>
 
           <div className="grid grid-cols-1 gap-x-8 gap-y-12">

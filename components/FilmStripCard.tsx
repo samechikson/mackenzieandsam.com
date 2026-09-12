@@ -6,11 +6,17 @@ import clsx from 'clsx';
 export const FilmStripCard = ({
   children,
   className = '',
+  outerPadding = 'p-6',
+  contentClassName = 'p-8 md:p-12',
+  contentRounded = 'rounded-xl',
   stripeClassName = 'bg-wedding-green',
   align = 'center',
 }: {
   children: React.ReactNode;
   className?: string;
+  outerPadding?: string;
+  contentClassName?: string;
+  contentRounded?: string;
   stripeClassName?: string;
   align?: 'center' | 'start';
 }) => {
@@ -35,10 +41,12 @@ export const FilmStripCard = ({
       </div>
 
       {/* Content */}
-      <div className="p-6 w-full flex-1 z-10">
+      <div className={clsx('w-full flex-1 z-10', outerPadding)}>
         <div
           className={clsx(
-            'h-full w-full bg-wedding-blue rounded-xl p-8 md:p-12 flex flex-col items-center text-center',
+            'h-full w-full bg-wedding-blue flex flex-col items-center text-center',
+            contentRounded,
+            contentClassName,
             align === 'start' ? 'justify-start' : 'justify-center',
           )}
         >

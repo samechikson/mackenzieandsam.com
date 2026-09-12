@@ -4,9 +4,10 @@ import React from 'react';
 
 interface RsvpButtonProps {
   className?: string;
+  deadlineClassName?: string;
 }
 
-export const RsvpButton: React.FC<RsvpButtonProps> = ({ className = "" }) => {
+export const RsvpButton: React.FC<RsvpButtonProps> = ({ className = "", deadlineClassName = "text-wedding-green" }) => {
   return (
     <div className="text-center">
       <a
@@ -18,7 +19,7 @@ export const RsvpButton: React.FC<RsvpButtonProps> = ({ className = "" }) => {
         RSVP here 💌
       </a>
 
-      <p className="font-mono text-base font-semibold text-wedding-green mt-4">
+      <p className={`font-mono text-base font-semibold mt-4 ${deadlineClassName}`}>
         Please RSVP by February 1st, 2027
       </p>
     </div>
