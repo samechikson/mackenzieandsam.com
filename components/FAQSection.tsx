@@ -56,7 +56,12 @@ const FAQ_ITEMS: { question: string; answer: React.ReactNode }[] = [
       <>
         <p className="font-bold">Welcome dinner: Elevated casual attire</p>
         <p className="italic">Think: linen pants, sundress and sandals, wedge heels, light button down without a tie, non-denim shorts</p>
-        <p className="mt-2 font-bold">Wedding day: Garden cocktail attire</p>
+        <p className="mt-2 font-bold">
+          Wedding day:{' '}
+          <a href="https://pin.it/33MDRy7yN" target="_blank" rel="noopener noreferrer" className={LINK_CLASS}>
+            Garden cocktail attire
+          </a>
+        </p>
         <p className="italic">Think: midi dresses, floral prints, tailored suits (tie optional), lightweight blazers, dressy jumpsuits</p>
         <p className="mt-4">Please keep in mind the venue has uneven surfaces like gravel and grass, so consider your shoe choice carefully!</p>
       </>
