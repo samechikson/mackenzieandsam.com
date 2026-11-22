@@ -88,7 +88,7 @@ const FAQ_ITEMS: { question: string; answer: React.ReactNode }[] = [
   {
     question: 'Can I reserve a room onsite?',
     answer: (
-      <>Due to limited space, we&apos;re reserving the onsite rooms at Quinta da Bichinha for family and the bridal party. We&apos;ll take care of reserving all the rooms and creating room assignments — Mackenzie or Sam will reach out to let you know whether or not you&apos;ll have a room onsite. If not, there are hotel and Airbnb options in the surrounding area (see below!).</>
+      <>Due to limited space, we&apos;re reserving the onsite rooms at Quinta da Bichinha for family and the bridal party. Mackenzie and Sam should have already notified you if you will have an onsite room. If not, please consider booking your accommodation at a hotel or Airbnb in the surrounding area soon. See below for a list of recommendations (updated Nov 2026).</>
     ),
   },
   {
@@ -103,6 +103,7 @@ const FAQ_ITEMS: { question: string; answer: React.ReactNode }[] = [
             {stay.time && ` (${stay.time})`}
           </p>
         ))}
+        <p className="mt-2">Lisbon is just a 45-minute drive away, with plenty more places to stay.</p>
       </div>
     ),
   },
