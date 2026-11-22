@@ -42,6 +42,8 @@ const DETAILS_DATA: ScheduleSection[] = [
               <span className="font-bold text-wedding-green">5-8pm</span>
               <br />
               Welcome paella dinner, drinks, and music
+              <br />
+              <span className="italic normal-case text-sm">All are invited</span>
             </p>
           </div>
         ),
@@ -68,9 +70,11 @@ const DETAILS_DATA: ScheduleSection[] = [
               <span className="italic normal-case text-sm">For guests staying onsite</span>
             </p>
             <p>
-              <span className="font-bold text-wedding-green">4pm</span>
+              <span className="font-bold text-wedding-green">Time TBD</span>
               <br />
               Wedding Ceremony
+              <br />
+              <span className="italic normal-case text-sm">All are invited</span>
             </p>
             <p>
               Cocktail hour + Dinner + Dancing to follow (&apos;til late!)
@@ -102,7 +106,7 @@ const DETAILS_DATA: ScheduleSection[] = [
             <p>
               <span className="font-bold text-wedding-green">12pm</span>
               <br />
-              Shuttle back to Lisbon airport
+              Travel back to Lisbon
             </p>
           </div>
         ),
