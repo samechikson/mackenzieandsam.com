@@ -1,11 +1,119 @@
 "use client";
 
-import React from "react";
+import React, { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { motion } from "framer-motion";
-import { ExternalLink } from "lucide-react";
+import { motion, AnimatePresence } from "framer-motion";
+import { ExternalLink, MapPin, X } from "lucide-react";
 import { FilmStripCard } from "./FilmStripCard";
+
+const MAP_LINKS = [
+  { label: "Google Maps", href: "https://maps.app.goo.gl/wvNnk3UKfG2wUmpN6" },
+  { label: "Apple Maps", href: "https://maps.apple/p/Ee79Rg_40BSSYF" },
+];
+
+const MapLinks: React.FC = () => {
+  const [open, setOpen] = useState(false);
+
+  const renderLinks = (itemClass: string) =>
+    MAP_LINKS.map((item) => (
+      <a
+        key={item.label}
+        href={item.href}
+        target="_blank"
+        rel="noopener noreferrer"
+        onClick={() => setOpen(false)}
+        className={itemClass}
+      >
+        <ExternalLink size={16} /> {item.label}
+      </a>
+    ));
+
+  return (
+    <div className="mt-3">
+      {/* Trigger + desktop popover share this anchor */}
+      <div className="relative inline-block">
+        <button
+          type="button"
+          onClick={() => setOpen((v) => !v)}
+          aria-expanded={open}
+          aria-label="Get directions to Quinta da Bichinha"
+          className="inline-flex items-center gap-2 text-white hover:text-wedding-green transition-colors cursor-pointer"
+        >
+          <MapPin size={22} />
+          <span className="text-sm uppercase tracking-wider">Get directions</span>
+        </button>
+
+        {/* Desktop: popover */}
+        <AnimatePresence>
+          {open && (
+            <>
+              {/* click-away catcher (desktop only) */}
+              <div
+                className="hidden md:block fixed inset-0 z-20"
+                onClick={() => setOpen(false)}
+              />
+              <motion.div
+                initial={{ opacity: 0, y: -6, scale: 0.98 }}
+                animate={{ opacity: 1, y: 0, scale: 1 }}
+                exit={{ opacity: 0, y: -6, scale: 0.98 }}
+                transition={{ duration: 0.15 }}
+                className="hidden md:flex absolute left-0 top-full mt-2 z-30 min-w-[180px] flex-col gap-2 rounded-lg border border-white/20 bg-wedding-brown p-3 shadow-xl"
+              >
+                {renderLinks(
+                  "inline-flex items-center gap-2 text-white hover:text-wedding-green transition-colors"
+                )}
+              </motion.div>
+            </>
+          )}
+        </AnimatePresence>
+      </div>
+
+      {/* Mobile: bottom sheet sliding up */}
+      <AnimatePresence>
+        {open && (
+          <div className="md:hidden">
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.2 }}
+              className="fixed inset-0 z-40 bg-black/50"
+              onClick={() => setOpen(false)}
+            />
+            <motion.div
+              initial={{ y: "100%" }}
+              animate={{ y: 0 }}
+              exit={{ y: "100%" }}
+              transition={{ type: "tween", duration: 0.28, ease: "easeOut" }}
+              className="fixed inset-x-0 bottom-0 z-50 rounded-t-2xl border-t border-white/20 bg-wedding-brown px-6 pb-10 pt-4 shadow-2xl"
+            >
+              <div className="mx-auto mb-4 h-1.5 w-12 rounded-full bg-white/30" />
+              <div className="mb-4 flex items-center justify-between">
+                <h3 className="font-mono text-sm uppercase tracking-wider text-white">
+                  Get directions
+                </h3>
+                <button
+                  type="button"
+                  onClick={() => setOpen(false)}
+                  aria-label="Close"
+                  className="text-white/70 hover:text-white transition-colors cursor-pointer"
+                >
+                  <X size={20} />
+                </button>
+              </div>
+              <div className="flex flex-col gap-4">
+                {renderLinks(
+                  "inline-flex items-center gap-3 text-white text-lg hover:text-wedding-green transition-colors"
+                )}
+              </div>
+            </motion.div>
+          </div>
+        )}
+      </AnimatePresence>
+    </div>
+  );
+};
 
 const TRAVEL_LOGISTICS_BOXES = [
   {
@@ -15,7 +123,8 @@ const TRAVEL_LOGISTICS_BOXES = [
         <p className="mb-4 font-bold">
           Address: Quinta da Bichinha, Vila Chã, 2580-413 Ventosa, Alenquer
         </p>
-        <p>
+        <MapLinks />
+        <p className="mt-4">
           The venue is 45 minutes from the nearest airport, Lisbon
           Airport/Humberto Delgado Airport (LIS). From the airport to the venue
           we recommend either renting a car, or using Uber/Bolt. There is plenty
