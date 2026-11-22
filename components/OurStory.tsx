@@ -51,19 +51,19 @@ export const OurStory: React.FC = () => {
           className="flex flex-col gap-6 font-mono text-xl md:text-2xl leading-relaxed text-left"
         >
           <p>
-            We had our first date at a board game bar in San Francisco. A European boy and a California girl's paths crossed, and we're so glad they did!
+            It started with a first date at a board game bar in San Francisco. A European boy and a California girl — two people from opposite sides of the world — found their way to the same little table, and we&apos;re so glad they did.
           </p>
           <p>
-            A few years, one move to Southern California, and a sassy cat named Otis later, we realized we had built a little life that felt like home.
+            Five years, a career change, plenty of new passions and hobbies, one move to Southern California, and two sassy cats later, we looked around and realized we had quietly built a little life together — one that finally felt like home, wherever we were.
           </p>
           <p>
-            So here we are, ready to make it official (and throw a really good party while we’re at it).
+            So here we are, ready to make it official (and throw a really good party while we&apos;re at it).
           </p>
           <p>
             Join us in Portugal to celebrate this big moment with our favorite people. We want to tie the knot in the best way possible.
           </p>
           <p>
-            Mark your calendars, pack your dancing shoes, and get ready for a trip full of laughter, dancing, memories, and a few happy tears.
+            Mark your calendars, pack your dancing shoes, and get ready for a trip full of laughs, dancing, memories, and a few happy tears.
           </p>
           <p>
             Saúde!
