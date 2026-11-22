@@ -41,7 +41,7 @@ export const OurStory: React.FC = () => {
         Our Story
       </h1>
 
-      <div className="relative z-10 max-w-7xl mx-auto px-6 text-wedding-cream grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
+      <div className="relative z-10 max-w-7xl mx-auto px-6 text-wedding-cream grid grid-cols-1 md:grid-cols-2 gap-12 items-stretch md:items-start">
 
         <motion.div
           initial={{ opacity: 0, x: -20 }}
@@ -75,15 +75,28 @@ export const OurStory: React.FC = () => {
           whileInView={{ opacity: 1, x: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.8, delay: 0.4 }}
-          className="relative w-full h-[600px] md:h-[800px] rounded-lg overflow-hidden"
+          className="relative w-full h-[680px] md:h-[900px]"
         >
-          <Image
-            src="/images/sm/6.JPG"
-            alt="Sam and Mackenzie"
-            fill
-            className="object-cover"
-            sizes="(max-width: 768px) 100vw, 50vw"
-          />
+          {/* Top photo */}
+          <div className="absolute top-0 right-0 w-[82%] h-[56%] rounded-lg overflow-hidden shadow-2xl z-10">
+            <Image
+              src="/images/sm/6.JPG"
+              alt="Sam and Mackenzie"
+              fill
+              className="object-cover"
+              sizes="(max-width: 768px) 82vw, 41vw"
+            />
+          </div>
+          {/* Bottom photo (engagement) — overlaps the corner slightly, sits underneath */}
+          <div className="absolute bottom-0 left-0 w-[82%] h-[56%] rounded-lg overflow-hidden shadow-2xl z-0">
+            <Image
+              src="/images/sm/engagement.jpg"
+              alt="Mackenzie and Sam's engagement"
+              fill
+              className="object-cover"
+              sizes="(max-width: 768px) 82vw, 41vw"
+            />
+          </div>
         </motion.div>
       </div>
 
