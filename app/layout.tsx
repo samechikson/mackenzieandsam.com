@@ -3,6 +3,7 @@ import './globals.css';
 import AuthGuard from '../components/AuthGuard';
 import { NavigationMenu } from '../components/NavigationMenu';
 import { Footer } from '../components/Footer';
+import { CatCursor } from '../components/CatCursor';
 import { Analytics } from "@vercel/analytics/next";
 
 
@@ -37,6 +38,7 @@ export default function RootLayout({
           <Footer />
         </AuthGuard>
         <Analytics />
+        <CatCursor />
       </body>
     </html>
   );

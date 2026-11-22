@@ -30,7 +30,6 @@
 body {
   background-color: #F2F0E9;
   overflow-x: hidden;
-  cursor: url('/images/otis-cursor.png') 32 32, auto;
 }
 
 html {
