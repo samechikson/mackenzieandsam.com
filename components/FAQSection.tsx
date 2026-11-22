@@ -138,7 +138,7 @@ export const FAQSection: React.FC = () => {
           src="/images/by-the-lake.jpg"
           alt="By the lake at Quinta da Bichinha"
           fill
-          className="object-cover opacity-40"
+          className="object-cover object-center md:object-[center_70%] opacity-40"
           priority
         />
         <div className="absolute inset-0 flex items-center justify-center px-4">
