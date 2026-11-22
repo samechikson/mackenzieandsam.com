@@ -17,9 +17,9 @@ const TRAVEL_LOGISTICS_BOXES = [
         </p>
         <p>
           The venue is 45 minutes from the nearest airport, Lisbon
-          Airport/Humberto Delgado Airport (LIS). From the airport to the
-          venue we recommend either renting a car, or using Uber/Bolt. There
-          is plenty of free parking at the venue.
+          Airport/Humberto Delgado Airport (LIS). From the airport to the venue
+          we recommend either renting a car, or using Uber/Bolt. There is plenty
+          of free parking at the venue.
         </p>
       </>
     ),
@@ -28,9 +28,10 @@ const TRAVEL_LOGISTICS_BOXES = [
     title: "Getting Back to Lisbon",
     content: (
       <p>
-        As getting taxis from the countryside back to Lisbon can be
-        challenging, we&apos;ve arranged a free shuttle back to Lisbon
-        Airport, departing the venue on Friday after check-out.
+        As getting taxis from the countryside back to Lisbon can be challenging,
+        we are considering booking a shuttle bus back, departing the venue on
+        Friday after check-out. Please indicate in your RSVP if you would use
+        it.
       </p>
     ),
   },
@@ -119,129 +120,137 @@ const THINGS_TO_DO = [
 export const TravelSection: React.FC = () => {
   return (
     <>
-    <section
-      id="travel"
-      className="w-full py-24 px-4 md:px-8 bg-[#cfc9a1] text-[#3E2723]"
-    >
-      <h1 className="font-script lowercase text-5xl md:text-7xl text-white text-center tracking-wide mb-16">
-        Travel
-      </h1>
+      <section
+        id="travel"
+        className="w-full py-24 px-4 md:px-8 bg-[#cfc9a1] text-[#3E2723]"
+      >
+        <h1 className="font-script lowercase text-5xl md:text-7xl text-white text-center tracking-wide mb-16">
+          Travel
+        </h1>
 
-      <div className="w-full max-w-5xl mx-auto mb-16 grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
-        <p className="font-mono text-[#3E2723] text-base md:text-lg leading-relaxed">
-          Quinta da Bichinha is a centuries-old wine estate located just north of Lisbon, Portugal, encircled by gardens and extensive vineyards. We have exclusive use of the property May 5 - 7, 2027, and all of the wedding events will be taking place at the venue. We hope you can join us!
-        </p>
-        <div className="relative w-full h-64 md:h-80 rounded-lg overflow-hidden">
-          <Image
-            src="/images/QDB.jpeg"
-            alt="Quinta da Bichinha venue at dusk"
-            fill
-            className="object-cover"
-          />
-        </div>
-      </div>
-
-      <div className="w-full max-w-5xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-8">
-        {TRAVEL_LOGISTICS_BOXES.map((box) => (
-          <FilmStripCard key={box.title} align="start">
-            <h2 className="font-mono text-xl text-white uppercase tracking-wider pb-6">
-              {box.title}
-            </h2>
-            <div className="font-mono text-base tracking-wider leading-relaxed text-white">
-              {box.content}
-            </div>
-          </FilmStripCard>
-        ))}
-      </div>
-
-      <div className="w-full max-w-5xl mx-auto mt-10 flex items-center justify-center gap-4">
-        <div className="relative w-20 h-28 md:w-24 md:h-32 shrink-0">
-          <Image
-            src="/images/passport.png"
-            alt="Passport"
-            fill
-            className="object-contain"
-          />
-        </div>
-        <p className="text-center font-mono text-base tracking-wide text-[#3E2723]">
-          Please double check that your passport is still valid — it must not expire within 3 months after your trip.
-        </p>
-      </div>
-
-      <div className="w-full max-w-5xl mx-auto mt-6">
-        <FilmStripCard
-          className="rounded-full"
-          outerPadding="px-4 py-3 md:px-6"
-          contentClassName="px-6 py-3 md:px-8"
-          contentRounded="rounded-full"
-        >
-          <p className="font-mono text-sm md:text-base tracking-wide text-white font-bold">
-            For information on accommodations, see the{' '}
-            <Link href="/faq" className="underline underline-offset-2 hover:text-wedding-cream transition-colors">
-              FAQs
-            </Link>
+        <div className="w-full max-w-5xl mx-auto mb-16 grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
+          <p className="font-mono text-[#3E2723] text-base md:text-lg leading-relaxed">
+            Quinta da Bichinha is a centuries-old wine estate located just north
+            of Lisbon, Portugal, encircled by gardens and extensive vineyards.
+            We have exclusive use of the property May 5 - 7, 2027, and all of
+            the wedding events will be taking place at the venue. We hope you
+            can join us!
           </p>
-        </FilmStripCard>
-      </div>
-    </section>
-
-    <section className="w-full py-24 px-4 md:px-8 bg-wedding-cream text-[#3E2723]">
-      <div className="mx-auto grid grid-cols-1 lg:grid-cols-2 gap-12">
-        {/* Left Side: Map */}
-        <div className="relative lg:sticky top-0 w-full h-screen">
-          <Image
-            src="/images/map-of-area-notitle.png"
-            alt="Travel Map"
-            fill
-            className="object-contain"
-            priority={false}
-          />
-        </div>
-
-        {/* Right Side: Things to Do */}
-        <div className="flex flex-col gap-8">
-          <h2 className="font-script text-wedding-green text-6xl lowercase mb-8 text-center">
-            While you're in Lisbon
-          </h2>
-
-          <div className="grid grid-cols-1 gap-x-8 gap-y-12">
-            {THINGS_TO_DO.map((item, idx) => (
-              <div
-                key={idx}
-                className="flex lg:flex-row flex-col group items-center lg:items-start"
-              >
-                <div className="relative w-44 h-44 mb-2 transition-transform duration-300 group-hover:scale-110 shrink-0">
-                  <Image
-                    src={item.icon}
-                    alt={item.title}
-                    fill
-                    className="object-contain drop-shadow-md"
-                  />
-                </div>
-
-                <div>
-                  <h3 className="font-mono text-xl text-wedding-brown mb-3 flex gap-2">
-                    {item.link ? (
-                      <a
-                        href={item.link}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="hover:underline hover:text-wedding-brown transition-colors decoration-1 underline-offset-4 flex items-center gap-2"
-                      >
-                        {item.title} <ExternalLink size={16} />
-                      </a>
-                    ) : (
-                      item.title
-                    )}
-                  </h3>
-                  <p className="font-mono text-lg">{item.description}</p>
-                </div>
-              </div>
-            ))}
+          <div className="relative w-full h-64 md:h-80 rounded-lg overflow-hidden">
+            <Image
+              src="/images/QDB.jpeg"
+              alt="Quinta da Bichinha venue at dusk"
+              fill
+              className="object-cover"
+            />
           </div>
         </div>
-      </div>
-    </section>
+
+        <div className="w-full max-w-5xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-8">
+          {TRAVEL_LOGISTICS_BOXES.map((box) => (
+            <FilmStripCard key={box.title} align="start">
+              <h2 className="font-mono text-xl text-white uppercase tracking-wider pb-6">
+                {box.title}
+              </h2>
+              <div className="font-mono text-base tracking-wider leading-relaxed text-white">
+                {box.content}
+              </div>
+            </FilmStripCard>
+          ))}
+        </div>
+
+        <div className="w-full max-w-5xl mx-auto mt-10 flex items-center justify-center gap-4">
+          <div className="relative w-20 h-28 md:w-24 md:h-32 shrink-0">
+            <Image
+              src="/images/passport.png"
+              alt="Passport"
+              fill
+              className="object-contain"
+            />
+          </div>
+          <p className="text-center font-mono text-base tracking-wide text-[#3E2723]">
+            Please double check that your passport is still valid — it must not
+            expire within 3 months after your trip.
+          </p>
+        </div>
+
+        <div className="w-full max-w-5xl mx-auto mt-6">
+          <FilmStripCard
+            className="rounded-full"
+            outerPadding="px-4 py-3 md:px-6"
+            contentClassName="px-6 py-3 md:px-8"
+            contentRounded="rounded-full"
+          >
+            <p className="font-mono text-sm md:text-base tracking-wide text-white font-bold">
+              For information on accommodations, see the{" "}
+              <Link
+                href="/faq"
+                className="underline underline-offset-2 hover:text-wedding-cream transition-colors"
+              >
+                FAQs
+              </Link>
+            </p>
+          </FilmStripCard>
+        </div>
+      </section>
+
+      <section className="w-full py-24 px-4 md:px-8 bg-wedding-cream text-[#3E2723]">
+        <div className="mx-auto grid grid-cols-1 lg:grid-cols-2 gap-12">
+          {/* Left Side: Map */}
+          <div className="relative lg:sticky top-0 w-full h-screen">
+            <Image
+              src="/images/map-of-area-notitle.png"
+              alt="Travel Map"
+              fill
+              className="object-contain"
+              priority={false}
+            />
+          </div>
+
+          {/* Right Side: Things to Do */}
+          <div className="flex flex-col gap-8">
+            <h2 className="font-script text-wedding-green text-6xl lowercase mb-8 text-center">
+              While you're in Lisbon
+            </h2>
+
+            <div className="grid grid-cols-1 gap-x-8 gap-y-12">
+              {THINGS_TO_DO.map((item, idx) => (
+                <div
+                  key={idx}
+                  className="flex lg:flex-row flex-col group items-center lg:items-start"
+                >
+                  <div className="relative w-44 h-44 mb-2 transition-transform duration-300 group-hover:scale-110 shrink-0">
+                    <Image
+                      src={item.icon}
+                      alt={item.title}
+                      fill
+                      className="object-contain drop-shadow-md"
+                    />
+                  </div>
+
+                  <div>
+                    <h3 className="font-mono text-xl text-wedding-brown mb-3 flex gap-2">
+                      {item.link ? (
+                        <a
+                          href={item.link}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="hover:underline hover:text-wedding-brown transition-colors decoration-1 underline-offset-4 flex items-center gap-2"
+                        >
+                          {item.title} <ExternalLink size={16} />
+                        </a>
+                      ) : (
+                        item.title
+                      )}
+                    </h3>
+                    <p className="font-mono text-lg">{item.description}</p>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      </section>
     </>
   );
 };
